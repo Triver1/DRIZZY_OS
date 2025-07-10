@@ -12,7 +12,8 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      (folders.m + "/hypr.nix")
+      # (folders.m + "/hypr.nix")
+      (folders.m + "/niri.nix")
       (folders.m + "/basics.nix")
       (folders.m + "/stylix.nix")
       (folders.m + "/nvidia.nix")
