@@ -29,6 +29,7 @@ in
     (folders.hm + "/gaming.nix")
     (folders.hm + "/hyprpanel.nix")
     (folders.hm + "/terminal-tools.nix")
+    (folders.hm + "/music.nix")
   ];
 
 
@@ -57,10 +58,16 @@ in
     pkgs.rust-analyzer
     pkgs.gcc
     pkgs.lldb
+    pkgs.ninja
+    pkgs.meson
+    pkgs.cairo
+    pkgs.buildPackages.pkg-config
+    pkgs.waybar
     # Gaming
     pkgs.heroic
     pkgs.discord
     pkgs.flutterPackages-source.v3_29
+
   ];
 
   programs.git = {
