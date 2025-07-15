@@ -18,15 +18,13 @@ in
       (folders.m + "/stylix.nix")
       (folders.m + "/nvidia.nix")
       (folders.m + "/network.nix")
+      (folders.m + "/bootloader.nix")
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
   services.envfs.enable = true;
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
