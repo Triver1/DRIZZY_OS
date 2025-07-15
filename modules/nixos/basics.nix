@@ -13,6 +13,7 @@ environment.systemPackages = with pkgs; [
     yazi
     nautilus
     onlyoffice-desktopeditors
+    htop
   ];
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;

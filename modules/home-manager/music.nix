@@ -1,23 +1,17 @@
-{ config, pkgs, lib, ... }:
-
+{ config, pkgs, lib, inputs, ... }:
+let
+  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+in
 {
-  home.packages = with pkgs; [
-    spotify
-  ];
-  imports = [ spicetify-nix.homeManagerModule ];
+  imports = [ inputs.spicetify-nix.homeManagerModules.spicetify ];
 
-  # configure spicetify :)
-  programs.spicetify =
+  # Spicetify also installs spotify, so no need to install this (would make a collision)
+  programs.spicetify = 
     {
       enable = true;
-      theme = spicePkgs.themes.catppuccin;
-      colorScheme = "mocha";
+      # theme = spicePkgs.themes.catppuccin;
+      # colorScheme = "mocha";
 
-      enabledExtensions = with spicePkgs.extensions; [
-        fullAppDisplay
-        shuffle # shuffle+ (special characters are sanitized out of ext names)
-        hidePodcasts
-      ];
     };
 
 }

@@ -41,7 +41,7 @@ let
     };
 
     tokyoNight = {
-      scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
+      scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
       cursor = {
         package = pkgs.rose-pine-cursor;
         name = "BreezeX-RosePine-Linux";
@@ -188,7 +188,7 @@ let
   };
 
   # Choose your active theme here - just change this variable!
-  activeTheme = "rosePineDark"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
+  activeTheme = "claudePine"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
   
   selectedTheme = themes.${activeTheme};
 

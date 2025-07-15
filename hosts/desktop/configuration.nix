@@ -77,9 +77,6 @@ in
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-	
-
-
   # Install firefox (default browser)
   programs.firefox.enable = true;
 

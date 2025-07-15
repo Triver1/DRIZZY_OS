@@ -66,7 +66,8 @@ in
     # Gaming
     pkgs.heroic
     pkgs.discord
-    pkgs.flutterPackages-source.v3_29
+    pkgs.flutter
+    pkgs.vivaldi
 
   ];
 
