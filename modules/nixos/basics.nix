@@ -14,6 +14,7 @@ environment.systemPackages = with pkgs; [
     nautilus
     onlyoffice-desktopeditors
     htop
+    unzip
   ];
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;

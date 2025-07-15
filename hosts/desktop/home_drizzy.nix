@@ -25,9 +25,9 @@ in
 
   # System choices
   imports = [
+    (folders.hm + "/shells/quickshell.nix")
     (folders.hm + "/wallpapers.nix")
     (folders.hm + "/gaming.nix")
-    (folders.hm + "/hyprpanel.nix")
     (folders.hm + "/terminal-tools.nix")
     (folders.hm + "/music.nix")
   ];
@@ -68,7 +68,6 @@ in
     pkgs.discord
     pkgs.flutter
     pkgs.vivaldi
-
   ];
 
   programs.git = {
