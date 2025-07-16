@@ -10,7 +10,7 @@ Scope {
     PanelWindow {
       property var modelData
       screen: modelData
-
+      color: "#2d3748"
       anchors {
         top: true
         left: true
