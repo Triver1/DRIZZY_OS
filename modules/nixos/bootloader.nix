@@ -9,7 +9,6 @@
     # Enable GRUB
     grub = {
       enable = true;
-      version = 2;
       efiSupport = true;
       efiInstallAsRemovable = false;
       device = "nodev";

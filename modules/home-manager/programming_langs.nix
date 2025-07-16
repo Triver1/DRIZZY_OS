@@ -3,11 +3,11 @@
     nodejs_24
     libgcc
     # IDlab
-    openjdk17    # for rmlmapper-java and algemaploom-rs Java bindings
-    openjdk21    # for algebraic-mapping-operators and algemaploom-java
+    # openjdk21    # for algebraic-mapping-operators and algemaploom-java
+
     
     # Build Tools
-    maven        # for all Java projects
+    # maven        # for all Java projects
     cargo        # for Rust projects
     rustc        # Rust compiler
     

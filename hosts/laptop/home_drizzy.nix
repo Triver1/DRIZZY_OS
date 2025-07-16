@@ -27,7 +27,6 @@ in
   imports = [
     (folders.hm + "/shells/quickshell.nix")
     (folders.hm + "/wallpapers.nix")
-    (folders.hm + "/gaming.nix")
     (folders.hm + "/terminal-tools.nix")
     (folders.hm + "/music.nix")
   ];
@@ -78,8 +77,6 @@ in
   };
   
 
-  games.launchers.enable = true;
-  games.launchers.minecraft = true;
 
   programs.zsh = {
    enable = true;  # Enable ZSH theming integration with Stylix

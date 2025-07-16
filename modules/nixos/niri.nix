@@ -5,6 +5,7 @@
     xwayland-satellite
     fuzzel
     walker
+    hyprlock
   ];
 
   programs.niri = {
@@ -13,18 +14,18 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-  };
-  # Home manager configuration for hyprland
 home-manager.sharedModules = [{ 
   programs.kitty = {
       settings = {
         hide_window_decorations = "yes";
       };
+    };
+  programs.hyprlock = {
+      enable = true;
+      settings = {
+            general = {
+             };
+        };
     };
 # In your home-manager configuration
 
@@ -41,6 +42,21 @@ home-manager.sharedModules = [{
                 options "caps:escape"
               }
           }
+    touchpad {
+        // off
+        tap
+        // dwt
+        // dwtp
+        // drag false
+        // drag-lock
+        natural-scroll
+        tap-button-map "left-right-middle"
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "two-finger"
+        // disabled-on-external-mouse
+    }
+      warp-mouse-to-focus
       }
 
       layout {
@@ -58,6 +74,7 @@ home-manager.sharedModules = [{
           Mod+Return { spawn "kitty"; }
           Mod+B { spawn "firefox";}
           Mod+E { spawn "kitty -e yazi";}
+          Mod+Backspace {spawn "hyprlock";}
 
 
           // System  
