@@ -13,6 +13,12 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+  };
   # Home manager configuration for hyprland
 home-manager.sharedModules = [{ 
   programs.kitty = {
@@ -51,6 +57,7 @@ home-manager.sharedModules = [{
           // Programs
           Mod+Return { spawn "kitty"; }
           Mod+B { spawn "firefox";}
+          Mod+E { spawn "kitty -e yazi";}
 
 
           // System  
@@ -65,6 +72,11 @@ home-manager.sharedModules = [{
           Mod+L { focus-column-right; }
           Mod+K { focus-window-or-workspace-up; }
           Mod+J { focus-window-or-workspace-down; }
+
+          Mod+Ctrl+H { move-column-left; }
+          Mod+Ctrl+L { move-column-right; }
+          Mod+Ctrl+K { move-window-to-workspace-up; }
+          Mod+Ctrl+J { move-window-to-workspace-down; }
 
           Mod+Comma  { consume-window-into-column; }
           Mod+Period { expel-window-from-column; }

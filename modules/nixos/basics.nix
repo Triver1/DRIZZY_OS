@@ -1,5 +1,6 @@
 { pkgs, ...}: {
 environment.systemPackages = with pkgs; [
+    google-chrome
     git
     kitty
     vim
@@ -15,7 +16,19 @@ environment.systemPackages = with pkgs; [
     onlyoffice-desktopeditors
     htop
     unzip
+    xdg-utils
+    fd
   ];
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;
+  xdg.mime.defaultApplications = {
+    "text/html" = "firefox.desktop";
+    "x-scheme-handler/http" = "firefox.desktop";
+    "x-scheme-handler/https" = "firefox.desktop";
+    "x-scheme-handler/about" = "firefox.desktop";
+    "x-scheme-handler/unknown" = "firefox.desktop";
+  }; 
+  environment.sessionVariables = {
+    BROWSER = "firefox";
+  };
 }
