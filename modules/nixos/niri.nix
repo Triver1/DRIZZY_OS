@@ -6,6 +6,7 @@
     fuzzel
     walker
     hyprlock
+    brightnessctl
   ];
 
   programs.niri = {
@@ -30,7 +31,7 @@ home-manager.sharedModules = [{
 # In your home-manager configuration
 
   home.file.".config/niri/config.kdl".text = ''
-      spawn-at-startup "quickshell -p ../../assets/quickshell/"
+      spawn-at-startup "quickshell" "-p" "/home/drizzy/NEWFLAKE/modules/no-nix/quickshell/"
       output "DP-3" {
           mode "3440x1440@180.0"
           focus-at-startup
@@ -73,14 +74,16 @@ home-manager.sharedModules = [{
           // Programs
           Mod+Return { spawn "kitty"; }
           Mod+B { spawn "firefox";}
-          Mod+E { spawn "kitty -e yazi";}
+          Mod+E { spawn "kitty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
 
 
           // System  
           Mod+Space { spawn "walker"; }
           Mod+P { screenshot; }
-          
+          XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+          XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
           // Windows/workspaces
           Mod+Q { close-window; }
           Mod+O repeat=false { toggle-overview; }

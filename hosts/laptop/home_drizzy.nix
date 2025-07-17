@@ -29,6 +29,8 @@ in
     (folders.hm + "/wallpapers.nix")
     (folders.hm + "/terminal-tools.nix")
     (folders.hm + "/music.nix")
+    (folders.hm + "/yazi.nix")
+    (folders.hm + "/utilities.nix")
   ];
 
 

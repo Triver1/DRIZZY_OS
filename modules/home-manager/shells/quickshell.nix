@@ -1,5 +1,5 @@
 
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     inputs.quickshell.packages.${pkgs.system}.default
@@ -7,5 +7,5 @@
     libsForQt5.qt5.qtgraphicaleffects
     qt5.qtsvg
   ];
- # TODO Link this config
+
 }

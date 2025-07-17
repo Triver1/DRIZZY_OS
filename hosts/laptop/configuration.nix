@@ -19,6 +19,7 @@ in
       (folders.m + "/nvidia.nix")
       (folders.m + "/network.nix")
       (folders.m + "/bootloader.nix")
+      (folders.m + "/battery.nix")
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
