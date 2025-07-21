@@ -15,6 +15,7 @@
   };
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+
 home-manager.sharedModules = [{ 
   programs.kitty = {
       settings = {
@@ -46,8 +47,8 @@ home-manager.sharedModules = [{
     touchpad {
         // off
         tap
-        // dwt
-        // dwtp
+        dwt
+        dwtp
         // drag false
         // drag-lock
         natural-scroll
@@ -76,11 +77,26 @@ home-manager.sharedModules = [{
           Mod+B { spawn "firefox";}
           Mod+E { spawn "kitty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
+          Mod+C { spawn "cursor"; }
 
 
           // System  
           Mod+Space { spawn "walker"; }
           Mod+P { screenshot; }
+
+          // Volume controls
+          XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+          XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+          XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+          XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+          // Media controls
+          XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+          XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+          XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+          XF86AudioStop allow-when-locked=true { spawn "playerctl" "stop"; }
+
+          // Brightness controls
           XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
           XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 

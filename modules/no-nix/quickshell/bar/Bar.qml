@@ -30,6 +30,7 @@ Scope {
       ClockWidget {
         anchors.centerIn: parent
       }
+
       
       BrightnessWidget {
         id: brightnessWidget
@@ -47,6 +48,15 @@ Scope {
           rightMargin: 10
         }
       }
+
+      // VolumeWidget {
+      //   id: volumeWidget
+      //   anchors {
+      //     right: parent.right
+      //     verticalCenter: parent.verticalCenter
+      //     rightMargin: 110
+      //   }
+      // }
     }
   }
 }

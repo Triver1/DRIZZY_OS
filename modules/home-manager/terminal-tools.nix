@@ -2,9 +2,10 @@
 
 {
   # Neovim configuration
-  home.packages = [
-    pkgs.neovim
-    pkgs.stdenv.cc
+  home.packages = with pkgs; [
+    neovim
+    stdenv.cc
+    gemini-cli
   ];
   
   # Link your neovim config from outside the nix store
@@ -35,4 +36,13 @@
       set -g @tmux_power_theme 'gold'
     '';
   };
+
+  programs.zsh = {
+   enable = true;  # Enable ZSH theming integration with Stylix
+   oh-my-zsh = {
+     enable = true;
+     theme = "cypher";
+   };
+  };
+
 } 

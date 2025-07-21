@@ -80,17 +80,6 @@ in
   
 
 
-  programs.zsh = {
-   enable = true;  # Enable ZSH theming integration with Stylix
-   oh-my-zsh = {
-     enable = true;
-     theme = "minimal";
-   };
-   shellAliases = {
-    hm = "cd ~/NEWFLAKE/modules/home-manager/";
-    ms = "sudo nixos-rebuild switch";
-   };
-  };
   
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

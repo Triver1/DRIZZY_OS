@@ -1,6 +1,7 @@
 { pkgs, ...}: {
 environment.systemPackages = with pkgs; [
     google-chrome
+    pulseaudio
     git
     kitty
     vim
@@ -18,6 +19,8 @@ environment.systemPackages = with pkgs; [
     unzip
     xdg-utils
     fd
+    vscode-fhs
+    gearlever # Allows for running appimages (NOT RECOMMENDED)
   ];
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;
