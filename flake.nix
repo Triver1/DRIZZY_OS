@@ -30,6 +30,10 @@
           # Mismatched system dependencies will lead to crashes and other issues.
           inputs.nixpkgs.follows = "nixpkgs";
         };
+    ignis = {
+      url = "github:ignis-sh/ignis";
+      inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
   outputs = { self, nixpkgs, home-manager,... }@inputs: {

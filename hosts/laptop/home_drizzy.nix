@@ -31,6 +31,7 @@ in
     (folders.hm + "/music.nix")
     (folders.hm + "/yazi.nix")
     (folders.hm + "/utilities.nix")
+    (folders.hm + "/ignis.nix")
   ];
 
 
