@@ -16,7 +16,7 @@ in
       (folders.m + "/niri.nix")
       (folders.m + "/basics.nix")
       (folders.m + "/stylix.nix")
-      (folders.m + "/nvidia.nix")
+      # (folders.m + "/nvidia.nix")
       (folders.m + "/network.nix")
       (folders.m + "/bootloader.nix")
       (folders.m + "/battery.nix")
@@ -46,7 +46,7 @@ in
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  # services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -61,7 +61,7 @@ in
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
-    enable = true;
+    enable = false;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;

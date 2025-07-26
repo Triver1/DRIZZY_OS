@@ -26,12 +26,13 @@ in
   # System choices
   imports = [
     (folders.hm + "/shells/quickshell.nix")
+    (folders.hm + "/shells/ignis.nix")
     (folders.hm + "/wallpapers.nix")
     (folders.hm + "/terminal-tools.nix")
     (folders.hm + "/music.nix")
     (folders.hm + "/yazi.nix")
     (folders.hm + "/utilities.nix")
-    (folders.hm + "/ignis.nix")
+    (folders.hm + "/fonts.nix")
   ];
 
 
@@ -69,7 +70,6 @@ in
     pkgs.heroic
     pkgs.discord
     pkgs.flutter
-    pkgs.vivaldi
   ];
 
   programs.git = {
