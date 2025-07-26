@@ -8,6 +8,7 @@ from ignis.services.system_tray import SystemTrayService, SystemTrayItem
 from ignis.services.niri import NiriService, NiriWorkspace
 from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
+from ignis.services.upower import UPowerService
 
 
 
@@ -18,7 +19,7 @@ system_tray = SystemTrayService.get_default()
 niri = NiriService.get_default()
 notifications = NotificationService.get_default()
 mpris = MprisService.get_default()
-
+upower = UPowerService.get_default()
 
 
 # Modules:
@@ -54,6 +55,17 @@ class ClockCalendar(Panel):
             label=utils.Poll(
                 1_000, lambda self: datetime.datetime.now().strftime("%H:%M")
             ).bind("output"),
+        )
+
+class Battery(Panel):
+    def __init__(self):
+        super().__init__(
+            child=upower.bind(
+                "percent",
+                transform = lambda percent: [
+                    widgets.Label(label=str(percent))
+                ]
+            )
         )
 
 
@@ -114,8 +126,9 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
             child=widgets.Box(
                 spacing=10,
                 child=[
-                    widgets.Label(label="WOOPIEFONT Test dit is de current font"),
                     Launcher(),
+                    # widgets.Label(label="GLITTERPIE IS DE LIEFSTE HONINGPIE"),
+                    Battery(),
                     NiriWorkspaces(monitor),
                     ClockCalendar(),
                 ],

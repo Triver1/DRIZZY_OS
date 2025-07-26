@@ -34,4 +34,13 @@ users.defaultUserShell = pkgs.zsh;
   environment.sessionVariables = {
     BROWSER = "firefox";
   };
+
+  services.upower = {
+      enable = true;
+      # Optional: additional configuration
+      percentageLow = 10;
+      percentageCritical = 3;
+      percentageAction = 2;
+      criticalPowerAction = "Hibernate";
+    };
 }
