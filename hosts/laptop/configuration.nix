@@ -20,6 +20,7 @@ in
       (folders.m + "/network.nix")
       (folders.m + "/bootloader.nix")
       (folders.m + "/battery.nix")
+      (folders.h + "/fonts.nix")
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
