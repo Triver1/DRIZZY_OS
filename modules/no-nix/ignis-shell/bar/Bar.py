@@ -9,17 +9,19 @@ from ignis.services.niri import NiriService, NiriWorkspace
 from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
 from ignis.services.upower import UPowerService
-
+from ignis.services.network import NetworkService
 
 
 
 
 # audio = AudioService.get_default()
+network = NetworkService.get_default()
 system_tray = SystemTrayService.get_default()
 niri = NiriService.get_default()
 notifications = NotificationService.get_default()
 mpris = MprisService.get_default()
-upower = UPowerService.get_default()
+
+upower_battery = UPowerService.get_default().batteries[0]
 
 
 # Modules:
@@ -36,14 +38,36 @@ class Panel(widgets.Button):
             **kwargs
         )
 
+class IconPanel(Panel):
+    def __init__(self, *, icon_name=None, text=None, pixel_size=20, spacing=5, on_click=None, css_classes=None, **kwargs):
+        widgets_list = []
+        
+        if icon_name:
+            widgets_list.append(widgets.Icon(image=icon_name, pixel_size=pixel_size))
+        
+        if text:
+            widgets_list.append(widgets.Label(label=text))
+        
+        if len(widgets_list) == 0:
+            child = None
+        elif len(widgets_list) == 1:
+            child = widgets_list[0]
+        else:
+            child = widgets.Box(spacing=spacing, child=widgets_list)
+            
+        super().__init__(
+            child=child,
+            on_click=on_click,
+            css_classes=css_classes,
+            **kwargs
+        )
 
-class Launcher(Panel):
+
+class Launcher(IconPanel):
     def __init__(self):
         super().__init__(
-            child=widgets.Icon(
-                image="nix",
-                pixel_size=20
-            )
+            icon_name="nix",
+            pixel_size=25
         )
 
 
@@ -57,16 +81,107 @@ class ClockCalendar(Panel):
             ).bind("output"),
         )
 
+
+
+class Media(Panel):
+    def __init__(self):
+        super().__init__(
+            css_classes=["media"],
+            child=widgets.Box(
+                spacing=10,
+                child=[
+                    widgets.Label(
+                        label= "No media",
+                        visible= mpris.bind("players", lambda value: len(value) == 0)
+                    )
+                ],
+                setup= lambda box: mpris.connect(
+                    "player-added", lambda x, player: box.append(self.mpris_title(player))
+
+                ),
+            )
+        )
+
+    def mpris_title(self, player: MprisPlayer):
+        return widgets.Box(
+            spacing=10,
+            setup=lambda box: player.connect(
+                "closed",
+                lambda x: box.unparent(),  # remove widget when player is closed
+            ),
+            child=[
+                widgets.Icon(image="audio-x-generic-symbolic"),
+                widgets.Label(
+                    ellipsize="end",
+                    max_width_chars=20,
+                    label=player.bind("title"),
+                ),
+            ],
+        )
+
+
 class Battery(Panel):
     def __init__(self):
         super().__init__(
-            child=upower.bind(
+            css_classes=["battery"],
+            child=upower_battery.bind(
                 "percent",
-                transform = lambda percent: [
-                    widgets.Label(label=str(percent))
-                ]
+                transform = lambda percent: self.update_battery(percent)
             )
         )
+        self.update_battery(upower_battery.percent)
+
+    def update_battery(self, battery):
+        # Remove previous classes
+        self.remove_css_class("low")
+        self.remove_css_class("verylow")
+        
+        if battery < 10:
+            self.add_css_class("verylow")  
+        elif battery < 20:
+            self.add_css_class("low")
+
+        
+        return widgets.Box(
+            spacing=5,
+            child=[
+            widgets.Icon(image=upower_battery.icon_name),
+            widgets.Label(label=f"{battery:.0f}%")
+        ])
+
+class Network(Panel):
+    def __init__(self):
+        if network.wifi:
+            # We are dealing with a wifi module
+            self.wifi_device = network.wifi.devices[0]
+            
+            super().__init__(
+                child=self.wifi_device.bind("ap", transform=lambda ap: self.create_wifi_widget(ap))
+            )
+        else:
+            super().__init__(
+                child=widgets.Box(
+                    spacing=5,
+                    child=[
+                        widgets.Icon(image="network-wired"),
+                        widgets.Label(label="Ethernet")
+                    ]
+                )
+            )
+    
+    def create_wifi_widget(self, ap):
+        return widgets.Box(
+            spacing=5,
+            child=[
+                # Bind the icon to the access point's icon_name for signal strength updates
+                widgets.Icon(image=ap.bind("icon_name")),
+                widgets.Label(label=ap.bind("is_connected", transform=lambda connected: ap.ssid if connected else ""))
+            ]
+        )
+
+
+
+
 
 
 class NiriWorkspaceButton(Panel):
@@ -110,30 +225,42 @@ class NiriWorkspaces(widgets.EventBox):
 
 class Bar(widgets.Window):  # inheriting from widgets.Window
     __gtype_name__ = "MyBar"  # optional, this will change the widget's display name in the GTK inspector.
-
+    
     def __init__(self, monitor: int):
-        # button2 = widgets.Button(
-        #     child=widgets.Label(label="Close window"),
-        #     on_click=lambda x: self.set_visible(False),  # you can use "self" - the window object itself
-        # )
-
-        super().__init__(  # calling the constructor of the parent class (widgets.Window)
+        left_box = widgets.Box(
+            spacing=10,
+            child=[
+                Launcher(),
+                NiriWorkspaces(monitor),
+            ]
+        )
+        
+        center_box = widgets.Box(
+            spacing=10,
+            child=[
+                # widgets.Label(label="GLITTERHONINGKOEKJE😻"),
+                Media(),
+                ClockCalendar(),
+            ]
+        )
+        
+        right_box = widgets.Box(
+            spacing=10,
+            child=[
+                Network(),
+                Battery(),
+            ]
+        )
+        
+        super().__init__(  
             namespace=f"some-window-{monitor}",
             css_classes=["bar"],
             monitor=monitor,
             anchor=["left", "top", "right"],
             exclusivity="exclusive",
-            child=widgets.Box(
-                spacing=10,
-                child=[
-                    Launcher(),
-                    # widgets.Label(label="GLITTERPIE IS DE LIEFSTE HONINGPIE"),
-                    Battery(),
-                    NiriWorkspaces(monitor),
-                    ClockCalendar(),
-                ],
+            child=widgets.CenterBox(
+                start_widget=left_box,
+                center_widget=center_box,
+                end_widget=right_box,
             ),
         )
-
-    def some_func(self) -> None:
-        print("Custom function on self!")

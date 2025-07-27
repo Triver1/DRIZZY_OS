@@ -5,8 +5,6 @@ import os
 from ignis import utils
 from ignis.icon_manager import IconManager
 
-
-
 # Load css
 css_manager = CssManager.get_default()
 

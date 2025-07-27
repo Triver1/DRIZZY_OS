@@ -19,6 +19,14 @@
     };
   };
 
+  services.upower = {
+      enable = true;
+      # Optional: additional configuration
+      percentageLow = 10;
+      percentageCritical = 3;
+      percentageAction = 2;
+      criticalPowerAction = "Hibernate";
+    };
   # Disable power-profiles-daemon (conflicts with TLP)
   services.power-profiles-daemon.enable = false;
 

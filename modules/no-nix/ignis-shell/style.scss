@@ -1,11 +1,8 @@
-
 $bg: #191724;        /* Rose Pine base */
 $bg-light: #1f1d2e;  /* Rose Pine surface */
 $fg: #e0def4;        /* Rose Pine text */
 $active: #eb6f92;    /* Rose Pine love (pink accent) */
 $unactive: #6e6a86;  /* Rose Pine muted */
-
-
 
 .bar {
   font-family: 'Fira Code';
@@ -24,7 +21,6 @@ $unactive: #6e6a86;  /* Rose Pine muted */
     transition: 0.3s;
 }
 
-
 .workspace.active {
     background-color: $active;
     color: $bg;
@@ -39,7 +35,29 @@ $unactive: #6e6a86;  /* Rose Pine muted */
   transition: 0.2s;
 }
 
-
 .panel:hover{
     background-color: lighten($bg, 10%);
+}
+
+@keyframes blink {
+    0% {
+        color: $fg;
+    }
+    50% {
+        color: $active;
+    }
+    100% {
+        color: $fg;
+    }
+}
+
+.battery {
+}
+
+.battery.low {
+  color: $active;
+}
+
+.battery.verylow {
+  animation: blink 1.5s infinite;
 }

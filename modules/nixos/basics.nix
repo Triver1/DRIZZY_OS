@@ -20,6 +20,7 @@ environment.systemPackages = with pkgs; [
     xdg-utils
     fd
     vscode-fhs
+    libsecret
     gearlever # Allows for running appimages (NOT RECOMMENDED)
   ];
 programs.zsh.enable = true;
@@ -35,12 +36,4 @@ users.defaultUserShell = pkgs.zsh;
     BROWSER = "firefox";
   };
 
-  services.upower = {
-      enable = true;
-      # Optional: additional configuration
-      percentageLow = 10;
-      percentageCritical = 3;
-      percentageAction = 2;
-      criticalPowerAction = "Hibernate";
-    };
 }
