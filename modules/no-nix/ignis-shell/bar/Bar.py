@@ -10,6 +10,7 @@ from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
 from ignis.services.upower import UPowerService
 from ignis.services.network import NetworkService
+from controlcenter import ControlCenter
 
 
 
@@ -23,6 +24,7 @@ mpris = MprisService.get_default()
 
 upower_battery = UPowerService.get_default().batteries[0]
 
+controlcenter = ControlCenter()
 
 # Modules:
 # Clock, Battery, Time, Launcher 
@@ -67,7 +69,8 @@ class Launcher(IconPanel):
     def __init__(self):
         super().__init__(
             icon_name="nix",
-            pixel_size=25
+            pixel_size=25,
+            on_click=lambda x: controlcenter.reveal() 
         )
 
 
@@ -231,6 +234,7 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
             spacing=10,
             child=[
                 Launcher(),
+                Network(),
                 NiriWorkspaces(monitor),
             ]
         )
@@ -247,7 +251,6 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
         right_box = widgets.Box(
             spacing=10,
             child=[
-                Network(),
                 Battery(),
             ]
         )

@@ -21,6 +21,7 @@ environment.systemPackages = with pkgs; [
     fd
     vscode-fhs
     libsecret
+    gst_all_1.gstreamer
     gearlever # Allows for running appimages (NOT RECOMMENDED)
   ];
 programs.zsh.enable = true;

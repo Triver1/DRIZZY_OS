@@ -26,6 +26,7 @@ $unactive: #6e6a86;  /* Rose Pine muted */
     color: $bg;
 }
 
+
 .panel {
   background-color: $bg-light;
   border-radius: 0.6rem;
@@ -60,4 +61,45 @@ $unactive: #6e6a86;  /* Rose Pine muted */
 
 .battery.verylow {
   animation: blink 1.5s infinite;
+}
+.title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.controlcenter {
+
+  margin-top: 0.2rem;
+  margin-left: 1rem;
+  background-color: $bg;
+  color: $fg;
+  border-radius: 1rem;
+  padding: 1.5rem;
+
+  font-family: 'Fira Code';
+  font-size: 15px;
+}
+
+.sidebar {
+}
+
+.sidebarentry {
+  background-color: $bg-light;
+  color: $fg;
+  border-radius:0rem;
+}
+
+/* Round the top corners of the first button */
+.sidebarentry.first-child {
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+}
+
+/* Round the bottom corners of the last button */
+.sidebarentry.last-child {
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+}
+.sidebarentry.active {
+  background-color: $active;
 }

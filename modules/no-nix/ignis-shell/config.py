@@ -4,10 +4,10 @@ from ignis.css_manager import CssManager, CssInfoPath
 import os
 from ignis import utils
 from ignis.icon_manager import IconManager
+from ignis import widgets
 
 # Load css
 css_manager = CssManager.get_default()
-
 css_manager.apply_css(
     CssInfoPath(
         name="main",
@@ -16,10 +16,10 @@ css_manager.apply_css(
     )
 )
 
-
 # Load icons
 icon_manager = IconManager.get_default()
 icon_manager.add_icons(os.path.join(utils.get_current_dir(), "assets/icons"))
 
 # initialize
 Bar(0)
+
