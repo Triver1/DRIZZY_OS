@@ -1,3 +1,5 @@
+import os
+import subprocess
 from ignis import widgets
 from ignis.services.network import NetworkService
 import asyncio
@@ -9,6 +11,32 @@ backlight = BacklightService.get_default()
         
 
 
+class DropDownPanel(widgets.Box):
+    def __init__(self,label,revealercontent):
+        self.revealed = False
+        revealer = widgets.Revealer(
+                visible=True,
+                child=revealercontent,
+                transition_type='slide_down',
+                transition_duration=300,
+                reveal_child=False, )
+        arrow = widgets.Arrow(
+            pixel_size=20,
+            rotated=False,
+            degree=90,
+            time=135,
+            direction="right",
+            counterclockwise=False,
+        )
+        button = widgets.Button(child=widgets.Box(child=[label,arrow]), on_click=lambda x: self.toggle())
+        super().__init__(child=[button,revealer], vertical=True)
+        self.revealer = revealer
+        self.arrow = arrow
+
+    def toggle(self):
+        self.revealed = not self.revealed
+        self.revealer.reveal_child = self.revealed
+        self.arrow.rotated = self.revealed
 
 class WifiModule(widgets.Box):
     # List access points
@@ -21,8 +49,13 @@ class WifiModule(widgets.Box):
         )
 
 
+    def create_ap_widget(self, ap):
+        label = widgets.Label(label=ap.ssid)
+        content = widgets.Box(child=[widgets.Button(label="Connect"),widgets.Button(label="Forget")])
+        return DropDownPanel(label,content)
+
     def get_wifi_list(self, aps):
-        return [widgets.Label(label=ap.ssid) for ap in aps]
+        return [self.create_ap_widget(ap) for ap in aps]
 
 class Brightness(widgets.Box):
     def __init__(self):
@@ -90,22 +123,36 @@ class Volume(widgets.Box):
             ],
         )
 
-class DropDownPanel(widgets.Button):
+class WallpaperMenu(widgets.Box):
     def __init__(self):
-        revealer = widgets.Revealer(
-                visible=False,
-                child=widgets.Label(label='animation!!!'),
-                transition_type='slide_right',
-                transition_duration=500,
-                reveal_child=True, )
-        super().__init__(label="UWU", child=revealer, on_click=lambda x: setattr(revealer, 'visible', True))
+        super().__init__(
+            vertical=True,
+            child=[
+                widgets.Button(label="Next wallpaper", on_click=lambda x:subprocess.run(['wpaperctl', 'next'])),
+                widgets.FileChooserButton(
+                    dialog=widgets.FileDialog(
+                        on_file_set=lambda self, file: print(file.get_path()),
+                        initial_path=os.path.expanduser("~/Downloads/"),
+                        filters=[
+                            widgets.FileFilter(
+                                mime_types=["image/jpeg", "image/png"],
+                                default=True,
+                                name="Images JPEG/PNG",
+                            )
+                        ]
+                    ),
+                    label=widgets.Label(label="Select a wallpaper"),
+
+)
+            ]
+        )
 
 
-class DropdownPanelMenu(widgets.Box):
-    def __init__(self):
 
-        dropdown = [ToggleBox(),DropDownPanel()]
-        super().__init__(child=dropdown)
+
+
+        
+
 
 
 class SidebarMenu(widgets.Box):
@@ -146,6 +193,37 @@ class SidebarMenu(widgets.Box):
         self.buttons[self.menu_names.index(name)].add_css_class("active")
         self.stack.set_visible_child_name(name)
 
+class PowerMenu(DropDownPanel):
+    def __init__(self):
+        label = widgets.Label(label="Power")
+        menu = widgets.Box(vertical=True, child=[
+            self.create_confirm_panel("Shutdown", self.shutdown),
+            self.create_confirm_panel("Restart", self.restart),
+            self.create_confirm_panel("Logout", self.logout),
+        ])
+        super().__init__(label, menu)
+
+    def create_confirm_panel(self, label: str, action_callback):
+        confirm_buttons = widgets.Box(
+            spacing=10,
+            child=[
+                widgets.Button(label="Sure", on_click=lambda x: action_callback()),
+                widgets.Button(label="Cancel", on_click=lambda x: panel.toggle()),
+            ]
+        )
+
+        panel_label = widgets.Label(label=label)
+        panel = DropDownPanel(panel_label, confirm_buttons)
+        return panel
+
+    def shutdown(self):
+        subprocess.run(["systemctl", "poweroff"])
+
+    def restart(self):
+        subprocess.run(["systemctl", "reboot"])
+
+    def logout(self):
+        subprocess.run(["niri", "msg", "action", "quit"])
 
 
 
@@ -162,11 +240,12 @@ class ControlCenter(widgets.RevealerWindow):
                 Brightness(),
                 Volume(),
                 SidebarMenu([
-                    ("TEST",DropdownPanelMenu()),
                     ("Network", WifiModule()), 
                     ("Bluetooth", widgets.Label(label="TEST2")), 
                     ("AI", widgets.Label(label="TEST2")),
                     ("EnvKeys", widgets.Label(label="ENVKEYS")),
+                    ("Wallpaper",WallpaperMenu()),
+                    ("Powermenu", PowerMenu())
                 ]),
         ])
 

@@ -1,12 +1,11 @@
 { config, pkgs, lib, inputs, ... }: {
   home.packages = [
-    inputs.ignis.packages.${pkgs.system}.ignis
-    # (python3.withPackages(ps: with ps; [
-    #   (inputs.ignis.packages.${pkgs.stdenv.hostPlatform.system}.ignis.override {
-    #     extraPackages = [
-    #       # Add extra packages if needed
-    #     ];
-    #   })
-    # ]))
+    (inputs.ignis.packages.${pkgs.stdenv.hostPlatform.system}.ignis.override {
+      extraPackages = [
+        # Add extra dependencies here
+        # For example:
+        pkgs.python313Packages.rapidfuzz
+      ];
+    })
   ];
 }

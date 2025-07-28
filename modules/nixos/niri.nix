@@ -62,7 +62,7 @@ home-manager.sharedModules = [{
       }
 
       layout {
-          gaps 16
+          gaps 7 
           focus-ring {
               width 2
               active-gradient from="rgba(255, 255, 255, 0.9)" to="rgba(240, 248, 255, 0.3)" angle=135
@@ -70,6 +70,9 @@ home-manager.sharedModules = [{
       }
       
 
+          hotkey-overlay {
+              skip-at-startup
+          }
 
       binds {
           // Programs
@@ -81,7 +84,7 @@ home-manager.sharedModules = [{
 
 
           // System  
-          Mod+Space { spawn "walker"; }
+          Mod+Space { spawn "ignis" "toggle-window" "launcher"; }
           Mod+P { screenshot; }
 
           // Volume controls
@@ -101,6 +104,7 @@ home-manager.sharedModules = [{
           XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
           // Windows/workspaces
+          Mod+T { toggle-column-tabbed-display; }
           Mod+Q { close-window; }
           Mod+O repeat=false { toggle-overview; }
 
