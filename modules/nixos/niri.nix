@@ -32,7 +32,7 @@ home-manager.sharedModules = [{
 # In your home-manager configuration
 
   home.file.".config/niri/config.kdl".text = ''
-      spawn-at-startup "ignis" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis/config.py"
+      spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis/config.py"
       output "DP-3" {
           mode "3440x1440@180.0"
           focus-at-startup
