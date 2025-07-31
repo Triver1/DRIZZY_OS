@@ -1,4 +1,4 @@
-from ignis.widgets import Widget
+from ignis import widgets
 from bar import Bar
 from launcher import Launcher
 from ignis.css_manager import CssManager, CssInfoPath
@@ -25,9 +25,7 @@ icon_manager.add_icons(os.path.join(utils.get_current_dir(), "assets/icons"))
 
 # initialize
 Bar(0)
-
 launcher = Launcher()
-window_manager.add_window(launcher)
 
 from gi.repository import Gio, GLib
 from ignis.dbus import DBusService

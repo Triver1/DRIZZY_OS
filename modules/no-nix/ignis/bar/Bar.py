@@ -6,7 +6,7 @@ import datetime
 # from ignis.services.audio import AudioService
 from ignis.services.system_tray import SystemTrayService, SystemTrayItem
 from ignis.services.niri import NiriService, NiriWorkspace
-from ignis.services.notifications import NotificationService
+# from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
 from ignis.services.upower import UPowerService
 from ignis.services.network import NetworkService
@@ -19,7 +19,7 @@ from controlcenter import ControlCenter
 network = NetworkService.get_default()
 system_tray = SystemTrayService.get_default()
 niri = NiriService.get_default()
-notifications = NotificationService.get_default()
+# notifications = NotificationService.get_default()
 mpris = MprisService.get_default()
 
 upower_battery = UPowerService.get_default().batteries[0]
@@ -36,6 +36,16 @@ class Panel(widgets.Button):
         super().__init__(
             child=child,
             on_click=on_click,
+            css_classes=all_classes,
+            **kwargs
+        )
+
+class PanelNoClick(widgets.Box):
+    def __init__(self, *, child=None, css_classes=None, **kwargs):
+        all_classes = ["panel"] + (css_classes or [])
+
+        super().__init__(
+            child=[child],
             css_classes=all_classes,
             **kwargs
         )
@@ -70,7 +80,7 @@ class Launcher(IconPanel):
         super().__init__(
             icon_name="nix",
             pixel_size=25,
-            on_click=lambda x: controlcenter.reveal() 
+            on_click=lambda x: controlcenter.toggle_reveal() 
         )
 
 
@@ -125,14 +135,35 @@ class Media(Panel):
 
 class Battery(Panel):
     def __init__(self):
+        self.show_time = False  # Toggle state for displaying time vs percentage
+        
         super().__init__(
             css_classes=["battery"],
+            on_click=lambda x: self.toggle_display(),
             child=upower_battery.bind(
                 "percent",
                 transform = lambda percent: self.update_battery(percent)
             )
         )
         self.update_battery(upower_battery.percent)
+
+    def toggle_display(self):
+        """Toggle between showing percentage and remaining time"""
+        self.show_time = not self.show_time
+        self.child = self.update_battery(upower_battery.percent)
+
+    def format_time(self, seconds):
+        """Format seconds into a readable time string"""
+        if seconds <= 0:
+            return "Unknown"
+        
+        hours = seconds // 3600
+        minutes = (seconds % 3600) // 60
+        
+        if hours > 0:
+            return f"{hours}h {minutes}m"
+        else:
+            return f"{minutes}m"
 
     def update_battery(self, battery):
         # Remove previous classes
@@ -144,13 +175,19 @@ class Battery(Panel):
         elif battery < 20:
             self.add_css_class("low")
 
+        # Determine what text to show
+        if self.show_time:
+            label_text = self.format_time(upower_battery.time_remaining)
+        else:
+            label_text = f"{battery:.0f}%"
         
         return widgets.Box(
             spacing=5,
             child=[
-            widgets.Icon(image=upower_battery.icon_name),
-            widgets.Label(label=f"{battery:.0f}%")
-        ])
+                widgets.Icon(image=upower_battery.icon_name),
+                widgets.Label(label=label_text)
+            ]
+        )
 
 class Network(Panel):
     def __init__(self):
@@ -184,46 +221,58 @@ class Network(Panel):
 
 
 
-
-
-
-class NiriWorkspaceButton(Panel):
-    def __init__(self, workspace: NiriWorkspace):
+class NiriWorkspaces(widgets.Box):
+    def __init__(self, monitor_name):
         super().__init__(
-            css_classes=["workspace"],
-            on_click=lambda x: workspace.switch_to(),
-            child=widgets.Label(label=str(workspace.id))
-        )
-        if workspace.is_active:
-            self.add_css_class("active")
-
-class NiriWorkspaces(widgets.EventBox):
-
-    def __init__(self,monitor_name):
-            super().__init__(
-
-                on_scroll_up=lambda x: self.scroll_workspace(1),
-                on_scroll_down=lambda x: self.scroll_workspace(1),
-                spacing=5,
-                child=niri.bind(
-                    "workspaces",
-                    transform = lambda value: [
-                        NiriWorkspaceButton(i) for i in value 
-                    ]
-                )
+            spacing=5,
+            child=niri.bind(
+                "workspaces",
+                transform=self._create_workspace_buttons
             )
+        )
+        self.monitor_name = monitor_name
+    
+    def _create_workspace_buttons(self, workspaces):
+        return [self._create_button(workspace) for workspace in workspaces]
+    
+    def _create_button(self, workspace):
+        workspace_display = niri.bind(
+            "windows", 
+            transform=lambda windows: self._get_workspace_content(workspace, windows)
+        )
+        
+        button = Panel(
+            css_classes=["workspace"] + (["active"] if workspace.is_active else []),
+            on_click=lambda x: workspace.switch_to(),
+            child=workspace_display
+        )
+        
+        return button
+    
+    def _get_workspace_content(self, workspace, windows):
+        # Get icons for windows in this workspace
+        icons = [
+            widgets.Icon(
+                pixel_size=18,
+                image=utils.Utils.get_app_icon_name(window.app_id)
+            )
+            for window in windows 
+            if window.workspace_id == workspace.id
+        ]
+        return widgets.Box(
+            spacing=10,
+            child=icons
+        )
 
 
-    def scroll_workspace(self,dir):
-        current = list(
-        filter(lambda w: w.is_active, niri.workspaces) )[0].idx
-        target = (current + dir) % (len(niri.workspaces) + 1)
-        print(target)
-        niri.switch_to_workspace(target) 
 
-
-
-
+class Systray(widgets.Box):
+    def __init__(self):
+        super().__init__(
+            child=system_tray.bind("items", transform=lambda apps: [
+                widgets.Icon(image=app.icon) for app in apps
+            ])
+        )
 
 
 class Bar(widgets.Window):  # inheriting from widgets.Window
@@ -251,6 +300,7 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
         right_box = widgets.Box(
             spacing=10,
             child=[
+                Systray(),
                 Battery(),
             ]
         )

@@ -7,7 +7,11 @@
     walker
     hyprlock
     brightnessctl
+    gnome-bluetooth
   ];
+
+  services.xserver.enable = true;
+  programs.xwayland.enable = true;
 
   programs.niri = {
     enable = true;
@@ -33,6 +37,11 @@ home-manager.sharedModules = [{
 
   home.file.".config/niri/config.kdl".text = ''
       spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis/config.py"
+      spawn-at-startup "xwayland-satellite"
+  
+      environment {
+          DISPLAY ":0"
+      }
       output "DP-3" {
           mode "3440x1440@180.0"
           focus-at-startup
@@ -70,9 +79,14 @@ home-manager.sharedModules = [{
       }
       
 
-          hotkey-overlay {
-              skip-at-startup
-          }
+      // Overview
+      overview {
+          backdrop-color "#2a273f"
+      }
+
+      hotkey-overlay {
+          skip-at-startup
+      }
 
       binds {
           // Programs
@@ -99,11 +113,16 @@ home-manager.sharedModules = [{
           XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
           XF86AudioStop allow-when-locked=true { spawn "playerctl" "stop"; }
 
+
           // Brightness controls
           XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
           XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
           // Windows/workspaces
+
+          Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+          Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+
           Mod+T { toggle-column-tabbed-display; }
           Mod+Q { close-window; }
           Mod+O repeat=false { toggle-overview; }

@@ -37,7 +37,6 @@ in
 
   # Packages without additional preconfigured modules (e.g. nvim)
   home.packages =[
-    # Utils
     pkgs.ventoy
     # UI
     pkgs.ripgrep

@@ -1,7 +1,10 @@
 $bg: #191724;        /* Rose Pine base */
 $bg-light: #1f1d2e;  /* Rose Pine surface */
+$bg-lighter: #26233a;
+$fg-muted: #9a96b3;
 $fg: #e0def4;        /* Rose Pine text */
-$active: #eb6f92;    /* Rose Pine love (pink accent) */
+$active: #31748f;
+/*$active: #eb6f92;     Rose Pine love (pink accent) */
 $unactive: #6e6a86;  /* Rose Pine muted */
 
 .bar {
@@ -24,6 +27,13 @@ $unactive: #6e6a86;  /* Rose Pine muted */
 .workspace.active {
     background-color: $active;
     color: $bg;
+}
+button{
+  background-color: $bg-light;
+  border-radius: 0.6rem;
+  &:hover{
+    background-color: $bg-lighter
+  }
 }
 
 
@@ -50,6 +60,40 @@ $unactive: #6e6a86;  /* Rose Pine muted */
     100% {
         color: $fg;
     }
+}
+
+.workspace_app_button{
+  background-color: transparent;
+  color: $fg-muted;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin: 0rem;
+
+}
+
+.wordbutton{
+  background-color: transparent;
+  color: $fg-muted;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+  transition: 0.15s;
+  &:hover{
+    color:$active; 
+    transition: 0.15s;
+
+  }
+}
+.dropdownpanel {
+  background-color: $bg-lighter;
+  border-radius: 0.3rem;
+  color: $fg;
+  margin-bottom: -3px;
+}
+.dropdownpaneldropdown{
+  background-color: $bg-light;
+  border-radius: 0 0 0.6rem 0.6rem; 
+  color: $fg;
 }
 
 .battery {

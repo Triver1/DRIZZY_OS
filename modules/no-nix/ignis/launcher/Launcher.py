@@ -8,13 +8,20 @@ applications = ApplicationsService.get_default()
 
 
 class AppsList(widgets.Box):
-    def __init__(self):
+
+    def app_launch(self, app):
+        app.launch()
+        self.close_callback()
+
+    def __init__(self, close_callback):
         self.apps = applications.apps
         super().__init__(
             vertical=True,
                          child=[]
         )
         self.filter("")
+        self.close_callback = close_callback
+
 
     def app_widget(self, app): 
         return widgets.Button(
@@ -23,7 +30,7 @@ class AppsList(widgets.Box):
                 widgets.Icon(image=app.icon, pixel_size=20),
                 widgets.Label(label=app.name)
             ]),
-            on_click=lambda x: app.launch()
+            on_click=lambda x: app_launch(app)
         )
          
     def filter(self, filter_string):
@@ -49,7 +56,7 @@ class AppsList(widgets.Box):
 
 class Launcher(widgets.Window):
     def __init__(self):
-        self.apps_list = AppsList()
+        self.apps_list = AppsList(lambda x: self.set_visible(False))
 
         self.input = widgets.Entry(
             placeholder_text="Filter apps",

@@ -24,6 +24,7 @@ in
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
+  
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
   services.envfs.enable = true;
@@ -31,7 +32,7 @@ in
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "kittentop"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -82,13 +83,36 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  hardware.opengl.enable = true;
+  
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  
+  # Add these for Ignis compatibility:
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true; # Better device discovery
+    };
+  };
+  
+  # Essential for DBus access:
+  services.gnome.gnome-settings-daemon.enable = true;
 
+  # For desktop environments, you might also need:
+  services.dbus.enable = true;
+  
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   system.stateVersion = "25.05"; # Did you read the comment?
    
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
   home-manager = { 
     extraSpecialArgs = { inherit inputs; };
     users = {
