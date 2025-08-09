@@ -2,7 +2,7 @@
   description = "Nixos config flake";
 
   inputs = {
-    
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # astal = {
     #   url = "github:aylur/astal";
@@ -34,6 +34,10 @@
       url = "github:ignis-sh/ignis";
       inputs.nixpkgs.follows = "nixpkgs";
       };
+    textfox = {
+      url = "github:adriankarlen/textfox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager,... }@inputs: {

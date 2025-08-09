@@ -1,0 +1,254 @@
+$bg: #1e1e2e;        /* Catppuccin mocha base */
+$bg-light: #313244;  /* Surface0 */
+$bg-lighter: #45475a; /* Surface1 */
+$fg-muted: #6c7086;   /* Overlay0 */
+$fg: #cdd6f4;         /* Text */
+$active: #89b4fa;     /* Blue */
+$unactive: #585b70;   /* Surface2 */
+
+.bar {
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: $bg;
+  border-radius: 0px;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  padding: 4px 8px;
+  border: 1px solid $bg-lighter;
+  border-bottom: 2px solid $active;
+}
+
+.workspace {
+    border-radius: 0px;
+    transition: all 0.15s ease;
+    border: 1px solid $bg-lighter;
+    border-left: 3px solid transparent;
+}
+
+.workspace.active {
+    background-color: $bg-light;
+    color: $active;
+    border: 1px solid $bg-lighter;
+    border-left: 3px solid $active;
+}
+
+button{
+  background-color: $bg-light;
+  border-radius: 0px;
+  border: 1px solid $bg-lighter;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-weight: 500;
+  transition: all 0.1s ease;
+  &:hover{
+    background-color: $bg-lighter;
+    border: 1px solid $active;
+  }
+}
+
+.panel {
+  background-color: $bg-light;
+  border-radius: 0px;
+  padding: 4px 8px;
+  margin: 1px;
+  transition: all 0.1s ease;
+  border: 1px solid $bg-lighter;
+  border-left: 2px solid transparent;
+}
+
+.panel:hover{
+    background-color: $bg-lighter;
+    border: 1px solid $bg-lighter;
+    border-left: 2px solid $active;
+}
+
+@keyframes blink {
+    0% {
+        color: $fg;
+        background-color: transparent;
+    }
+    50% {
+        color: $bg;
+        background-color: $active;
+    }
+    100% {
+        color: $fg;
+        background-color: transparent;
+    }
+}
+
+.workspace_app_button{
+  background-color: transparent;
+  color: $fg-muted;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 0px;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-weight: 400;
+  border: none;
+}
+
+.wordbutton{
+  background-color: transparent;
+  color: $fg-muted;
+  padding: 4px 8px;
+  transition: all 0.1s ease;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-weight: 500;
+  border-radius: 0px;
+  border: 1px solid transparent;
+  &:hover{
+    color: $active;
+    background-color: $bg-light;
+    border: 1px solid $bg-lighter;
+  }
+}
+
+.dropdownpanel {
+  background-color: $bg-light;
+  border-radius: 0px;
+  color: $fg;
+  margin-bottom: 0px;
+  border: 1px solid $bg-lighter;
+  border-top: 2px solid $active;
+}
+
+.dropdownpaneldropdown{
+  background-color: $bg;
+  border-radius: 0px;
+  color: $fg;
+  border: 1px solid $bg-lighter;
+  border-top: none;
+}
+
+.battery {
+  font-weight: 600;
+}
+
+.battery.low {
+  color: #fab387; /* Peach */
+}
+
+.battery.verylow {
+  animation: blink 0.8s infinite;
+  color: #f38ba8; /* Pink */
+}
+
+.title {
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $active;
+}
+
+.controlcenter {
+  margin-top: 0px;
+  margin-left: 0px;
+  background-color: $bg;
+  color: $fg;
+  border-radius: 0px;
+  padding: 16px;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid $bg-lighter;
+  border-top: 3px solid $active;
+}
+
+.sidebar {
+}
+
+.sidebarentry {
+  background-color: $bg-light;
+  color: $fg;
+  border-radius: 0px;
+  border: 1px solid $bg-lighter;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-weight: 500;
+  transition: all 0.1s ease;
+  border-right: 3px solid transparent;
+  &:hover {
+    background-color: $bg-lighter;
+    border-right: 3px solid $fg-muted;
+  }
+}
+
+.sidebarentry.first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.sidebarentry.last-child {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.sidebarentry.active {
+  background-color: $bg-lighter;
+  color: $active;
+  border: 1px solid $bg-lighter;
+  border-right: 3px solid $active;
+}
+
+.launcherwindow {
+ 
+}
+
+.launcher {
+  margin-top: 13rem;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  padding: 16px;
+  background-color: $bg;
+  border-radius: 0px;
+  border: 1px solid $bg-lighter;
+  border-top: 3px solid $active;
+}
+
+.launcherinput {
+  border: 1px solid $bg-lighter;
+  border-bottom: 2px solid $active;
+  color: $fg;
+  background-color: $bg-light;
+  box-shadow: none;
+  outline: none;
+  min-width: 270px;
+  margin: 8px;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-weight: 500;
+  border-radius: 0px;
+  padding: 8px;
+  transition: all 0.1s ease;
+  &:focus {
+    border: 1px solid $active;
+    border-bottom: 2px solid $active;
+    background-color: $bg-lighter;
+  }
+}
+
+.launcherapp{
+  min-width: 300px;
+  font-size: 12px;
+  background-color: $bg-light;
+  color: $fg;
+  padding: 8px 12px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 4px;
+  border-radius: 0px;
+  border: 1px solid $bg-lighter;
+  font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
+  font-weight: 500;
+  transition: all 0.1s ease;
+  border-left: 3px solid transparent;
+  &:focus {
+      outline: none;
+      background-color: $bg-lighter;
+      color: $active;
+      border: 1px solid $bg-lighter;
+      border-left: 3px solid $active;
+    }
+}

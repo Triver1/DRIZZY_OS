@@ -1,0 +1,318 @@
+/* --- Global Resets & Typography --- */
+* {
+  box-sizing: border-box; /* Ensure consistent box model */
+}
+
+body {
+  font-family: 'Fira Code', monospace; /* Apply globally if possible */
+  font-size: 15px; /* Base font size */
+  color: $color7; /* Catppuccin Mocha: Text - Default text color for the entire application */
+  background-color: $color0; /* Catppuccin Mocha: Base - Default background for the entire application */
+}
+
+/* --- General Bar Styling --- */
+.bar {
+  /* Font properties are now inherited from body for consistency, unless overridden */
+  background-color: $color0; /* Catppuccin Mocha: Base - Main background for the bar */
+  border-radius: 0.9rem;
+  margin: 3px 7px 0px 7px; /* Consolidated margin for top, right, left, bottom */
+  padding: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* More pronounced, soft shadow for depth */
+  display: flex; /* Use flexbox for internal layout if elements are direct children */
+  align-items: center; /* Vertically align items */
+  min-height: 2.5rem; /* Ensure a comfortable height for the bar */
+}
+
+/* --- Workspace Button Styling --- */
+.workspace {
+  border-radius: 0.6rem; /* Slightly smaller radius for a more button-like feel */
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease; /* Smooth transitions */
+  color: $color14; /* Catppuccin Mocha: Lavender (Subtext) - muted text for inactive workspaces */
+  background-color: transparent; /* Transparent by default */
+  padding: 0.35rem 0.8rem; /* Slightly more padding for a softer touch target */
+  margin: 0 0.15rem; /* Tighter spacing between workspace buttons */
+  min-width: 2.2rem; /* Ensure a consistent minimum width */
+  text-align: center;
+  cursor: pointer;
+  font-weight: normal; /* Ensure consistent weight for inactive */
+  line-height: 1; /* Normalize line-height for better vertical alignment */
+}
+
+.workspace.active {
+  background-color: $color4; /* Catppuccin Mocha: Blue (Primary Accent) for active workspace */
+  color: $color0; /* Catppuccin Mocha: Base - text color that contrasts well with the accent */
+  font-weight: bold; /* Make active slightly bolder */
+  box-shadow: 0 2px 5px rgba($color4, 0.3); /* Subtle shadow for active workspace */
+}
+
+.workspace:hover:not(.active) {
+  background-color: $color15; /* Catppuccin Mocha: Surface0 - lighter background on hover for inactive */
+  color: $color7; /* Catppuccin Mocha: Text - normal text color on hover for inactive */
+  transform: translateY(-1px); /* Slight lift on hover */
+}
+
+.workspace:active {
+  transform: translateY(0); /* "Press down" effect */
+}
+
+/* --- Generic Button Styling (applies to HTML <button> tag) --- */
+button {
+  background-color: $color8; /* Catppuccin Mocha: Surface1 - secondary background for general buttons */
+  color: $color7; /* Catppuccin Mocha: Text - foreground text color */
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.6rem 1.2rem; /* Generous padding */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  font-family: inherit; /* Inherit font from body */
+  font-size: inherit; /* Inherit font size from body */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+  outline: none; /* Remove default outline */
+}
+
+button:hover {
+  background-color: $color4; /* Catppuccin Mocha: Blue (Primary Accent) on hover */
+  color: $color0; /* Catppuccin Mocha: Base - text color that contrasts with accent */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba($color4, 0.3); /* More pronounced, colored shadow on hover */
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow on click */
+}
+
+/* --- Panel Styling (e.g., small status indicators) --- */
+.panel {
+  background-color: $color8; /* Catppuccin Mocha: Surface1 - secondary background for panels */
+  border-radius: 0.6rem;
+  padding: 0.2rem 0.6rem; /* Adjusted padding for a tighter look */
+  margin: 0.25rem;
+  transition: background-color 0.2s ease;
+  color: $color7; /* Catppuccin Mocha: Text - default text color for panels */
+  line-height: 1; /* Normalize line height */
+}
+
+.panel:hover {
+  background-color: $color15; /* Catppuccin Mocha: Surface0 - lighter background on hover for panels */
+}
+
+/* --- Blink Animation for Critical States --- */
+@keyframes blink {
+  0%, 100% {
+    color: $color7; /* Catppuccin Mocha: Text - Main text color */
+  }
+  50% {
+    color: $color1; /* Catppuccin Mocha: Red - Use for a distinct, urgent blink */
+  }
+}
+
+/* --- Specific Workspace Application Button (if separate from .workspace) --- */
+.workspace_app_button {
+  background-color: transparent;
+  color: $color14; /* Catppuccin Mocha: Lavender (Subtext) - muted color for text (inactive state) */
+  padding: 0.2rem 0.4rem; /* Added some padding for better hit area */
+  margin: 0rem;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.1s ease;
+  outline: none;
+}
+
+.workspace_app_button:hover {
+  color: $color4; /* Catppuccin Mocha: Blue (Primary Accent) on hover */
+  transform: translateY(-1px);
+}
+
+.workspace_app_button:active {
+  transform: translateY(0);
+}
+
+/* --- Generic Word Button (used for text-based links/buttons) --- */
+.wordbutton {
+  background-color: transparent;
+  color: $color14; /* Catppuccin Mocha: Lavender (Subtext) - muted color for text */
+  padding: 0.2rem 0.5rem; /* Adjusted padding */
+  transition: color 0.15s ease, transform 0.1s ease;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+.wordbutton:hover {
+  color: $color4; /* Catppuccin Mocha: Blue (Primary Accent) for hover */
+  transform: translateY(-1px);
+}
+
+.wordbutton:active {
+  transform: translateY(0);
+}
+
+/* --- Dropdown Panels (e.g., date picker, volume control dropdowns) --- */
+.dropdownpanel {
+  background-color: $color15; /* Catppuccin Mocha: Surface0 - darker background for the main dropdown panel */
+  border-radius: 0.6rem; /* Consistent border radius */
+  color: $color7; /* Catppuccin Mocha: Text - Foreground color */
+  margin-bottom: -3px; /* Keep if for visual overlap */
+  padding: 0.8rem 1.2rem; /* More generous padding */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35); /* Clearer, softer shadow for pop-up */
+}
+
+.dropdownpaneldropdown {
+  background-color: $color8; /* Catppuccin Mocha: Surface1 - secondary background for the actual dropdown content */
+  border-radius: 0 0 0.6rem 0.6rem; /* Rounded only at the bottom */
+  color: $color7; /* Catppuccin Mocha: Text - foreground text color */
+  padding: 0.7rem 1.2rem; /* Consistent padding with parent */
+}
+
+/* --- Battery Status --- */
+.battery {
+  color: $color7; /* Catppuccin Mocha: Text - Default battery text color */
+}
+
+.battery.low {
+  color: $color3; /* Catppuccin Mocha: Yellow - Warning color for 'low' */
+}
+
+.battery.verylow {
+  animation: blink 1.5s infinite;
+  color: $color1; /* Catppuccin Mocha: Red - Ensure starting color for blink is the distinct Red */
+}
+
+/* --- Window Title (e.g., in a status bar) --- */
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  color: $color7; /* Catppuccin Mocha: Text - Ensure title has proper foreground color */
+  flex-grow: 1; /* Allow title to take available space in a flex container */
+  text-align: center; /* Center align title in the bar */
+  margin: 0 0.5rem; /* Add horizontal margin */
+}
+
+/* --- Control Center (Larger overlay/popup) --- */
+.controlcenter {
+  margin-top: 0.75rem; /* Adjusted top margin for better flow */
+  margin-left: 1rem; /* Consistent left margin */
+  background-color: $color0; /* Catppuccin Mocha: Base - Main background for the control center */
+  color: $color7; /* Catppuccin Mocha: Text - Foreground text color */
+  border-radius: 1.2rem; /* Slightly larger border-radius for softer edges */
+  padding: 2.5rem; /* More generous padding for a spacious feel */
+  font-family: inherit; /* Inherit font from body */
+  font-size: inherit; /* Inherit font size from body */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.4); /* Stronger, softer shadow for prominent element */
+}
+
+/* --- Sidebar (within Control Center or similar) --- */
+.sidebar {
+  padding-top: 0.5rem; /* Add some internal padding if it's a wrapper */
+}
+
+.sidebarentry {
+  background-color: $color8; /* Catppuccin Mocha: Surface1 - secondary background for sidebar entries */
+  color: $color7; /* Catppuccin Mocha: Text - Foreground text color */
+  border-radius: 0rem; /* Handled by first/last-child */
+  padding: 0.8rem 1.2rem; /* More padding for a softer button look */
+  margin-bottom: 2px; /* Slight increase in separation for entries */
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+.sidebarentry:first-child {
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+}
+
+.sidebarentry:last-child {
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  margin-bottom: 0; /* Remove extra margin for the last item */
+}
+
+.sidebarentry:hover:not(.active) {
+  background-color: $color15; /* Catppuccin Mocha: Surface0 - subtle darker hover for inactive entries */
+  color: $color7; /* Catppuccin Mocha: Text - maintain text color */
+  transform: translateX(3px); /* Gentle horizontal shift on hover */
+}
+
+.sidebarentry:active:not(.active) {
+  transform: translateX(0);
+}
+
+.sidebarentry.active {
+  background-color: $color4; /* Catppuccin Mocha: Blue (Primary Accent) - active accent color */
+  color: $color0; /* Catppuccin Mocha: Base - text color that contrasts with the accent */
+  font-weight: bold; /* Make active slightly bolder */
+  box-shadow: inset 2px 0 0 $color1; /* Subtle indicator for active, using Red for contrast */
+}
+
+/* --- Launcher Window (Overall wrapper for launcher) --- */
+.launcherwindow {
+  /* This likely wraps the launcher, no direct styling needed here unless it has a specific background/positioning */
+}
+
+/* --- Main Launcher Container --- */
+.launcher {
+  margin-top: 13rem; /* Adjust as needed for positioning */
+  font-family: inherit; /* Inherit font from body */
+  padding: 2rem; /* Increased padding for more breathing room */
+  background-color: $color0; /* Catppuccin Mocha: Base - Main background */
+  border-radius: 0.8rem; /* Slightly larger radius for a softer look */
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.4); /* More prominent shadow for a floating effect */
+  color: $color7; /* Catppuccin Mocha: Text - Default text color within the launcher */
+}
+
+/* --- Launcher Input Field --- */
+.launcherinput {
+  border: 1px solid $color15; /* Catppuccin Mocha: Surface0 - Subtle border for input field */
+  color: $color7; /* Catppuccin Mocha: Text - Foreground text color */
+  background-color: $color8; /* Catppuccin Mocha: Surface1 - Darker background for input field */
+  box-shadow: none;
+  outline: none;
+  min-width: 270px;
+  margin: 1rem;
+  padding: 0.8rem 1.2rem; /* More generous padding */
+  border-radius: 0.5rem; /* Slightly larger radius for input */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.launcherinput:focus {
+  border-color: $color4; /* Catppuccin Mocha: Blue - Highlight with primary accent on focus */
+  box-shadow: 0 0 0 2px rgba($color4, 0.3); /* Subtle glow on focus */
+}
+
+/* --- Launcher App Entries (search results) --- */
+.launcherapp {
+  min-width: 300px;
+  font-size: 16px;
+  background-color: transparent; /* Start with transparent background */
+  color: $color7; /* Catppuccin Mocha: Text - Foreground text color */
+  padding: 0.9rem 1.2rem; /* More generous padding */
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  margin-top: 0.4rem; /* Adjusted top margin for better spacing between results */
+  border-radius: 0.7rem; /* Slightly larger radius for softer look */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, font-size 0.2s ease, transform 0.1s ease;
+}
+
+.launcherapp:hover {
+  background-color: $color15; /* Catppuccin Mocha: Surface0 - subtle darker hover for results */
+  transform: translateX(3px); /* Gentle slide effect on hover */
+}
+
+.launcherapp:active {
+  transform: translateX(0);
+}
+
+.launcherapp:focus { /* This implies selection, typically via arrow keys */
+  outline: none;
+  background-color: $color4; /* Catppuccin Mocha: Blue (Primary Accent) for selected item */
+  color: $color0; /* Catppuccin Mocha: Base - text color on selected item */
+  font-size: 17px;
+  transform: translateX(0); /* Reset transform for selected item */
+}

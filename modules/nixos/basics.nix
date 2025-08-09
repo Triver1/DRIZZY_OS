@@ -1,4 +1,4 @@
-{ pkgs, ...}: {
+{ pkgs, options, ...}: {
 environment.systemPackages = with pkgs; [
     google-chrome
     pulseaudio
@@ -23,6 +23,8 @@ environment.systemPackages = with pkgs; [
     libsecret
     gst_all_1.gstreamer
     gearlever # Allows for running appimages (NOT RECOMMENDED)
+    libnotify
+    vlc
   ];
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;

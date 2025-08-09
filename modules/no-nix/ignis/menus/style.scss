@@ -1,0 +1,192 @@
+$bg: #191724;        /* Rose Pine base */
+$bg-light: #1f1d2e;  /* Rose Pine surface */
+$bg-lighter: #26233a;
+$fg-muted: #9a96b3;
+$fg: #e0def4;        /* Rose Pine text */
+$active: #31748f;
+/*$active: #eb6f92;     Rose Pine love (pink accent) */
+$unactive: #6e6a86;  /* Rose Pine muted */
+
+.bar {
+  font-family: 'Fira Code';
+  font-size: 15px;
+  background-color: $bg;
+  border-radius: 0.9rem;
+  margin-top: 3px;
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-bottom: 0px;
+  padding: 0;
+}
+
+.workspace {
+    border-radius: 1rem;
+    transition: 0.3s;
+}
+
+.workspace.active {
+    background-color: $active;
+    color: $bg;
+}
+button{
+  background-color: $bg-light;
+  border-radius: 0.6rem;
+  &:hover{
+    background-color: $bg-lighter
+  }
+}
+
+
+.panel {
+  background-color: $bg-light;
+  border-radius: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  margin: 0.25rem;
+  transition: background-color 0.2s ease;
+  transition: 0.2s;
+}
+
+.panel:hover{
+    background-color: lighten($bg, 10%);
+}
+
+@keyframes blink {
+    0% {
+        color: $fg;
+    }
+    50% {
+        color: $active;
+    }
+    100% {
+        color: $fg;
+    }
+}
+
+.workspace_app_button{
+  background-color: transparent;
+  color: $fg-muted;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin: 0rem;
+
+}
+
+.wordbutton{
+  background-color: transparent;
+  color: $fg-muted;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+
+  transition: 0.15s;
+  &:hover{
+    color:$active; 
+    transition: 0.15s;
+
+  }
+}
+.dropdownpanel {
+  background-color: $bg-lighter;
+  border-radius: 0.3rem;
+  color: $fg;
+  margin-bottom: -3px;
+}
+.dropdownpaneldropdown{
+  background-color: $bg-light;
+  border-radius: 0 0 0.6rem 0.6rem; 
+  color: $fg;
+}
+
+.battery {
+}
+
+.battery.low {
+  color: $active;
+}
+
+.battery.verylow {
+  animation: blink 1.5s infinite;
+}
+.title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.controlcenter {
+
+  margin-top: 0.2rem;
+  margin-left: 1rem;
+  background-color: $bg;
+  color: $fg;
+  border-radius: 1rem;
+  padding: 1.5rem;
+
+  font-family: 'Fira Code';
+  font-size: 15px;
+}
+
+.sidebar {
+}
+
+.sidebarentry {
+  background-color: $bg-light;
+  color: $fg;
+  border-radius:0rem;
+}
+
+/* Round the top corners of the first button */
+.sidebarentry.first-child {
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
+}
+
+/* Round the bottom corners of the last button */
+.sidebarentry.last-child {
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+}
+.sidebarentry.active {
+  background-color: $active;
+}
+
+
+.launcherwindow {
+ 
+}
+
+.launcher {
+  margin-top: 13rem;
+  font-family: 'Fira Code';
+  padding: 1rem;
+  background-color: $bg;
+  border-radius: 0.6rem;
+}
+
+.launcherinput {
+  border: none;
+  color: $fg;
+  background-color: $bg-light;    
+  box-shadow: none;
+  outline: none;
+  min-width: 270px;
+  margin: 1rem;
+}
+
+.launcherapp{
+  min-width: 300px;
+  font-size: 16px;
+  background-color: $bg-light;
+  color: $fg;
+  padding: 1rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  margin-top: 0.5rem;
+  border-radius: 0.6rem;
+  &:focus {
+
+      outline: none;
+      background-color: $active;
+      color: $bg;
+      font-size: 17px;
+    }
+}
+

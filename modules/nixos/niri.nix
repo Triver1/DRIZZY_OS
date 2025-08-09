@@ -20,7 +20,30 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
 
+
 home-manager.sharedModules = [{ 
+  services = {
+    swayidle = {
+      enable = true;
+      package = pkgs.swayidle;
+      timeouts = [
+        {
+          timeout = 195;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
+        }
+        {
+          timeout = 205;
+          command = "${pkgs.hyprlock}/bin/hyprlock";
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "hyprlock";
+        }
+      ];
+    };
+  };      
   programs.kitty = {
       settings = {
         hide_window_decorations = "yes";
@@ -88,13 +111,14 @@ home-manager.sharedModules = [{
           skip-at-startup
       }
 
+      // Keybinds
       binds {
           // Programs
           Mod+Return { spawn "kitty"; }
           Mod+B { spawn "firefox";}
           Mod+E { spawn "kitty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
-          Mod+C { spawn "cursor"; }
+          Mod+C { center-column; }
 
 
           // System  

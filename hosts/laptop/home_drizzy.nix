@@ -13,6 +13,7 @@ in
   nixpkgs.config.allowUnfree = true;
               nixpkgs.config.permittedInsecurePackages = [
                 "ventoy-1.1.05"
+                "libxml2-2.13.8"
               ];
               
   home.stateVersion = "25.11"; # Please read the comment before changing.
@@ -32,6 +33,7 @@ in
     (folders.hm + "/music.nix")
     (folders.hm + "/yazi.nix")
     (folders.hm + "/utilities.nix")
+    inputs.textfox.homeManagerModules.default
   ];
 
 
@@ -68,6 +70,7 @@ in
     pkgs.heroic
     pkgs.discord
     pkgs.flutter
+    pkgs.citrix_workspace
   ];
 
   programs.git = {
@@ -76,8 +79,30 @@ in
     userEmail = "tristan.verbeken@ugent.be";
 
   };
-  
 
+
+    stylix.targets.firefox.enable = true;
+
+  textfox = {
+      enable = true;
+      profile = "triverprofile";
+      config = {
+        displayHorizontalTabs = true;
+        displayWindowControls = true;
+        displayNavButtons = true;
+        displayUrlbarIcons = true;
+        displaySidebarTools = false;
+        displayTitles = true;
+        font = { 
+          family = "Fira Code";
+          size = "15px";
+          accent = "#31748f";
+        };
+        border = {
+          color = "#6e6a86";
+        };
+      };
+  };
 
   
   # Let Home Manager install and manage itself.

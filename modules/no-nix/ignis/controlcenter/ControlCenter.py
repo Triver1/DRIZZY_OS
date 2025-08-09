@@ -7,6 +7,8 @@ from ignis.services.backlight import BacklightService
 from ignis.services.bluetooth import BluetoothService
 from ignis.services.audio import AudioService
 
+from theme_manager import ThemeManager
+
 audio = AudioService.get_default()
 network = NetworkService.get_default()
 backlight = BacklightService.get_default()
@@ -111,6 +113,7 @@ class WifiModule(widgets.Box):
         )
 
     def get_wifi_list(self, aps):
+        aps = list({ap.ssid: ap for ap in aps if ap.ssid}.values())
         return [self.create_ap_widget(ap) for ap in aps]
 
 
@@ -325,6 +328,59 @@ class WallpaperMenu(widgets.Box):
 
 
 
+class ThemingMenu(widgets.Box):
+    def __init__(self):
+        # Available color schemes and themes
+        self.color_schemes = {
+            "Rose Pine": "rose_pine",
+            "Catppuccin Mocha": "catppuccin_mocha",
+            "Gruvbox Dark": "gruvbox_dark",
+            "Nord": "nord"
+        }
+
+        self.theme_manager = ThemeManager() 
+
+        self.selected_scheme_key = None
+        self.selected_theme = None
+
+        scheme_buttons = [
+            (key, lambda _, key=key: self.set_scheme(key)) 
+                for (key,name) in self.theme_manager.get_color_options()
+        ]
+        print(scheme_buttons)
+
+        theme_buttons = [
+            (theme, lambda _, t=theme: self.set_theme(t))
+            for theme in self.theme_manager.get_themes()
+        ]
+
+        # Display labels showing current selections
+        self.theme_label = widgets.Label(label=f"None")
+        self.scheme_label = widgets.Label(label=f"None")
+
+        scheme_dropdown = DropDownPanel("Select Color Scheme", scheme_buttons, vertical=True)
+        theme_dropdown = DropDownPanel("Select Theme", theme_buttons,vertical=True)
+
+        super().__init__(
+            vertical=True,
+            spacing=10,
+            child=[
+                scheme_dropdown,
+                self.scheme_label,
+                theme_dropdown,
+                self.theme_label,
+            ]
+        )
+
+    def set_scheme(self, scheme_key):
+        self.selected_scheme_key = scheme_key
+        self.scheme_label.label = f"Selected Scheme: {scheme_key}"
+        self.theme_manager.update_colors(scheme_key)
+
+    def set_theme(self, theme):
+        self.selected_theme = theme
+        self.theme_label.label = f"Selected Theme: {theme}"
+        self.theme_manager.update_theme(theme)
 
 
         
@@ -418,6 +474,7 @@ class ControlCenter(widgets.RevealerWindow):
                     ("Bluetooth",  BluetoothModule()),
                     ("Wallpaper",WallpaperMenu()),
                     ("Powermenu", PowerMenu()),
+                    ("Theme", ThemingMenu())
                     # ("AI", widgets.Label(label="TEST2")),
                     # ("EnvKeys", widgets.Label(label="ENVKEYS")),
                 ]),

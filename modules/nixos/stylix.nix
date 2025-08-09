@@ -219,7 +219,6 @@ in
       desktop = 1.0;
       popups = 0.95;
     };
-    
 
   };
 }

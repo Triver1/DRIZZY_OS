@@ -21,6 +21,7 @@ in
       (folders.m + "/bootloader.nix")
       (folders.m + "/battery.nix")
       (folders.m + "/fonts.nix")
+      (folders.m + "/nix-ld.nix")
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
@@ -48,7 +49,7 @@ in
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
-  # services.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
