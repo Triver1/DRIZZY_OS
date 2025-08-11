@@ -33,6 +33,7 @@ in
     (folders.hm + "/music.nix")
     (folders.hm + "/yazi.nix")
     (folders.hm + "/utilities.nix")
+    (folders.hm + "/maoamaowm.nix")
     inputs.textfox.homeManagerModules.default
   ];
 
@@ -79,30 +80,40 @@ in
     userEmail = "tristan.verbeken@ugent.be";
 
   };
-
+  # programs.firefox = {
+  #     enable = true;
+  #     profiles = {
+  #       triverprofile = {
+  #         isDefault = true;
+  #         # settings = {
+  #         #   "browser.startup.homepage" = "https://nixos.org";
+  #         # };
+  #       };
+  #     };
+  #   };
 
     stylix.targets.firefox.enable = true;
 
-  textfox = {
-      enable = true;
-      profile = "triverprofile";
-      config = {
-        displayHorizontalTabs = true;
-        displayWindowControls = true;
-        displayNavButtons = true;
-        displayUrlbarIcons = true;
-        displaySidebarTools = false;
-        displayTitles = true;
-        font = { 
-          family = "Fira Code";
-          size = "15px";
-          accent = "#31748f";
-        };
-        border = {
-          color = "#6e6a86";
-        };
-      };
-  };
+  # textfox = {
+  #     enable = true;
+  #     profile = "triverprofile";
+  #     config = {
+  #       displayHorizontalTabs = true;
+  #       displayWindowControls = true;
+  #       displayNavButtons = true;
+  #       displayUrlbarIcons = true;
+  #       displaySidebarTools = false;
+  #       displayTitles = true;
+  #       font = { 
+  #         family = "Fira Code";
+  #         size = "15px";
+  #         accent = "#31748f";
+  #       };
+  #       border = {
+  #         color = "#6e6a86";
+  #       };
+  #     };
+  # };
 
   
   # Let Home Manager install and manage itself.

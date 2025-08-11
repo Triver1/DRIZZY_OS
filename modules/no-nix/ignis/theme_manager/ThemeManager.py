@@ -5,10 +5,11 @@ from ignis.css_manager import CssManager, CssInfoPath
 from ignis import utils
 
 css_manager = CssManager.get_default()
+base_folder = "/home/drizzy/NEWFLAKE/modules/no-nix/ignis"
 
 
 class ThemeManager:
-    def __init__(self, config_location="./settings.json"):
+    def __init__(self, config_location=base_folder + "/settings.json"):
         self.config_location = config_location
         self.configuration = self.load_configuration()
 
@@ -53,7 +54,7 @@ class ThemeManager:
                 temp_file.flush()  # Ensure data is on disk before compiling
                 return utils.sass_compile(path=temp_file.name)
 
-        theme_path = os.path.join(f"themes/{theme_name}.scss")
+        theme_path = os.path.join(f"{base_folder}/themes/{theme_name}.scss")
 
         css_manager.apply_css(
             CssInfoPath(

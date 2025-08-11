@@ -30,6 +30,7 @@
           # Mismatched system dependencies will lead to crashes and other issues.
           inputs.nixpkgs.follows = "nixpkgs";
         };
+  mango.url = "github:DreamMaoMao/mango";
     ignis = {
       url = "github:ignis-sh/ignis";
       inputs.nixpkgs.follows = "nixpkgs";
