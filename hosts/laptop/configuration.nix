@@ -22,6 +22,7 @@ in
       (folders.m + "/battery.nix")
       (folders.m + "/fonts.nix")
       (folders.m + "/nix-ld.nix")
+    (folders.m + "/maomaowm.nix")
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features

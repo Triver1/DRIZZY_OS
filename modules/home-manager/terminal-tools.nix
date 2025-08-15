@@ -6,6 +6,7 @@
     neovim
     stdenv.cc
     gemini-cli
+    starship
   ];
   
   # Link your neovim config from outside the nix store
@@ -36,13 +37,47 @@
       set -g @tmux_power_theme 'gold'
     '';
   };
+programs.starship = {
+  enable = true;
+  settings = {
+    format = "╭─(bold blue) $directory \n╰─(bold blue)$character";
+    
+    directory = {
+      format = "[$path]($style)";
+      style = "bold blue";
+      truncation_length = 0;
+      truncate_to_repo = false;
+    };
+    
+    character = {
+      success_symbol = "[❯](bold blue)";
+      error_symbol = "[❯](bold red)";
+      vimcmd_symbol = "[❮](bold blue)";
+    };
+    
+    # Disable unwanted modules
+    username.disabled = true;
+    hostname.disabled = true;
+    git_branch.disabled = true;
+    git_status.disabled = true;
+    cmd_duration.disabled = true;
+    package.disabled = true;
+    python.disabled = true;
+    nodejs.disabled = true;
+    rust.disabled = true;
+    java.disabled = true;
+    golang.disabled = true;
+    docker_context.disabled = true;
+    kubernetes.disabled = true;
+  };
+};
 
   programs.zsh = {
    enable = true;  # Enable ZSH theming integration with Stylix
-   oh-my-zsh = {
-     enable = true;
-     theme = "cypher";
-   };
+   # oh-my-zsh = {
+   #   enable = true;
+   #   theme = "cypher";
+   # };
   };
 
 } 
