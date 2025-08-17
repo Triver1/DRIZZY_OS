@@ -1,9 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
-  home.packages = with pkgs; [
+  options.triverhome.yazi.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable Yazi file manager and custom keymaps.";
+  };
+
+  home.packages = with pkgs; lib.optionals (config.triverhome.yazi.enable or true) [
     ripdrag
   ];
-  programs.yazi = {
+  programs.yazi = lib.mkIf (config.triverhome.yazi.enable or true) {
     enable = true;
     keymap = {
       manager.prepend_keymap = [
