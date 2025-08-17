@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
-
+in
 {
    imports = [
-    (folders.hm + "/shells/quickshell.nix")
-    (folders.hm + "/shells/ignis.nix")
-    (folders.hm + "/wallpapers.nix")
-    (folders.hm + "/terminal-tools.nix")
-    (folders.hm + "/music.nix")
-    (folders.hm + "/yazi.nix")
-    (folders.hm + "/utilities.nix")
-    inputs.textfox.homeManagerModules.default
+    ("./shells/quickshell.nix")
+    ("./shells/ignis.nix")
+    ("./gaming.nix")
+    ("./wallpapers.nix")
+    ("./terminal-tools.nix")
+    ("./music.nix")
+    ("./yazi.nix")
+    ("./utilities.nix")
   ];
 
     /*
@@ -33,9 +33,6 @@
         - Clipboard
         - Notifications
         - ...
-    
-    
-
     */
    
 

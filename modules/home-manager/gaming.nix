@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
-
 with lib;
-
 let cfg = config.games.launchers;
+
 in {
   options.games.launchers = {
     enable = mkEnableOption "Enable launcher module";
@@ -17,5 +16,6 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ prismlauncher ];
   };
+
 }
 
