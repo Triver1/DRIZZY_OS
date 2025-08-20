@@ -13,14 +13,15 @@ in
   };
 
   imports = [
-    ("./shells/quickshell.nix")
-    ("./shells/ignis.nix")
-    ("./gaming.nix")
-    ("./wallpapers.nix")
-    ("./terminal-tools.nix")
-    ("./music.nix")
-    ("./yazi.nix")
-    ("./utilities.nix")
+    ./shells/quickshell.nix
+    ./shells/ignis.nix
+    ./gaming.nix
+    ./gamedev.nix
+    ./wallpapers.nix
+    ./terminal-tools.nix
+    ./music.nix
+    ./yazi.nix
+    ./utilities.nix
   ];
 
   config.triverhome = {

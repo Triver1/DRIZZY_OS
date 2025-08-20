@@ -6,10 +6,11 @@
     description = "Enable Yazi file manager and custom keymaps.";
   };
 
-  home.packages = with pkgs; lib.optionals (config.triverhome.yazi.enable or true) [
+  config = {
+    home.packages = with pkgs; lib.optionals (config.triverhome.yazi.enable or true) [
     ripdrag
   ];
-  programs.yazi = lib.mkIf (config.triverhome.yazi.enable or true) {
+    programs.yazi = lib.mkIf (config.triverhome.yazi.enable or true) {
     enable = true;
     keymap = {
       manager.prepend_keymap = [
@@ -24,6 +25,7 @@
           desc = "Drag files in/out";
         }
       ];
+      };
     };
   };
 }

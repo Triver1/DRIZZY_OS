@@ -21,9 +21,10 @@ in
       (folders.m + "/bootloader.nix")
       (folders.m + "/battery.nix")
       (folders.m + "/fonts.nix")
-      (folders.m + "/nix-ld.nix")
-    (folders.m + "/maomaowm.nix")
-      inputs.home-manager.nixosModules.default
+             (folders.m + "/nix-ld.nix")
+       (folders.m + "/maomaowm.nix")
+       (folders.m + "/gamescope.nix")
+       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
   

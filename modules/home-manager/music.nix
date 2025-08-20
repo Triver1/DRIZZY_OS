@@ -11,7 +11,9 @@ in
 
   imports = [ inputs.spicetify-nix.homeManagerModules.spicetify ];
 
-  programs.spicetify = lib.mkIf (config.triverhome.music.enable or true) {
-    enable = true;
+  config = {
+    programs.spicetify = lib.mkIf (config.triverhome.music.enable or true) {
+      enable = true;
+    };
   };
 }

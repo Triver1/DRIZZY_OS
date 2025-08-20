@@ -5,13 +5,13 @@
     description = "Enable Ignis shell environment.";
   };
 
-  home.packages = lib.mkIf (config.triverhome.shells.ignis.enable or true) [
+  config = {
+    home.packages = lib.mkIf (config.triverhome.shells.ignis.enable or true) [
     (inputs.ignis.packages.${pkgs.stdenv.hostPlatform.system}.ignis.override {
       extraPackages = [
-        # Add extra dependencies here
-        # For example:
         pkgs.python313Packages.rapidfuzz
       ];
     })
   ];
+  };
 }

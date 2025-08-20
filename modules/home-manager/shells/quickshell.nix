@@ -7,10 +7,12 @@
     description = "Enable Quickshell environment and dependencies.";
   };
 
-  home.packages = lib.mkIf (config.triverhome.shells.quickshell.enable or true) (with pkgs; [
+  config = {
+    home.packages = lib.mkIf (config.triverhome.shells.quickshell.enable or true) (with pkgs; [
     inputs.quickshell.packages.${pkgs.system}.default
     kdePackages.qt5compat
     libsForQt5.qt5.qtgraphicaleffects
     qt5.qtsvg
-  ]);
+    ]);
+  };
 }

@@ -24,18 +24,19 @@ in
     description = "Enable Kitty terminal and Stylix theming.";
   };
 
+  config = {
   # Neovim configuration
   home.packages = with pkgs; [
     stdenv.cc
     gemini-cli
     starship
-  ] ++ lib.optionals nvimEnable [ neovim ];
+    ] ++ lib.optionals nvimEnable [ neovim ];
   
   # Link your neovim config from outside the nix store
   # Points to your config in the workspace relative to home directory
-  xdg.configFile = lib.mkIf nvimEnable {
-    nvim.source = config.lib.file.mkOutOfStoreSymlink ../no-nix/nvim;
-  };
+    xdg.configFile = lib.mkIf nvimEnable {
+      nvim.source = config.lib.file.mkOutOfStoreSymlink ../no-nix/nvim;
+    };
 
   # Tmux configuration
   programs.tmux = {
@@ -61,7 +62,8 @@ in
       set -g @tmux_power_theme 'gold'
     '';
   };
-  programs.starship = {
+
+programs.starship = {
   enable = true;
   settings = {
     format = "╭─(bold blue) $directory \n╰─(bold blue)$character";
@@ -104,7 +106,7 @@ in
    # };
   };
 
-  programs.ghostty.enable = lib.mkIf (config.triverhome.terminals.ghostty.enable or true) true;
-  programs.kitty.enable = lib.mkIf (config.triverhome.terminals.kitty.enable or true) true;
-
+    programs.ghostty.enable = lib.mkIf (config.triverhome.terminals.ghostty.enable or true) true;
+    programs.kitty.enable = lib.mkIf (config.triverhome.terminals.kitty.enable or true) true;
+  };
 } 

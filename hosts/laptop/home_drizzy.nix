@@ -30,6 +30,16 @@
     sessions = [];
   };
 
+  games = {
+    launchers.enable = true;
+    launchers.minecraft = false;
+    gamesession.enable = true;
+    dev = {
+      unity.enable = true;
+      godot.enable = true;
+    };
+  };
+
   # Packages without additional preconfigured modules (left minimal here; handled by triver_home modules)
   # Add items that were explicitly present before and not handled by modules
   home.packages =[
