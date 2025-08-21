@@ -6,15 +6,16 @@
               nixpkgs.config.permittedInsecurePackages = [
                 "ventoy-1.1.05"
                 "libxml2-2.13.8"
+                "libsoup-2.74.3"
               ];
               
   home.stateVersion = "25.11"; 
 
   imports = [
     ../../modules/home-manager/triver_home.nix
-    inputs.mango.hmModules.mango
+    inputs.zen-browser.homeModules.beta
   ];
-
+  programs.zen-browser.enable = true;
   triverhome = {
     nvim.enable = true;
     wallpapers.enable = true;

@@ -8,7 +8,7 @@
     dejavu_fonts
     corefonts
     javaPackages.openjfx21
-    gtk3
+    # gtk3
     glib
 
  #X11 dependencies (for GUI apps)

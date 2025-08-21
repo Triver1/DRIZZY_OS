@@ -17,8 +17,8 @@ in
   };
 
   config = {
-    home.packages = (with pkgs; [])
-      ++ lib.optionals cfg.unity.enable [ unityhub ]
-      ++ lib.optionals cfg.godot.enable [ (godot_4 or godot) ];
+    home.packages =
+      (lib.optionals cfg.unity.enable [ pkgs.unityhub ])
+      ++ (lib.optionals cfg.godot.enable [ (pkgs.godot_4 or pkgs.godot) ]);
   };
 } 

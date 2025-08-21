@@ -30,16 +30,18 @@
           # Mismatched system dependencies will lead to crashes and other issues.
           inputs.nixpkgs.follows = "nixpkgs";
         };
-  mango.url = "github:DreamMaoMao/mango";
-    ignis = {
-      url = "github:ignis-sh/ignis";
-      inputs.nixpkgs.follows = "nixpkgs";
-      };
-    textfox = {
-      url = "github:adriankarlen/textfox";
-      inputs.nixpkgs.follows = "nixpkgs";
+  ignis = {
+    url = "github:ignis-sh/ignis";
+    inputs.nixpkgs.follows = "nixpkgs";
     };
+  zen-browser = {
+    url = "github:0xc000022070/zen-browser-flake";
+    # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+    # to have it up-to-date or simply don't specify the nixpkgs input
+    inputs.nixpkgs.follows = "nixpkgs";
   };
+  };
+
 
   outputs = { self, nixpkgs, home-manager,... }@inputs: {
     # use "nixos", or your hostname as the name of the configuration

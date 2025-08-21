@@ -1,30 +1,30 @@
-{ pkgs, options, ...}: {
-environment.systemPackages = with pkgs; [
-    google-chrome
-    pulseaudio
-    git
-    kitty
-    vim
-    ripgrep
-    alacritty
-    lazygit
-    python314
-    conda
-    wget
-    wl-clipboard
-    yazi
-    nautilus
-    onlyoffice-desktopeditors
-    htop
-    unzip
-    xdg-utils
-    fd
-    vscode-fhs
-    libsecret
-    gst_all_1.gstreamer
-    gearlever # Allows for running appimages (NOT RECOMMENDED)
-    libnotify
-    vlc
+{ pkgs, inputs, options, ...}: {
+environment.systemPackages =  [
+    pkgs.google-chrome
+    pkgs.pulseaudio
+    pkgs.git
+    pkgs.kitty
+    pkgs.vim
+    pkgs.ripgrep
+    pkgs.alacritty
+    pkgs.lazygit
+    pkgs.python314
+    pkgs.conda
+    pkgs.wget
+    pkgs.wl-clipboard
+    pkgs.yazi
+    pkgs.nautilus
+    pkgs.onlyoffice-desktopeditors
+    pkgs.htop
+    pkgs.unzip
+    pkgs.xdg-utils
+    pkgs.fd
+    pkgs.vscode-fhs
+    pkgs.libsecret
+    pkgs.gst_all_1.gstreamer
+    pkgs.gearlever # Allows for running appimages (NOT RECOMMENDED)
+    pkgs.libnotify
+    pkgs.vlc
   ];
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;

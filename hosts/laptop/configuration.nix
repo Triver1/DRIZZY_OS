@@ -21,13 +21,15 @@ in
       (folders.m + "/bootloader.nix")
       (folders.m + "/battery.nix")
       (folders.m + "/fonts.nix")
-             (folders.m + "/nix-ld.nix")
-       (folders.m + "/maomaowm.nix")
+      (folders.m + "/nix-ld.nix")
+       # (folders.m + "/maomaowm.nix")
        (folders.m + "/gamescope.nix")
        inputs.home-manager.nixosModules.default
     ];
   # Experimental features
-  
+  nix.settings.substituters = [ 
+  "https://hydra.nixos.org" "https://cache.nixos.org/" "https://nix-community.cachix.org" "https://nixpkgs-unfree.cachix.org"];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
   services.envfs.enable = true;
