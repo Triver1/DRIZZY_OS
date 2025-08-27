@@ -96,8 +96,7 @@ button{
   color: $fg;
 }
 
-.battery {
-}
+/* removed empty .battery block */
 
 .battery.low {
   color: $active;
@@ -124,8 +123,7 @@ button{
   font-size: 15px;
 }
 
-.sidebar {
-}
+/* removed empty .sidebar block */
 
 .sidebarentry {
   background-color: $bg-light;
@@ -149,9 +147,7 @@ button{
 }
 
 
-.launcherwindow {
- 
-}
+/* removed empty .launcherwindow block */
 
 .launcher {
   margin-top: 13rem;
@@ -188,5 +184,37 @@ button{
       color: $bg;
       font-size: 17px;
     }
+}
+
+/* Simple AI chat layout and bubbles */
+.ai-chat {
+  font-size: 13px;
+}
+
+/* Wide scroll area, narrow inner content */
+.ai-scroll {
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.ai-messages {
+  width: 560px;
+  margin: 0 auto;
+}
+
+.chat-bubble {
+  background-color: $bg-light;
+  color: $fg;
+  border-radius: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  margin: 0.25rem 0.35rem;
+}
+
+.chat-bubble.role-user {
+  background-color: mix($bg-light, $active, 85%);
+}
+
+.chat-bubble.role-assistant {
+  background-color: $bg-light;
 }
 

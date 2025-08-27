@@ -3,7 +3,7 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # astal = {
     #   url = "github:aylur/astal";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +32,6 @@
         };
   ignis = {
     url = "github:ignis-sh/ignis";
-    inputs.nixpkgs.follows = "nixpkgs";
     };
   zen-browser = {
     url = "github:0xc000022070/zen-browser-flake";

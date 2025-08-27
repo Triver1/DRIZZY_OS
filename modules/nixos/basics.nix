@@ -1,6 +1,6 @@
 { pkgs, inputs, options, ...}: {
 environment.systemPackages =  [
-    pkgs.google-chrome
+    # pkgs.google-chrome
     pkgs.pulseaudio
     pkgs.git
     pkgs.kitty
@@ -26,6 +26,7 @@ environment.systemPackages =  [
     pkgs.libnotify
     pkgs.vlc
   ];
+networking.networkmanager.enable = true;
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;
   xdg.mime.defaultApplications = {

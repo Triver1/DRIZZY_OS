@@ -6,11 +6,14 @@ import datetime
 # from ignis.services.audio import AudioService
 from ignis.services.system_tray import SystemTrayService, SystemTrayItem
 from ignis.services.niri import NiriService, NiriWorkspace
-# from ignis.services.notifications import NotificationService
+from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
 from ignis.services.upower import UPowerService
 from ignis.services.network import NetworkService
 from controlcenter import ControlCenter
+from notifications import NotificationsCenter
+from media import PlayerPopup
+from sharedwidgets.StatusBox import public_status_box, set_open_menu_callback
 
 
 
@@ -19,12 +22,15 @@ from controlcenter import ControlCenter
 network = NetworkService.get_default()
 system_tray = SystemTrayService.get_default()
 niri = NiriService.get_default()
-# notifications = NotificationService.get_default()
+notifications = NotificationService.get_default()
 mpris = MprisService.get_default()
 
 upower_battery = UPowerService.get_default().batteries[0]
 
 controlcenter = ControlCenter()
+notifications_center = NotificationsCenter()
+player_popup = PlayerPopup()
+set_open_menu_callback(lambda name: controlcenter.OpenMenu(name))
 
 # Modules:
 # Clock, Battery, Time, Launcher 
@@ -95,11 +101,21 @@ class ClockCalendar(Panel):
         )
 
 
+class Notifications(IconPanel):
+    def __init__(self):
+        super().__init__(
+            pixel_size=17,
+            icon_name="preferences-system-notifications-symbolic",  # or "bell-symbolic"
+            css_classes=["notifications"],
+            text=None,  # you could add count of unread notifications
+            on_click=lambda x: notifications_center.toggle_reveal()
+        )
 
 class Media(Panel):
     def __init__(self):
         super().__init__(
             css_classes=["media"],
+            on_click=lambda x: player_popup.toggle_reveal(),
             child=widgets.Box(
                 spacing=10,
                 child=[
@@ -196,7 +212,8 @@ class Network(Panel):
             self.wifi_device = network.wifi.devices[0]
             
             super().__init__(
-                child=self.wifi_device.bind("ap", transform=lambda ap: self.create_wifi_widget(ap))
+                child=self.wifi_device.bind("ap", transform=lambda ap: self.create_wifi_widget(ap)),
+                on_click=lambda x: controlcenter.OpenMenu("Network")
             )
         else:
             super().__init__(
@@ -206,7 +223,8 @@ class Network(Panel):
                         widgets.Icon(image="network-wired"),
                         widgets.Label(label="Ethernet")
                     ]
-                )
+                ),
+                on_click=lambda x: controlcenter.OpenMenu("Network")
             )
     
     def create_wifi_widget(self, ap):
@@ -233,6 +251,9 @@ class NiriWorkspaces(widgets.Box):
         self.monitor_name = monitor_name
     
     def _create_workspace_buttons(self, workspaces):
+        # Hide the trailing empty workspace unless it is currently active
+        if workspaces and not workspaces[-1].is_active:
+            workspaces = workspaces[:-1]
         return [self._create_button(workspace) for workspace in workspaces]
     
     def _create_button(self, workspace):
@@ -293,15 +314,18 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
             child=[
                 # widgets.Label(label="GLITTERHONINGKOEKJE😻"),
                 Media(),
+                # Public status box for timers and mini indicators
+                public_status_box,
                 ClockCalendar(),
             ]
         )
         
         right_box = widgets.Box(
-            spacing=10,
+            spacing=5,
             child=[
                 Systray(),
                 Battery(),
+                Notifications()
             ]
         )
         

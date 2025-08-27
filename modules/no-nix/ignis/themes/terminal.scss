@@ -1,10 +1,10 @@
-$bg: #1e1e2e;        /* Catppuccin mocha base */
-$bg-light: #313244;  /* Surface0 */
-$bg-lighter: #45475a; /* Surface1 */
-$fg-muted: #6c7086;   /* Overlay0 */
-$fg: #cdd6f4;         /* Text */
-$active: #89b4fa;     /* Blue */
-$unactive: #585b70;   /* Surface2 */
+$bg: $bg;
+$bg-light: $bg-light;
+$bg-lighter: $bg-lighter;
+$fg-muted: $fg-muted;
+$fg: $fg;
+$active: $active;
+$unactive: $unactive;
 
 .bar {
   font-family: 'JetBrains Mono NL', 'Cascadia Code', monospace;
@@ -128,12 +128,12 @@ button{
 }
 
 .battery.low {
-  color: #fab387; /* Peach */
+  color: $active;
 }
 
 .battery.verylow {
   animation: blink 0.8s infinite;
-  color: #f38ba8; /* Pink */
+  color: $active;
 }
 
 .title {

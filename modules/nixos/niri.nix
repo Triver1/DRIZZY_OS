@@ -115,7 +115,7 @@ home-manager.sharedModules = [{
       binds {
           // Programs
           Mod+Return { spawn "kitty"; }
-          Mod+B { spawn "firefox";}
+          Mod+B { spawn "zen";}
           Mod+E { spawn "kitty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
           Mod+C { center-column; }

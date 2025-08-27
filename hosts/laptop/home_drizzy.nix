@@ -70,6 +70,7 @@
     pkgs.heroic
     pkgs.discord
     pkgs.flutter
+    pkgs.anki
   ];
 
   programs.git = {

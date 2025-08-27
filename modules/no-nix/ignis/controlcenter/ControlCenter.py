@@ -3,13 +3,18 @@ import subprocess
 from ignis import widgets
 from ignis.services.network import NetworkService
 import asyncio
+import time
+from ignis import utils
+from ignis.services.fetch import FetchService
 from ignis.services.backlight import BacklightService
 from ignis.services.bluetooth import BluetoothService
-from ignis.services.audio import AudioService
+# from ignis.services.audio import AudioService
 
 from theme_manager import ThemeManager
+from sharedwidgets import PopupWindow
+from sharedwidgets.StatusBox import public_status_box, open_menu
 
-audio = AudioService.get_default()
+# audio = AudioService.get_default()
 network = NetworkService.get_default()
 backlight = BacklightService.get_default()
 bluetooth = BluetoothService().get_default()
@@ -425,6 +430,10 @@ class SidebarMenu(widgets.Box):
         self.buttons[self.menu_names.index(name)].add_css_class("active")
         self.stack.set_visible_child_name(name)
 
+    def show(self, name: str):
+        if name in self.menu_names:
+            self.switch(name)
+
 class PowerMenu(DropDownPanel):
     def __init__(self):
         menu = widgets.Box(vertical=True, child=[
@@ -454,8 +463,210 @@ class PowerMenu(DropDownPanel):
 
 
 
-class ControlCenter(widgets.RevealerWindow):
+class SystemMenu(widgets.Box):
     def __init__(self):
+        self.fetch = FetchService.get_default()
+
+        super().__init__(
+            vertical=True,
+            spacing=12,
+            child=[
+                widgets.Label(label="System"),
+                self._kv_row(
+                    icon_name="computer-symbolic",
+                    key_text="CPU",
+                    value_widget=widgets.Label(label=self.fetch.bind("cpu")),
+                ),
+                self._kv_row(
+                    icon_name="temperature-symbolic",
+                    key_text="Temp",
+                    value_widget=widgets.Label(label=self.fetch.bind("cpu_temp", transform=lambda t: f"{t:.0f}°C" if t else "—")),
+                ),
+                self._kv_row(
+                    icon_name="alarm-symbolic",
+                    key_text="Uptime",
+                    value_widget=widgets.Label(label=utils.Poll(1_000, lambda _: self._format_uptime(self.fetch.uptime)).bind("output")),
+                ),
+                self._kv_row(
+                    icon_name="drive-harddisk-symbolic",
+                    key_text="Memory",
+                    value_widget=widgets.Label(label=utils.Poll(1_000, lambda _: self._format_mem_line_from_service()).bind("output")),
+                ),
+                widgets.Separator(),
+                PowerMenu(),
+            ]
+        )
+
+    def _format_gib(self, megabytes: int) -> str:
+        try:
+            gib = float(megabytes) / 1024.0
+            return f"{gib:.1f} GiB"
+        except Exception:
+            return "N/A"
+
+    def _format_uptime(self, uptime_tuple) -> str:
+        try:
+            days, hours, minutes, seconds = uptime_tuple
+            parts = []
+            if days:
+                parts.append(f"{days}d")
+            parts.append(f"{hours}h")
+            parts.append(f"{minutes}m")
+            return " ".join(parts)
+        except Exception:
+            return "N/A"
+
+    def _kv_row(self, *, icon_name: str, key_text: str, value_widget):
+        return widgets.Box(
+            spacing=10,
+            child=[
+                widgets.Icon(image=icon_name, pixel_size=16),
+                widgets.Label(label=key_text, hexpand=True),
+                value_widget,
+            ]
+        )
+
+    def _format_mem_line_from_service(self) -> str:
+        try:
+            total = getattr(self.fetch, 'mem_total', 0) or 0
+            available = getattr(self.fetch, 'mem_available', 0) or 0
+            used = getattr(self.fetch, 'mem_used', None)
+            if used is None:
+                used = max(total - available, 0)
+            return f"{self._format_gib(used)} / {self._format_gib(total)} ({self._format_gib(available)} free)"
+        except Exception:
+            return "N/A"
+
+
+class PomodoroMenu(widgets.Box):
+    def __init__(self):
+        self.duration_minutes = 25
+        self.duration_seconds = self.duration_minutes * 60
+        self.started_at_s: float | None = None
+        self.running = False
+
+        # Poll calculates remaining from started_at and duration
+        def tick(_):
+            remaining = self._compute_remaining()
+            if hasattr(self, "status_label"):
+                self.status_label.label = self._format_time(remaining)
+            if self.running and remaining == 0:
+                self.running = False
+                self.started_at_s = None
+                self._remove_status_icon()
+            return self._format_time(remaining)
+
+        self.display = widgets.Label(label=utils.Poll(1_000, tick).bind("output"))
+
+        def start(_):
+            if not self.running:
+                self.running = True
+                self.started_at_s = time.monotonic()
+                self._ensure_status_icon()
+
+        def pause(_):
+            if self.running:
+                # freeze remaining by converting current remaining into new duration baseline
+                remaining = self._compute_remaining()
+                self.duration_seconds = remaining
+                self.started_at_s = None
+                self.running = False
+
+        def reset(_):
+            self.running = False
+            self.started_at_s = None
+            # reset to preset minutes
+            self.duration_seconds = self.duration_minutes * 60
+            if hasattr(self, "status_label"):
+                self.status_label.label = self._format_time(self.duration_seconds)
+            self._remove_status_icon()
+
+        def set_minutes(mins):
+            self.duration_minutes = mins
+            self.duration_seconds = mins * 60
+            if hasattr(self, "status_label"):
+                self.status_label.label = self._format_time(self.duration_seconds)
+
+        super().__init__(
+            vertical=True,
+            spacing=10,
+            child=[
+                widgets.Label(label="Pomodoro"),
+                self.display,
+                widgets.Box(spacing=10, child=[
+                    widgets.Button(label="Start", on_click=start),
+                    widgets.Button(label="Pause", on_click=pause),
+                    widgets.Button(label="Reset", on_click=reset),
+                ]),
+                widgets.Box(spacing=10, child=[
+                    widgets.Button(label="60m", on_click=lambda x: set_minutes(60)),
+                    widgets.Button(label="25m", on_click=lambda x: set_minutes(25)),
+                    widgets.Entry(placeholder_text="Custom minutes", on_accept=lambda entry: self._set_minutes_from_entry(entry.text)),
+                ])
+            ]
+        )
+
+    def _set_minutes_from_entry(self, text: str):
+        try:
+            mins = int(text)
+            if mins > 0:
+                self.duration_minutes = mins
+                self.duration_seconds = mins * 60
+        except Exception:
+            pass
+
+    def _format_time(self, seconds: int) -> str:
+        m = seconds // 60
+        s = seconds % 60
+        return f"{m:02d}:{s:02d}"
+
+    def _compute_remaining(self) -> int:
+        # If not running, remaining equals duration_seconds baseline
+        if not self.running:
+            return max(int(self.duration_seconds), 0)
+        try:
+            now = time.monotonic()
+            start = self.started_at_s or now
+            elapsed_s = now - start
+            remaining = int(self.duration_seconds - elapsed_s)
+            return max(remaining, 0)
+        except Exception:
+            return max(int(self.duration_seconds), 0)
+
+    def _ensure_status_icon(self):
+        if not hasattr(self, "status_widget"):
+            self.status_label = widgets.Label(label=self._format_time(self._compute_remaining()))
+            self.status_widget = widgets.Button(
+                css_classes=["panel"],
+                on_click=lambda x: open_menu("Utils"),
+                child=widgets.Box(spacing=5, child=[
+                    widgets.Icon(image="alarm-symbolic", pixel_size=16),
+                    self.status_label
+                ])
+            )
+            public_status_box.append(self.status_widget)
+
+    def _remove_status_icon(self):
+        if hasattr(self, "status_widget"):
+            self.status_widget.unparent()
+            del self.status_widget
+        if hasattr(self, "status_label"):
+            del self.status_label
+
+
+class ControlCenter(PopupWindow):
+    def __init__(self):
+
+        self.sidebar = None
+        menus = [
+            ("Network", WifiModule()), 
+            ("Bluetooth",  BluetoothModule()),
+            ("Wallpaper",WallpaperMenu()),
+            ("Theme", ThemingMenu()),
+            ("Utils", PomodoroMenu()),
+            ("System", SystemMenu()),
+        ]
+        self.sidebar = SidebarMenu(menus)
 
         contents = widgets.Box(
 
@@ -467,41 +678,25 @@ class ControlCenter(widgets.RevealerWindow):
                 widgets.Label(css_classes=["title"],label='Settings'),
                 ]),
                 Brightness(),
-                Volume(),
-                Microphone(),
-                SidebarMenu([
-                    ("Network", WifiModule()), 
-                    ("Bluetooth",  BluetoothModule()),
-                    ("Wallpaper",WallpaperMenu()),
-                    ("Powermenu", PowerMenu()),
-                    ("Theme", ThemingMenu())
-                    # ("AI", widgets.Label(label="TEST2")),
-                    # ("EnvKeys", widgets.Label(label="ENVKEYS")),
-                ]),
+                # Volume(),
+                # Microphone(),
+                self.sidebar,
         ])
 
-        revealer = widgets.Revealer(
-            child=contents,
-            transition_type='slide_down',
-            transition_duration=250,
-            reveal_child=True, # Whether child is revealed.
-)
         super().__init__(
-            css_classes=["controlcenter"],
+            child=widgets.Box(css_classes=["controlcenter"], child=[contents]),
             namespace="ControlCenter",
-            visible=False,  
             popup=True,
-            kb_mode="on_demand",
+            kb_mode="exclusive",
             layer="top",
             anchor=["top", "left"],
-            revealer=revealer,  # Added the revealer as child
-            child=widgets.Box(
-                child=[revealer])
+            background_color=None,
         )
-        self.revealer = revealer
 
-    def toggle_reveal(self):
-        self.visible = not self.visible
+    def OpenMenu(self, name: str):
+        self.visible = True
+        if self.sidebar:
+            self.sidebar.show(name)
 
 
 

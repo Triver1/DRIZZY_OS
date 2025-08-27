@@ -26,7 +26,42 @@ class ThemeManager:
             json.dump(self.configuration, file, indent=2)
 
     def _generate_sass_variables(self, variables: dict) -> str:
-        return "".join([f"${key}: {value};" for key, value in variables.items()])
+        lines = []
+        for key, value in variables.items():
+            lines.append(f"${key}: {value};")
+
+        has_named = all(k in variables for k in [
+            "bg", "bg-light", "bg-lighter", "fg-muted", "fg", "active", "unactive"
+        ])
+        has_legacy = all(f"color{i}" in variables for i in range(0, 16))
+
+        if has_named:
+            pass
+        elif has_legacy:
+            derived = {
+                "bg": "$color0",
+                "bg-light": "$color8",
+                "bg-lighter": "$color15",
+                "fg": "$color7",
+                "fg-muted": "$color14",
+                "active": "$color4",
+                "unactive": "$color8",
+                "accent": "$color1",
+                "shadow": "rgba(0,0,0,0.2)",
+            }
+            for key, value in derived.items():
+                if key not in variables:
+                    lines.append(f"${key}: {value};")
+        else:
+            print("Warning: No valid color variables found. Expect named palette keys or base16 colors.")
+
+        # Ensure optional variables exist
+        if "accent" not in variables:
+            lines.append("$accent: $active;")
+        if "shadow" not in variables:
+            lines.append("$shadow: rgba(0,0,0,0.2);")
+
+        return "".join(lines)
 
     def apply_styling(self):
         theme_name = self.configuration.get("selected_theme")
@@ -34,7 +69,7 @@ class ThemeManager:
             print("Error: 'selected_theme' not found in configuration.")
             return
 
-        color_option_name = self.configuration.get("selected_colors")
+        color_option_name = self.configuration.get("selected_colors") or self.configuration.get("selected_color_option")
         colors = self.configuration.get("color_options", {}).get(color_option_name)
 
         if not colors:
@@ -51,7 +86,7 @@ class ThemeManager:
 
             with tempfile.NamedTemporaryFile(mode='w', suffix='.scss', delete=True) as temp_file:
                 temp_file.write(full_scss)
-                temp_file.flush()  # Ensure data is on disk before compiling
+                temp_file.flush()
                 return utils.sass_compile(path=temp_file.name)
 
         theme_path = os.path.join(f"{base_folder}/themes/{theme_name}.scss")
@@ -78,6 +113,7 @@ class ThemeManager:
             print(f"Error: Color option '{color_option_name}' not found.")
             return
         self.configuration["selected_colors"] = color_option_name
+        self.configuration["selected_color_option"] = color_option_name
         self.save_configuration()
         self.apply_styling()
 

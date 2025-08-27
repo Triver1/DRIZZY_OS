@@ -1,0 +1,117 @@
+$bg: $bg;
+$bg-light: $bg-light;
+$bg-lighter: $bg-lighter;
+$fg-muted: $fg-muted;
+$fg: $fg;
+$active: $active; // Mario yellow
+$unactive: $unactive;
+$accent: $accent; // Mario red from settings
+$shadow: $shadow; // Shadow tone from settings
+
+// Beveled, rounded 3D effect that respects border-radius
+@mixin pressable($base-color) {
+  background-color: $base-color;
+  border: 1px solid darken($base-color, 10%);
+  // Outer ledge (follows border-radius), elevation, and subtle inner highlights
+  box-shadow:
+    0 2px 0 darken($base-color, 18%),
+    0 1px 0 $shadow,
+    inset 0 1px 0 lighten($base-color, 6%),
+    inset 0 -1px 0 darken($base-color, 6%);
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
+  &:hover {
+    transform: translateY(-1px); // slight lift on hover
+    box-shadow:
+      0 3px 0 darken($base-color, 18%),
+      0 4px 10px $shadow,
+      inset 0 1px 0 lighten($base-color, 6%),
+      inset 0 -1px 0 darken($base-color, 6%);
+  }
+  &:active {
+    transform: translateY(0); // press back down
+    box-shadow:
+      0 1px 0 darken($base-color, 18%),
+      0 1px 3px $shadow,
+      inset 0 1px 0 lighten($base-color, 6%),
+      inset 0 -1px 0 darken($base-color, 6%);
+  }
+}
+
+
+.bar {
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  background-color: $bg;
+  border-radius: 0.25rem;
+  margin: 2px 6px 0 6px;
+  padding: 3px 5px;
+  border: 1px solid darken($active, 15%);
+  border-bottom-width: 3px;
+  border-bottom-color: darken($active, 22%);
+  box-shadow: 0 2px 6px $shadow;
+}
+
+.workspace {
+  border-radius: 0.25rem;
+  transition: 0.12s ease;
+  border: 1px solid $bg-lighter;
+  background-color: $bg-light;
+  padding: 0.12rem 0.45rem;
+  font-size: 12px;
+}
+
+.workspace.active {
+  @include pressable($active);
+  color: $bg;
+  border-color: darken($active, 10%);
+}
+
+button{
+  @include pressable($active);
+  color: $bg;
+  border-radius: 0.25rem;
+  padding: 0.28rem 0.5rem;
+  font-size: 12px;
+}
+
+.panel {
+  @include pressable($bg-light);
+  color: $fg;
+  border-radius: 0.25rem;
+  padding: 0.12rem 0.45rem;
+  margin: 0.12rem;
+}
+
+@keyframes blink { 0%, 100% { color: $fg; } 50% { color: $active; } }
+
+.workspace_app_button{ background-color: transparent; color: $fg-muted; padding-top: 0rem; padding-bottom: 0rem; margin: 0rem; font-size: 11px; }
+
+.wordbutton{
+  @include pressable($bg-light);
+  color: $fg;
+  border-radius: 0.25rem;
+  padding: 0.22rem 0.45rem;
+  font-size: 12px;
+  &:hover{ background-color: lighten($bg-light, 1%); }
+}
+
+.dropdownpanel { background-color: $bg-light; border-radius: 0.3rem; color: $fg; margin-bottom: -3px; border: 1px solid $bg-lighter; border-bottom-width: 3px; border-bottom-color: darken($bg-lighter, 10%); box-shadow: 0 8px 18px $shadow; padding: 0.5rem 0.7rem; }
+
+.dropdownpaneldropdown{ background-color: $bg; border-radius: 0 0 0.3rem 0.3rem; color: $fg; border: 1px solid $bg-lighter; border-top: none; border-bottom-width: 3px; border-bottom-color: darken($bg-lighter, 10%); }
+
+.battery.low { color: $accent; }
+.battery.verylow { animation: blink 0.9s infinite; }
+
+.title { font-size: 12px; font-weight: 700; letter-spacing: 0.3px; }
+
+.controlcenter { margin-top: 0.3rem; margin-left: 0.7rem; background-color: $bg; color: $fg; border-radius: 0.3rem; padding: 0.7rem; border: 1px solid darken($active, 12%); border-bottom-width: 3px; border-bottom-color: darken($active, 22%); box-shadow: 0 8px 18px $shadow; }
+
+.sidebarentry { @include pressable($bg-light); color: $fg; border-radius: 0.25rem; margin-bottom: 3px; padding: 0.32rem 0.5rem; font-size: 12px; &:hover { background-color: lighten($bg-light, 1%); } }
+
+.sidebarentry.active { @include pressable($active); color: $bg; border-color: darken($active, 10%); }
+
+.launcher { margin-top: 7rem; font-family: 'Fira Code', monospace; padding: 0.7rem; background-color: $bg; border-radius: 0.3rem; border: 1px solid darken($active, 12%); border-bottom-width: 3px; border-bottom-color: darken($active, 22%); box-shadow: 0 8px 16px $shadow; }
+
+.launcherinput { border: 1px solid $bg-lighter; color: $fg; background-color: $bg-light; box-shadow: none; outline: none; min-width: 240px; margin: 0.5rem; padding: 0.45rem 0.6rem; border-radius: 0.25rem; font-size: 12px; }
+
+.launcherapp{ @include pressable($bg-light); color: $fg; min-width: 250px; font-size: 12px; padding: 0.45rem 0.6rem; margin-left: 0.12rem; margin-right: 0.12rem; margin-top: 0.3rem; border-radius: 0.25rem; &:focus { outline: none; background-color: $active; color: $bg; font-size: 13px; } } 

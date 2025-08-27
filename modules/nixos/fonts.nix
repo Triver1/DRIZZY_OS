@@ -12,5 +12,6 @@
     dina-font
     proggyfonts
     inconsolata
+    montserrat
   ];
 }
