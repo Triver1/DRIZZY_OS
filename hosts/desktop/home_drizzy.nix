@@ -10,10 +10,6 @@ in
  
 
   home.username = "drizzy";
-  nixpkgs.config.allowUnfree = true;
-              nixpkgs.config.permittedInsecurePackages = [
-                "ventoy-1.1.05"
-              ];
               
   home.stateVersion = "25.11"; # Please read the comment before changing.
   
@@ -36,7 +32,6 @@ in
   # Packages without additional preconfigured modules (e.g. nvim)
   home.packages =[
     # Utils
-    pkgs.ventoy
     # UI
     pkgs.ripgrep
     pkgs.lutris

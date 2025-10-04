@@ -1,0 +1,336 @@
+/* Main notch container */
+.notch {
+    background-color: rgba(0, 0, 0, 1.0);
+    padding: 6px 20px;
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px -1px 0px -1px;
+    border-radius: 0 0 12px 12px;
+    min-height: 0;
+}
+.header {
+    font-size: 20px;
+    margin: 0px 0px 15px 0px;
+}
+
+.box {
+  border-radius: 12px;
+  margin: 10px 0px 10px 0px;
+  background-color: rgba(33, 33, 33, 0.9);
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.20);
+}
+
+.notchcorner-left {
+    border-radius: 0 0 8px 0;
+    padding-bottom: 4px;
+}
+
+.notchcorner-right {
+    border-radius: 0 0 0 8px;
+}
+.bar_widget{
+
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 13px;
+    border-radius: 14px;
+    padding: 8px;
+    margin-top: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 6px 9px 6px 9px;
+}
+
+
+/* Generic corner styling */
+.notchcorner {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.bar-reserve {
+    min-height: 25px;
+    background-color: rgba(0, 0, 0, 0.01);
+}
+
+/* App Launcher */
+.app-launcher {
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 8px;
+}
+
+.app-launcher-item {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 2px;
+    transition: background-color 0.2s ease;
+}
+
+.app-launcher-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.app-launcher-item:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.app-launcher-item label {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 12px;
+}
+
+/* Extra padding for titles inside cards */
+.box-header {
+    padding:6px;
+    padding-top: 0px;
+}
+
+/* QuickMenu card specific spacing tweaks */
+.quickmenu-card {
+    padding-top: 14px;   /* larger top padding */
+    padding-left: 16px;  /* larger left padding */
+    padding-right: 10px;
+    padding-bottom: 14px; /* smaller bottom padding */
+}
+
+.quickmenu-card > .box-header {
+    margin-bottom: 4px;  /* reduce space below title */
+}
+
+/* Themed Entry (replaces default blue focus) */
+.themed-entry {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: rgba(255, 255, 255, 0.95);
+    caret-color: rgba(255, 255, 255, 0.9);
+    outline: none;
+    box-shadow: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.themed-entry:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.themed-entry:focus {
+    border-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08), 0 0 0 6px rgba(255, 255, 255, 0.06);
+    background-color: rgba(0, 0, 0, 0.7);
+    outline: none;
+}
+
+/* Workspace Indicators - Material Design */
+.workspace {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    margin: 4px 3px;
+    min-width: 9px;
+    min-height: 9px;
+}
+
+.workspace:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.2);
+}
+
+.workspace.active {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    min-width: 24px;
+    transform: scale(1.0);
+}
+
+.workspace.active:hover {
+    background-color: rgba(255, 255, 255, 1.0);
+    transform: scale(1.0);
+}
+
+/* Android/GNOME Inspired QuickMenu */
+.quickmenu_button {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: none;
+    min-width: 140px;
+}
+
+.quickmenu_button button {
+    background: transparent;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+    border-radius: 10px;
+}
+
+.quickmenu_button button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.quickmenu_button stack box,
+.quickmenu_menu {
+    padding: 0;
+    margin: 0;
+}
+
+/* User hostname label in QuickMenu */
+.user-hostname-label {
+    color: rgba(255, 255, 255, 0.70);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* Brightness Controls Styling */
+.brightness-control-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+/* QuickMenu Scale Styling */
+scale {
+    min-height: 12px;
+    margin: 4px 8px;
+}
+
+scale trough {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    min-height: 6px;
+}
+
+scale highlight {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+}
+
+scale slider {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    min-width: 12px;
+    min-height: 12px;
+    margin: -3px;
+}
+
+scale slider:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 1.0);
+    transform: scale(1.15);
+}
+
+/* Audio Controls Styling */
+.audio-control-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.wallpaper_picture {
+    border-radius: 8px;
+}
+
+/* Power Menu Styling */
+.power-menu {
+    padding-top:10px;
+    padding-bottom: 20px;
+}
+
+.power-menu-button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.power-menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+.power-menu-icon {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.power-menu-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Lockscreen Styling */
+.lockscreen-background {
+    background-size: cover;
+    background-position: center;
+}
+
+.lockscreen-clock {
+    color: rgba(255, 255, 255, 0.95);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 72px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.lock-icon {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 48px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.lock-title {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Notification Menu */
+.notification-menu {
+    padding: 10px 8px;
+}
+
+.notification-menu box {
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+.lockscreen-password {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Space Grotesk','Montserrat', monospace;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.95);
+    min-width: 300px;
+}
+
+scrollbar slider {
+    background-color: #888;  /* default state */
+    border-radius: 30px;
+    min-height: 1px; /* vertical scrollbar handle size */
+    
+    min-width: 7px;  /* horizontal scrollbar handle size */
+  }

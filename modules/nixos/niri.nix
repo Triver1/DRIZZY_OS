@@ -59,9 +59,12 @@ home-manager.sharedModules = [{
 # In your home-manager configuration
 
   home.file.".config/niri/config.kdl".text = ''
-      spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis/config.py"
+      spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis2/config.py"
       spawn-at-startup "xwayland-satellite"
-  
+        layer-rule {
+          match namespace="backdrop"
+          place-within-backdrop true
+      }
       environment {
           DISPLAY ":0"
       }
@@ -115,14 +118,14 @@ home-manager.sharedModules = [{
       binds {
           // Programs
           Mod+Return { spawn "kitty"; }
-          Mod+B { spawn "zen";}
+          Mod+B { spawn "zen-beta";}
           Mod+E { spawn "kitty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
           Mod+C { center-column; }
 
 
           // System  
-          Mod+Space { spawn "ignis" "toggle-window" "launcher"; }
+          Mod+Space { spawn "ignis" "run-command" "open-app-launcher"; }
           Mod+P { screenshot; }
 
           // Volume controls

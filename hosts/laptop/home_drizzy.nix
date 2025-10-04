@@ -3,11 +3,6 @@
 {
   home.username = "drizzy";
   nixpkgs.config.allowUnfree = true;
-              nixpkgs.config.permittedInsecurePackages = [
-                "ventoy-1.1.05"
-                "libxml2-2.13.8"
-                "libsoup-2.74.3"
-              ];
               
   home.stateVersion = "25.11"; 
 
@@ -25,7 +20,6 @@
     terminals.ghostty.enable = true;
     terminals.kitty.enable = true;
     shells = {
-      quickshell.enable = true;
       ignis.enable = true;
     };
     sessions = [];
@@ -44,8 +38,7 @@
   # Packages without additional preconfigured modules (left minimal here; handled by triver_home modules)
   # Add items that were explicitly present before and not handled by modules
   home.packages =[
-    pkgs.ventoy
-    pkgs.citrix_workspace
+    pkgs.poedit
     pkgs.lutris
     pkgs.wpaperd
     pkgs.code-cursor-fhs
@@ -71,6 +64,12 @@
     pkgs.discord
     pkgs.flutter
     pkgs.anki
+    pkgs.teams-for-linux
+    pkgs.python313Packages.jupyterlab
+    pkgs.uv
+    pkgs.typst
+    pkgs.google-chrome
+    pkgs.qbittorrent
   ];
 
   programs.git = {

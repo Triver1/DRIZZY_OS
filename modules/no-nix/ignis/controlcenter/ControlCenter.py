@@ -8,13 +8,13 @@ from ignis import utils
 from ignis.services.fetch import FetchService
 from ignis.services.backlight import BacklightService
 from ignis.services.bluetooth import BluetoothService
-# from ignis.services.audio import AudioService
+from ignis.services.audio import AudioService
 
 from theme_manager import ThemeManager
 from sharedwidgets import PopupWindow
 from sharedwidgets.StatusBox import public_status_box, open_menu
 
-# audio = AudioService.get_default()
+audio = AudioService.get_default()
 network = NetworkService.get_default()
 backlight = BacklightService.get_default()
 bluetooth = BluetoothService().get_default()
@@ -83,6 +83,14 @@ class WifiModule(widgets.Box):
             ap.psk = password
             asyncio.create_task(ap.connect_to(password))
 
+        def connect_with_saved(_):
+            # Use preconfigured settings if available; otherwise prompt for password
+            saved = getattr(ap, 'psk', None)
+            if isinstance(saved, str) and saved.strip():
+                asyncio.create_task(ap.connect_to(saved))
+            else:
+                show_password_field(None)
+
         password_entry = widgets.Entry(
             placeholder_text="Enter password...",
             on_accept=lambda password: update_ap(password.text),
@@ -90,7 +98,8 @@ class WifiModule(widgets.Box):
         password_box = widgets.Box(child=[
             password_entry,
         ])
-        password_entry.text = ap.psk
+        # Guard against None; GTK editable cannot accept NULL text
+        password_entry.text = ap.psk or ""
 
         # Initially hidden container
         password_dropdown = widgets.Revealer(
@@ -108,10 +117,10 @@ class WifiModule(widgets.Box):
         return DropDownPanel(
             ap.ssid,
             [
-                ("Connect", update_ap),
+                ("Connect", connect_with_saved),
                 ("Edit", show_password_field),
-                ("Disconnect", lambda x: asyncio.create_task(ap.disconnect_from())),  # Placeholder
-                ("Forget", lambda x: asyncio.create_task(ap.forget()))  # Placeholder
+                ("Disconnect", lambda x: asyncio.create_task(ap.disconnect_from())),
+                ("Forget", lambda x: asyncio.create_task(ap.forget()))
             ],
             child=password_wrapper,
             vertical=True,
@@ -678,8 +687,8 @@ class ControlCenter(PopupWindow):
                 widgets.Label(css_classes=["title"],label='Settings'),
                 ]),
                 Brightness(),
-                # Volume(),
-                # Microphone(),
+                Volume(),
+                Microphone(),
                 self.sidebar,
         ])
 

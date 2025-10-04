@@ -3,13 +3,13 @@ from ignis import utils
 import datetime
 
 # # Services
-# from ignis.services.audio import AudioService
 from ignis.services.system_tray import SystemTrayService, SystemTrayItem
 from ignis.services.niri import NiriService, NiriWorkspace
 from ignis.services.notifications import NotificationService
 from ignis.services.mpris import MprisService, MprisPlayer
 from ignis.services.upower import UPowerService
 from ignis.services.network import NetworkService
+from ignis.services.bluetooth import BluetoothService
 from controlcenter import ControlCenter
 from notifications import NotificationsCenter
 from media import PlayerPopup
@@ -18,8 +18,8 @@ from sharedwidgets.StatusBox import public_status_box, set_open_menu_callback
 
 
 
-# audio = AudioService.get_default()
 network = NetworkService.get_default()
+bluetooth = BluetoothService().get_default()
 system_tray = SystemTrayService.get_default()
 niri = NiriService.get_default()
 notifications = NotificationService.get_default()
@@ -239,6 +239,33 @@ class Network(Panel):
 
 
 
+class Bluetooth(Panel):
+    def __init__(self):
+        super().__init__(
+            on_click=lambda x: controlcenter.OpenMenu("Bluetooth"),
+            child=bluetooth.bind("state", transform=lambda _s: self._render_icon())
+        )
+
+    def _render_icon(self):
+        try:
+            if not bluetooth.powered:
+                icon_name = "bluetooth-disabled-symbolic"
+            else:
+                devices = getattr(bluetooth, "devices", []) or []
+                any_connected = False
+                for device in devices:
+                    try:
+                        if getattr(device, "connected", False):
+                            any_connected = True
+                            break
+                    except Exception:
+                        continue
+                icon_name = "bluetooth-active-symbolic" if any_connected else "bluetooth-disconnected-symbolic"
+            return widgets.Icon(image=icon_name, pixel_size=17)
+        except Exception:
+            return widgets.Icon(image="bluetooth-disconnected-symbolic", pixel_size=17)
+
+
 class NiriWorkspaces(widgets.Box):
     def __init__(self, monitor_name):
         super().__init__(
@@ -305,6 +332,7 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
             child=[
                 Launcher(),
                 Network(),
+                Bluetooth(),
                 NiriWorkspaces(monitor),
             ]
         )
@@ -325,7 +353,9 @@ class Bar(widgets.Window):  # inheriting from widgets.Window
             child=[
                 Systray(),
                 Battery(),
-                Notifications()
+                Notifications(),
+                # widgets.Corner(orientation="top-right",width_request=30,height_request=30)
+
             ]
         )
         

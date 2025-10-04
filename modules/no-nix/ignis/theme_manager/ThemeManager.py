@@ -82,7 +82,8 @@ class ThemeManager:
             variable_string = self._generate_sass_variables(colors)
             with open(original_path, "r") as f:
                 scss_content = f.read()
-            full_scss = variable_string + scss_content
+            # Ensure a newline between injected variables and the theme SCSS
+            full_scss = (variable_string + "\n" + scss_content) if variable_string else scss_content
 
             with tempfile.NamedTemporaryFile(mode='w', suffix='.scss', delete=True) as temp_file:
                 temp_file.write(full_scss)

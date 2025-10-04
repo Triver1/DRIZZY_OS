@@ -13,7 +13,7 @@ in
   };
 
   imports = [
-    ./shells/quickshell.nix
+    # ./shells/quickshell.nix
     ./shells/ignis.nix
     ./gaming.nix
     ./gamedev.nix
@@ -34,7 +34,7 @@ in
     terminals.kitty.enable = lib.mkDefault true;
     shells = {
       ignis.enable = lib.mkDefault true;
-      quickshell.enable = lib.mkDefault false;
+      # quickshell.enable = lib.mkDefault false;
     };
   };
 }

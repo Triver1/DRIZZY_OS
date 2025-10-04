@@ -186,6 +186,15 @@ button{
     }
 }
 
+/* Emoji picker tweaks reuse launcher styles */
+.emoji-picker {
+  margin-top: 13rem;
+}
+
+.emoji-item {
+  padding: 0.4rem 0.6rem;
+}
+
 /* Simple AI chat layout and bubbles */
 .ai-chat {
   font-size: 13px;

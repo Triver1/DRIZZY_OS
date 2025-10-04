@@ -10,6 +10,8 @@ import subprocess
 import time
 from google import genai
 from google.genai import types
+import shutil
+import json
 
 applications = ApplicationsService.get_default()
 
@@ -198,9 +200,9 @@ class AIWindow(PopupWindow):
     def _on_submit(self, text: str):
         if not text:
             return
-        self._append_message("user", text)
+        self._append_message("user", text or "")
         self._history.append(
-            types.Content(role="user", parts=[types.Part.from_text(text=text)])
+            types.Content(role="user", parts=[types.Part.from_text(text=text or "")])
         )
         assistant_container = self._append_message("assistant", "")
         self._input.text = ""
@@ -263,8 +265,9 @@ class AIWindow(PopupWindow):
     def open(self, initial_prompt: str | None = None):
         self.visible = True
         if initial_prompt:
-            self._input.text = initial_prompt
-            self._on_submit(initial_prompt)
+            safe = initial_prompt or ""
+            self._input.text = safe
+            self._on_submit(safe)
 
     def open_with_image(self, prompt_text: str, image_bytes: bytes, mime_type: str = "image/png"):
         self.visible = True
@@ -427,12 +430,141 @@ class TranslateWindow(PopupWindow):
             self._translate(initial_text)
 
 
+class EmojiPickerWindow(PopupWindow):
+    def __init__(self):
+        self._query = ""
+        self._results: list[tuple[str, str, str]] = []
+
+        self._search = widgets.Entry(
+            placeholder_text="Search emoji…",
+            on_change=lambda e: self._on_change(e.text),
+            on_accept=lambda e: self._choose_top(),
+            css_classes=["launcherinput"],
+            hexpand=True,
+        )
+
+        self._list = widgets.Box(vertical=True, spacing=6, child=[])
+        scroll = widgets.Scroll(child=self._list, min_content_height=220, max_content_height=360)
+
+        content = widgets.Box(
+            vertical=True,
+            valign="start",
+            halign="center",
+            spacing=10,
+            css_classes=["launcher", "emoji-picker"],
+            child=[
+                widgets.Box(css_classes=["launcher-search-box"], child=[
+                    widgets.Icon(
+                        icon_name="system-search-symbolic",
+                        pixel_size=24,
+                        style="margin-right: 0.5rem;",
+                    ),
+                    self._search,
+                ]),
+                scroll,
+            ],
+        )
+
+        super().__init__(
+            child=content,
+            namespace="EmojiPicker",
+            monitor=0,
+            anchor=["top", "right", "bottom", "left"],
+            layer="top",
+            kb_mode="exclusive",
+            popup=True,
+            background_color="rgba(0, 0, 0, 0.1)",
+            content_halign="center",
+            content_valign="start",
+            css_classes=["launcherwindow"],
+        )
+
+        self.connect("notify::visible", self.__on_open)
+        self._on_change("")
+
+    def __on_open(self, *args):
+        if self.visible:
+            self._search.text = ""
+            self._search.grab_focus()
+
+    def _on_change(self, text: str):
+        self._query = (text or "").strip()
+        self._results = self._filter(self._query)
+        self._render_results(self._results)
+
+    def _filter(self, query: str) -> list[tuple[str, str, str]]:
+        query_l = (query or "").strip().lower()
+        if not query_l:
+            return []
+        results: list[tuple[str, str, str]] = []
+        try:
+            base_dir = os.path.dirname(os.path.dirname(__file__))
+            path = os.path.join(base_dir, "assets", "openmoji.json")
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                for it in data:
+                    if not isinstance(it, dict):
+                        continue
+                    name = (it.get("annotation") or it.get("label") or it.get("name") or "").strip()
+                    group = (it.get("group") or "").strip()
+                    text = f"{name} {group}".lower()
+                    if query_l in text:
+                        emoji_char = it.get("emoji") or it.get("character") or ""
+                        if not emoji_char:
+                            hexcode = it.get("hexcode") or it.get("hex") or ""
+                            if isinstance(hexcode, str) and hexcode:
+                                try:
+                                    parts = hexcode.split("-")
+                                    emoji_char = "".join([chr(int(p, 16)) for p in parts if p])
+                                except Exception:
+                                    emoji_char = ""
+                        if not emoji_char:
+                            continue
+                        results.append((emoji_char, name or group or "emoji", group))
+                        if len(results) >= 60:
+                            break
+        except Exception:
+            pass
+        return results
+
+    def _render_results(self, results: list[tuple[str, str, str]]):
+        def make_row(item: tuple[str, str, str]):
+            emo, name, _kw = item
+            return widgets.Button(
+                css_classes=["launcherapp", "emoji-item"],
+                child=widgets.Box(spacing=10, child=[
+                    widgets.Label(label=emo),
+                    widgets.Label(label=name),
+                ]),
+                on_click=lambda _x, e=emo: self.insert_emoji(e),
+            )
+        self._list.child = [make_row(it) for it in results]
+
+    def _choose_top(self):
+        if self._results:
+            emo, _name, _kw = self._results[0]
+            self.insert_emoji(emo)
+
+    def insert_emoji(self, emoji: str):
+        self.visible = False
+        try:
+            if shutil.which("wl-copy"):
+                subprocess.run(["wl-copy", emoji], timeout=0.8)
+            elif shutil.which("xclip"):
+                subprocess.run(["xclip", "-selection", "clipboard"], input=emoji.encode("utf-8"), timeout=0.8)
+        except Exception:
+            pass
+
+    # No preloading: we open and filter the JSON file on each keypress
+
 class Launcher(PopupWindow):
     def __init__(self):
         self.apps_list = AppsList(lambda x: self.set_visible(False))
         # Utils commands
         self.ai_window = AIWindow()
         self.translate_window = TranslateWindow()
+        self.emoji_window = None
         self.commands = [
             (
                 "AI",
@@ -443,6 +575,11 @@ class Launcher(PopupWindow):
                 "TS",
                 "Open Translate",
                 lambda: self._open_translate(None),
+            ),
+            (
+                "EMOJI",
+                "Open Emoji Picker",
+                lambda: self._open_emoji(),
             ),
             (
                 "EXPLAIN",
@@ -559,6 +696,8 @@ class Launcher(PopupWindow):
             # Ensure launcher is hidden before taking screenshot
             self.visible = False
             self._explain_screen(arg)
+        elif cmd == "EMOJI":
+            self._open_emoji()
         else:
             # Fallback: run best match from utils list
             self.utils_list.run_first(body)
@@ -572,6 +711,14 @@ class Launcher(PopupWindow):
     def _open_translate(self, initial_text: str | None):
         try:
             self.translate_window.open(initial_text)
+        finally:
+            self.visible = False
+
+    def _open_emoji(self):
+        try:
+            if self.emoji_window is None:
+                self.emoji_window = EmojiPickerWindow()
+            self.emoji_window.visible = True
         finally:
             self.visible = False
 

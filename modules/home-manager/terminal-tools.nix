@@ -36,6 +36,7 @@ in
   # Points to your config in the workspace relative to home directory
     xdg.configFile = lib.mkIf nvimEnable {
       nvim.source = config.lib.file.mkOutOfStoreSymlink ../no-nix/nvim;
+      "noter-nvim".source = config.lib.file.mkOutOfStoreSymlink ../no-nix/noter-nvim;
     };
 
   # Tmux configuration
@@ -104,6 +105,9 @@ programs.starship = {
    #   enable = true;
    #   theme = "cypher";
    # };
+   shellAliases = {
+    nnvim = "NVIM_APPNAME=noter-nvim nvim";
+    };
   };
 
     programs.ghostty.enable = lib.mkIf (config.triverhome.terminals.ghostty.enable or true) true;

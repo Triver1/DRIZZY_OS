@@ -8,7 +8,7 @@
 
   config = {
     services.wpaperd = lib.mkIf (config.triverhome.wallpapers.enable or true) {
-   enable = true;
+   enable = false;
    settings = {
      DP-3 = {
        path = "/home/drizzy/NEWFLAKE/assets/wallpapers/wqhd/";

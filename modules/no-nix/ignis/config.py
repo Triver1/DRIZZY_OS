@@ -7,6 +7,7 @@ from theme_manager import ThemeManager
 import os
 
 # Load icons
+# Load icons
 icon_manager = IconManager.get_default()
 icon_manager.add_icons(os.path.join(utils.get_current_dir(), "assets/icons"))
 

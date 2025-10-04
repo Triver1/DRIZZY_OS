@@ -25,6 +25,7 @@ environment.systemPackages =  [
     pkgs.gearlever # Allows for running appimages (NOT RECOMMENDED)
     pkgs.libnotify
     pkgs.vlc
+    pkgs.virt-manager
   ];
 networking.networkmanager.enable = true;
 programs.zsh.enable = true;

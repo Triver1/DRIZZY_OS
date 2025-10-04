@@ -37,7 +37,7 @@ class NotificationsCenter:
             max_content_height=640,
         )
 
-        content = widgets.Box(vertical=True, spacing=12, child=[header, scroll], style="min-width: 420px; max-width: 560px;")
+        content = widgets.Box(vertical=True, spacing=12, child=[header, scroll], style="min-width: 420px;")
 
         self.popup = PopupWindow(
             child=widgets.Box(css_classes=["controlcenter"], child=[content]),

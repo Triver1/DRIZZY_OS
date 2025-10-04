@@ -1,13 +1,3 @@
-$bg: $bg;
-$bg-light: $bg-light;
-$bg-lighter: $bg-lighter;
-$fg-muted: $fg-muted;
-$fg: $fg;
-$active: $active;
-$unactive: $unactive;
-$accent: $accent;
-$shadow: $shadow;
-
 // Compact, pressable controls (inspired by Mario) with softer, rounded shapes (Rose Pine)
 @mixin smooth-pressable($base-color, $radius: 0.5rem) {
   background-color: $base-color;
@@ -205,20 +195,14 @@ button {
 
 /* Minimal AI chat layout - keep consistent across themes */
 .ai-chat {
-  max-width: 520px;
   font-size: 13px;
-  overflow-x: hidden;
 }
 
 /* Wide scroll area, narrow inner content */
 .ai-scroll {
-  width: 80vw;
-  margin: 0 auto;
 }
 
 .ai-messages {
-  max-width: 560px;
-  margin: 0 auto;
 }
 
 .chat-bubble {
@@ -229,8 +213,7 @@ button {
   margin: 0.25rem 0.35rem;
   box-shadow: none;
   transition: none;
-  max-width: 100%;
-  overflow-x: hidden;
+  
 }
 
 .chat-bubble.role-user {

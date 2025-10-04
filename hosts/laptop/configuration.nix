@@ -28,7 +28,8 @@ in
     ];
   # Experimental features
   nix.settings.substituters = [ 
-  "https://hydra.nixos.org" "https://cache.nixos.org/" "https://nix-community.cachix.org" "https://nixpkgs-unfree.cachix.org"];
+  "https://nixpkgs-wayland.cachix.org" "https://cache.nixos.org/" "https://nix-community.cachix.org" "https://nixpkgs-unfree.cachix.org"
+  ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
@@ -78,7 +79,7 @@ in
   users.users.drizzy = {
     isNormalUser = true;
     description = "drizzy";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
   };
 
   # Install firefox (default browser)
@@ -106,6 +107,19 @@ in
   services.dbus.enable = true;
   
 
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        swtpm.enable = true;
+        ovmf.enable = true;
+      };
+    };
+    spiceUSBRedirection.enable = true;
+  };
+
+
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -116,6 +130,7 @@ in
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    gamescopeSession.enable = true;
   };
   home-manager = { 
     extraSpecialArgs = { inherit inputs; };
