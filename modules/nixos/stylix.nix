@@ -220,7 +220,13 @@ in
       popups = 0.95;
     };
 
+    # Qt platform configuration
+    targets.qt.enable = true;
+    targets.qt.platform = lib.mkDefault "qtct";
+
   };
+
+  qt.platformTheme = "gnome";
 }
 
 # Usage Examples:

@@ -21,7 +21,6 @@ in
 
   # System choices
   imports = [
-    (folders.hm + "/shells/quickshell.nix")
     (folders.hm + "/wallpapers.nix")
     (folders.hm + "/gaming.nix")
     (folders.hm + "/terminal-tools.nix")

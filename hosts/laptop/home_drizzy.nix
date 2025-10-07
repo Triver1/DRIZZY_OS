@@ -11,6 +11,7 @@
     inputs.zen-browser.homeModules.beta
   ];
   programs.zen-browser.enable = true;
+
   triverhome = {
     nvim.enable = true;
     wallpapers.enable = true;
@@ -26,19 +27,18 @@
   };
 
   games = {
-    launchers.enable = true;
+    launchers.enable = false;
     launchers.minecraft = false;
     gamesession.enable = true;
     dev = {
-      unity.enable = true;
-      godot.enable = true;
+      unity.enable = false;
+      godot.enable = false;
     };
   };
 
   # Packages without additional preconfigured modules (left minimal here; handled by triver_home modules)
   # Add items that were explicitly present before and not handled by modules
   home.packages =[
-    pkgs.poedit
     pkgs.lutris
     pkgs.wpaperd
     pkgs.code-cursor-fhs
@@ -68,8 +68,6 @@
     pkgs.python313Packages.jupyterlab
     pkgs.uv
     pkgs.typst
-    pkgs.google-chrome
-    pkgs.qbittorrent
   ];
 
   programs.git = {

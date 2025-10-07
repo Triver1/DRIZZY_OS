@@ -11,7 +11,6 @@
   ];
 
   services.xserver.enable = true;
-  programs.xwayland.enable = true;
 
   programs.niri = {
     enable = true;
@@ -60,7 +59,6 @@ home-manager.sharedModules = [{
 
   home.file.".config/niri/config.kdl".text = ''
       spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis2/config.py"
-      spawn-at-startup "xwayland-satellite"
         layer-rule {
           match namespace="backdrop"
           place-within-backdrop true

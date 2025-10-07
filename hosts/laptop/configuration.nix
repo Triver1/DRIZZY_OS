@@ -31,6 +31,20 @@ in
   "https://nixpkgs-wayland.cachix.org" "https://cache.nixos.org/" "https://nix-community.cachix.org" "https://nixpkgs-unfree.cachix.org"
   ];
 
+nix.settings.trusted-public-keys = [
+  # Official NixOS cache
+  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+
+  # Nix Community cache
+  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7Ox5Y5P6C6i5QvRlXYVQwY="
+
+  # Wayland cache
+  "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+
+  # Unfree cache
+  "nixpkgs-unfree.cachix.org-1:2aE7aLTPXsb/jMJp8HBz2JCZ6Yi6h8ZxNnr4RiYYs64="
+];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
   services.envfs.enable = true;
@@ -88,7 +102,7 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -107,17 +121,17 @@ in
   services.dbus.enable = true;
   
 
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        swtpm.enable = true;
-        ovmf.enable = true;
-      };
-    };
-    spiceUSBRedirection.enable = true;
-  };
+  # virtualisation = {
+  #   libvirtd = {
+  #     enable = true;
+  #     qemu = {
+  #       package = pkgs.qemu_kvm;
+  #       swtpm.enable = true;
+  #       ovmf.enable = true;
+  #     };
+  #   };
+  #   spiceUSBRedirection.enable = true;
+  # };
 
 
   # List services that you want to enable:
