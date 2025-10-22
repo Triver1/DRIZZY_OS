@@ -2,9 +2,10 @@
 
 {
   home.username = "drizzy";
+  home.homeDirectory = "/home/drizzy";
   nixpkgs.config.allowUnfree = true;
               
-  home.stateVersion = "25.11"; 
+  home.stateVersion = "25.05"; 
 
   imports = [
     ../../modules/home-manager/triver_home.nix
@@ -31,7 +32,7 @@
     launchers.minecraft = false;
     gamesession.enable = true;
     dev = {
-      unity.enable = false;
+      unity.enable = true;
       godot.enable = false;
     };
   };

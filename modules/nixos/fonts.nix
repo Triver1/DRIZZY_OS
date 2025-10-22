@@ -14,5 +14,8 @@
     proggyfonts
     inconsolata
     montserrat
+    # Nerd Fonts for terminal applications
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
   ];
 }

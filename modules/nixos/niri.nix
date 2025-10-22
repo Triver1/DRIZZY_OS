@@ -27,12 +27,12 @@ home-manager.sharedModules = [{
       package = pkgs.swayidle;
       timeouts = [
         {
-          timeout = 195;
-          command = "${pkgs.systemd}/bin/systemctl suspend";
+          timeout = 180;
+          command = "${pkgs.hyprlock}/bin/hyprlock";
         }
         {
-          timeout = 205;
-          command = "${pkgs.hyprlock}/bin/hyprlock";
+          timeout = 300;
+          command = "${pkgs.systemd}/bin/systemctl suspend";
         }
       ];
       events = [
@@ -66,8 +66,9 @@ home-manager.sharedModules = [{
       environment {
           DISPLAY ":0"
       }
-      output "DP-3" {
-          mode "3440x1440@180.0"
+      // Laptop display configuration
+      output "eDP-1" {
+          // Use preferred mode (auto-detect)
           focus-at-startup
       }
       input {
@@ -98,7 +99,8 @@ home-manager.sharedModules = [{
           gaps 7 
           focus-ring {
               width 2
-              active-gradient from="rgba(255, 255, 255, 0.9)" to="rgba(240, 248, 255, 0.3)" angle=135
+              active-gradient from="rgba(255, 255, 255, 0.95)" to="rgba(240, 248, 255, 0.3)" angle=135
+              inactive-gradient from="rgba(100, 100, 100, 0.3)" to="rgba(80, 80, 80, 0.1)" angle=135
           }
       }
       
@@ -188,7 +190,7 @@ home-manager.sharedModules = [{
           
       }
       window-rule {
-          geometry-corner-radius 7
+          geometry-corner-radius 12
           clip-to-geometry true
       }
 

@@ -222,7 +222,7 @@ in
 
     # Qt platform configuration
     targets.qt.enable = true;
-    targets.qt.platform = lib.mkDefault "qtct";
+    targets.qt.platform = lib.mkDefault "gnome";
 
   };
 

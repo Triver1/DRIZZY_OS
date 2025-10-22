@@ -24,33 +24,35 @@ in
       (folders.m + "/nix-ld.nix")
        # (folders.m + "/maomaowm.nix")
        (folders.m + "/gamescope.nix")
+       (folders.m + "/docker.nix")
        inputs.home-manager.nixosModules.default
     ];
   # Experimental features
   nix.settings.substituters = [ 
-  "https://nixpkgs-wayland.cachix.org" "https://cache.nixos.org/" "https://nix-community.cachix.org" "https://nixpkgs-unfree.cachix.org"
+  "https://nixpkgs-wayland.cachix.org"
+  "https://cache.nixos.org/"
+  "https://nix-community.cachix.org"
+  "https://nixpkgs-unfree.cachix.org"
   ];
 
-nix.settings.trusted-public-keys = [
-  # Official NixOS cache
-  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-
-  # Nix Community cache
-  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7Ox5Y5P6C6i5QvRlXYVQwY="
-
-  # Wayland cache
-  "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-
-  # Unfree cache
-  "nixpkgs-unfree.cachix.org-1:2aE7aLTPXsb/jMJp8HBz2JCZ6Yi6h8ZxNnr4RiYYs64="
-];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
   services.envfs.enable = true;
 
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModprobeConfig = ''
+    options mt7921e disable_aspm=1
+  '';
+  boot.kernelParams = [
+    "pcie_aspm=off"           # Disable PCIe Active State Power Management
+    "pci=noaer"               # Disable PCIe Advanced Error Reporting
+    "iommu=soft"              # Use software IOMMU
+    "mt7921_common.disable_clc=1"  # Disable CLC (Coexistence Logic Control) for MT7921e
+  ]; 
+  # Tried these workarounds - didn't work:
+  # boot.kernelParams = [ "mt7921e.disable_aspm=Y" ];  # ASPM disable didn't fix it
+  # boot.kernelPackages = pkgs.linuxPackages_6_16;  # 6.16 still had the issue
 
   networking.hostName = "kittentop"; # Define your hostname.
 
@@ -65,8 +67,10 @@ nix.settings.trusted-public-keys = [
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
+  # Use LY display manager for better niri compatibility
+  services.displayManager.ly.enable = true;
+  
+  # Enable GNOME Desktop Environment (accessible via LY)
   services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -102,22 +106,13 @@ nix.settings.trusted-public-keys = [
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+
   hardware.graphics.enable = true;
   
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   
-  # Add these for Ignis compatibility:
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true; # Better device discovery
-    };
-  };
   
-  # Essential for DBus access:
-  services.gnome.gnome-settings-daemon.enable = true;
-
-  # For desktop environments, you might also need:
   services.dbus.enable = true;
   
 
@@ -137,10 +132,9 @@ nix.settings.trusted-public-keys = [
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  system.stateVersion = "25.05"; # Did you read the comment?
    
   programs.steam = {
-    enable = true;
+    enable = false;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
@@ -151,7 +145,5 @@ nix.settings.trusted-public-keys = [
     users = {
        "drizzy" = import ./home_drizzy.nix;
     };
-
-
   };
 }

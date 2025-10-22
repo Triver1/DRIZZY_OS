@@ -13,5 +13,8 @@
     proggyfonts
     inconsolata
     cascadia-code
+    # Nerd Fonts for terminal applications
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
   ];
 }
