@@ -19,14 +19,26 @@ in
       (folders.m + "/nvidia.nix")
       (folders.m + "/network.nix")
       (folders.m + "/bootloader.nix")
+      (folders.m + "/fonts.nix")
+      (folders.m + "/nix-ld.nix")
+       # (folders.m + "/maomaowm.nix")
+       (folders.m + "/gamescope.nix")
+       (folders.m + "/docker.nix")
       inputs.home-manager.nixosModules.default
     ];
   # Experimental features
+  nix.settings.substituters = [ 
+  "https://nixpkgs-wayland.cachix.org"
+  "https://cache.nixos.org/"
+  "https://nix-community.cachix.org"
+  "https://nixpkgs-unfree.cachix.org"
+  ];
+
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
   services.envfs.enable = true;
 
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -44,8 +56,10 @@ in
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
+  # Use LY display manager for better niri compatibility
+  services.displayManager.ly.enable = true;
+  
+  # Enable GNOME Desktop Environment (accessible via LY)
   services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -68,11 +82,11 @@ in
   };
 
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.drizzy = {
     isNormalUser = true;
     description = "drizzy";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
   };
 
   # Install firefox (default browser)
@@ -82,11 +96,39 @@ in
   nixpkgs.config.allowUnfree = true;
 
 
+  hardware.graphics.enable = true;
+  
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  
+  
+  services.dbus.enable = true;
+  
+
+  # virtualisation = {
+  #   libvirtd = {
+  #     enable = true;
+  #     qemu = {
+  #       package = pkgs.qemu_kvm;
+  #       swtpm.enable = true;
+  #       ovmf.enable = true;
+  #     };
+  #   };
+  #   spiceUSBRedirection.enable = true;
+  # };
+
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  system.stateVersion = "25.05"; # Did you read the comment?
+   
+  programs.steam = {
+    enable = false;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    gamescopeSession.enable = true;
+  };
    
   home-manager = { 
     extraSpecialArgs = { inherit inputs; };
