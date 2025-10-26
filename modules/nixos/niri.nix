@@ -164,6 +164,12 @@ home-manager.sharedModules = [{
           Mod+Ctrl+K { move-window-to-workspace-up; }
           Mod+Ctrl+J { move-window-to-workspace-down; }
 
+          // Move workspace to monitor
+          Mod+Ctrl+Shift+H {  move-column-to-monitor-previous; }
+          Mod+Ctrl+Shift+L { move-column-to-monitor-next; }
+          Mod+Shift+H { focus-monitor-previous; }
+          Mod+Shift+L { focus-monitor-next; }
+
           Mod+Comma  { consume-window-into-column; }
           Mod+Period { expel-window-from-column; }
 

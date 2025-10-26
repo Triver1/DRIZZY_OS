@@ -30,13 +30,15 @@ in
     stdenv.cc
     gemini-cli
     starship
+    rich-cli
+    luarocks # Dependencies for notervim
+    lua5_1
     ] ++ lib.optionals nvimEnable [ neovim ];
   
-  # Link your neovim config from outside the nix store
   # Points to your config in the workspace relative to home directory
     xdg.configFile = lib.mkIf nvimEnable {
-      nvim.source = config.lib.file.mkOutOfStoreSymlink ../no-nix/nvim;
-      "noter-nvim".source = config.lib.file.mkOutOfStoreSymlink ../no-nix/noter-nvim;
+       nvim.source = config.lib.file.mkOutOfStoreSymlink ../no-nix/nvim;
+       noter-nvim.source = config.lib.file.mkOutOfStoreSymlink ../no-nix/noter-nvim;
     };
 
   # Tmux configuration

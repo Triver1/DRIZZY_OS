@@ -11,6 +11,9 @@
     libffi       # for foreign function interface
     git          # version control
     pkgsCross.mingwW64.buildPackages.gcc  # for Windows cross-compilation
+
+    maven
+    jdk
   ];
 
   programs.zsh.enable = true;

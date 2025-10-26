@@ -20,7 +20,7 @@ class WallpaperManager:
         self._background_box = widgets.Box(css_classes=["background-content"])
 
         widgets.Window(
-            namespace="backdrop",
+            namespace=f"backdrop-{self.monitor}",
             layer="background",
             css_classes=["background"],
             monitor=self.monitor,
@@ -30,7 +30,7 @@ class WallpaperManager:
         )
 
         widgets.Window(
-            namespace="background",
+            namespace=f"background-{self.monitor}",
             layer="background",
             css_classes=["background"],
             monitor=self.monitor,
