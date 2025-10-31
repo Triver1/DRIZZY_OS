@@ -58,7 +58,7 @@ home-manager.sharedModules = [{
 # In your home-manager configuration
 
   home.file.".config/niri/config.kdl".text = ''
-      spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis2/config.py"
+      spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis3/config.py"
         layer-rule {
           match namespace="backdrop"
           place-within-backdrop true

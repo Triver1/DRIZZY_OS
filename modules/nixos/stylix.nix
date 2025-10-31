@@ -185,10 +185,20 @@ let
         size = 36;
       };
     };
+
+    # New theme: Kanagawa (enabled below)
+    kanagawa = {
+      scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+      cursor = {
+        package = pkgs.rose-pine-cursor;
+        name = "BreezeX-RosePine-Linux";
+        size = 36;
+      };
+    };
   };
 
   # Choose your active theme here - just change this variable!
-  activeTheme = "claudePine"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
+  activeTheme = "kanagawa"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
   
   selectedTheme = themes.${activeTheme};
 
