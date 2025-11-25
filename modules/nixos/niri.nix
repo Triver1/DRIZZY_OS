@@ -27,13 +27,11 @@ home-manager.sharedModules = [{
       package = pkgs.swayidle;
       timeouts = [
         {
-          timeout = 180;
-          command = "${pkgs.hyprlock}/bin/hyprlock";
-        }
-        {
-          timeout = 300;
+          timeout = 150;
           command = "${pkgs.systemd}/bin/systemctl suspend";
         }
+        
+
       ];
       events = [
         {

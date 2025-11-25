@@ -21,6 +21,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from widgets.Battery import Battery
 from widgets.Workspaces import Workspaces
 from widgets.Wifi import Wifi
+from widgets.MangoWorkspaces import MangoWorkspaces
 
 class NotchContents(widgets.Box):
     def __init__(self, monitor, *, child=None, css_classes=None, **kwargs):
@@ -52,7 +53,8 @@ class NotchContents(widgets.Box):
                 ),
                 Battery(),
                 Wifi(),
-                Workspaces(monitor),
+                # Show workspaces: niri if available, else mango
+                Workspaces(),
             ]
         )
 
@@ -174,86 +176,20 @@ class Bar:
         key_controller.connect("key-pressed", self._on_key_pressed)
         main_notch.add_controller(key_controller)
 
-        # Create top-left corner
-        top_left_corner = widgets.Corner(
-            orientation="top-left",
-            width_request=30,
-            height_request=30,
-            css_classes=["corner"]
-        )
+        # (Notch corners disabled)
 
-        # Create bottom-left corner
-        bottom_left_corner = widgets.Corner(
-            orientation="bottom-left",
-            width_request=30,
-            height_request=30,
-            css_classes=["corner"]
-        )
+        # (Screen corner widgets and windows removed)
 
-        # Create top-right corner
-        top_right_corner = widgets.Corner(
-            orientation="top-right",
-            width_request=30,
-            height_request=30,
-            css_classes=["corner"]
-        )
-
-        # Create screen corner widgets (separate from sidebar)
-        screen_top_right_corner = widgets.Corner(
-            orientation="top-right",
-            width_request=30,
-            height_request=30,
-            css_classes=["corner"]
-        )
-
-        screen_bottom_right_corner = widgets.Corner(
-            orientation="bottom-right",
-            width_request=30,
-            height_request=30,
-            css_classes=["corner"]
-        )
-
-        # Create screen corner windows
-        self.screen_top_right_window = widgets.Window(
-            namespace=f"screen-corner-tr-{monitor}",
-            css_classes=["corner"],
-            monitor=monitor,
-            anchor=["top", "right"],
-            exclusivity="ignore",
-            layer="overlay",
-            child=screen_top_right_corner,
-        )
-
-        self.screen_bottom_right_window = widgets.Window(
-            namespace=f"screen-corner-br-{monitor}",
-            css_classes=["corner"],
-            monitor=monitor,
-            anchor=["bottom", "right"],
-            exclusivity="ignore",
-            layer="overlay",
-            child=screen_bottom_right_corner,
-        )
-
-        # Create a vertical layout with only left corners and centered notch
+        # Create a vertical layout with centered notch (no corners)
         vertical_layout = widgets.Box(
             orientation="vertical",
             vexpand=True,
             child=[
                 widgets.Box(
-                    hexpand=False,
-                    vexpand=False,
-                    child=[top_left_corner]
-                ),
-                widgets.Box(
                     orientation="vertical",
                     vexpand=True,
                     valign="center",
                     child=[main_notch]
-                ),
-                widgets.Box(
-                    hexpand=False,
-                    vexpand=False,
-                    child=[bottom_left_corner]
                 ),
             ]
         )

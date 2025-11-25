@@ -21,7 +21,7 @@ in
       (folders.m + "/bootloader.nix")
       (folders.m + "/fonts.nix")
       (folders.m + "/nix-ld.nix")
-       # (folders.m + "/maomaowm.nix")
+       (folders.m + "/maomaowm.nix")
        (folders.m + "/gamescope.nix")
        (folders.m + "/docker.nix")
       inputs.home-manager.nixosModules.default

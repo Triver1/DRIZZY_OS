@@ -22,7 +22,7 @@ in
       (folders.m + "/battery.nix")
       (folders.m + "/fonts.nix")
       (folders.m + "/nix-ld.nix")
-       # (folders.m + "/maomaowm.nix")
+       (folders.m + "/maomaowm.nix")
        (folders.m + "/gamescope.nix")
        (folders.m + "/docker.nix")
        inputs.home-manager.nixosModules.default
@@ -50,6 +50,8 @@ in
     "iommu=soft"              # Use software IOMMU
     "mt7921_common.disable_clc=1"  # Disable CLC (Coexistence Logic Control) for MT7921e
   ]; 
+  # Enable compressed RAM swap (ZRAM) to provide swap without disk wear
+  zramSwap.enable = true;
   # Tried these workarounds - didn't work:
   # boot.kernelParams = [ "mt7921e.disable_aspm=Y" ];  # ASPM disable didn't fix it
   # boot.kernelPackages = pkgs.linuxPackages_6_16;  # 6.16 still had the issue
@@ -58,6 +60,10 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openconnect
+  ];
+  networking.networkmanager.wifi.powersave = false;
   # Set your time zone.
   time.timeZone = "Europe/Brussels";
 
@@ -106,6 +112,10 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  environment.systemPackages = with pkgs; [
+    # ... other packages
+    pgadmin4-desktopmode
+  ];
 
   hardware.graphics.enable = true;
   

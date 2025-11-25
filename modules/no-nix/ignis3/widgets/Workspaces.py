@@ -1,5 +1,6 @@
 from ignis import widgets
 from ignis.services.niri import NiriService
+from .MangoWorkspaces import MangoWorkspaces
 
 class WorkspaceButton(widgets.Button):
     def __init__(self, workspace):
@@ -15,7 +16,10 @@ class WorkspaceButton(widgets.Button):
 
 class Workspaces(widgets.Box):
     def __init__(self, monitor_name=None):
-        self.niri = NiriService.get_default()
+        try:
+            self.niri = NiriService.get_default()
+        except Exception:
+            self.niri = None
         self.monitor_name = monitor_name
         
         super().__init__(
@@ -23,9 +27,11 @@ class Workspaces(widgets.Box):
             spacing=3,
             hexpand=False,
             halign="center",
-            child=self.niri.bind(
-                "workspaces",
-                transform=self._create_workspace_buttons
+            child=(
+                self.niri.bind(
+                    "workspaces",
+                    transform=self._create_workspace_buttons
+                ) if self.niri else MangoWorkspaces()
             )
         )
     

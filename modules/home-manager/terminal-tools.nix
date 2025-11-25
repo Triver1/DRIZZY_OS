@@ -101,18 +101,37 @@ programs.starship = {
   };
 };
 
-  programs.zsh = {
-   enable = true;  # Enable ZSH theming integration with Stylix
-   # oh-my-zsh = {
-   #   enable = true;
-   #   theme = "cypher";
-   # };
-   shellAliases = {
+programs.zsh = {
+  enable = true;  # Enable ZSH theming integration with Stylix
+  # oh-my-zsh = {
+  #   enable = true;
+  #   theme = "cypher";
+  # };
+  
+  shellAliases = {
     nnvim = "NVIM_APPNAME=noter-nvim nvim";
-    };
   };
+  
+initExtra = ''
+  md2pdf() {
+    if [ -z "$1" ]; then
+      echo "Usage: md2pdf <input.md> [output.pdf]"
+      return 1
+    fi
+    
+    local input="$1"
+    local output="''${2:-''${input%.md}.pdf}"
+    local temp_html="''${input%.md}.html"
+    
+    
+    pandoc "$input" -o file.html --embed-resources --standalone && wkhtmltopdf file.html "$output"
+    echo "Created: $output"
+  }
+'';
+};
+  
 
     programs.ghostty.enable = lib.mkIf (config.triverhome.terminals.ghostty.enable or true) true;
     programs.kitty.enable = lib.mkIf (config.triverhome.terminals.kitty.enable or true) true;
   };
-} 
+}

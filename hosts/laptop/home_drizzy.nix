@@ -41,6 +41,8 @@
   # Add items that were explicitly present before and not handled by modules
 
   home.packages =[
+    pkgs.pandoc
+    pkgs.wkhtmltopdf
     pkgs.nodejs_24
     pkgs.pnpm
     pkgs.sqlite
@@ -76,6 +78,9 @@
     pkgs.python313Packages.jupyterlab
     pkgs.uv
     pkgs.typst
+    pkgs.pgadmin
+    pkgs.antigravity
+    pkgs.kiro
   ];
 
   programs.git = {

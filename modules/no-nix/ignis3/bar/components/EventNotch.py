@@ -3,24 +3,13 @@ from gi.repository import Gtk, Gdk
 
 class EventNotch(widgets.Box):
     def __get_corner__(self, orientation):
-        """Creates a corner widget with notchcorner color styling."""
-        return widgets.Corner(
-            orientation=orientation,
-            width_request=15,
-            height_request=15,
-            vexpand=False,
-            valign="start",
-            css_classes=["notchcorner"]  # color styling
-        )
+        """Corner widgets disabled."""
+        return None
 
     def __init__(self, child=None, orientation='top', on_hover=None, on_hover_lost=None, **kwargs):
         
-        # Determine which border-radius class to apply to the child box
+        # Corner styling disabled
         css_class = ["notch"]
-        if orientation == "top-left":
-            css_class.append("notchcorner-left")   # left corner rounded
-        elif orientation == "top-right":
-            css_class.append("notchcorner-right")  # right corner rounded
 
         # Properly handle child content - if it's a list, pass it as is, otherwise wrap in list
         if child is None:
@@ -37,28 +26,8 @@ class EventNotch(widgets.Box):
             valign="start"
         )
 
-        # Assemble children with corners
-        children = []
-        if orientation == 'top':
-            children = [
-                self.__get_corner__('top-right'),
-                child_box,
-                self.__get_corner__('top-left'),
-            ]
-        elif orientation == "top-left":
-            children = [
-                child_box,
-                self.__get_corner__('top-left'),
-            ]
-        elif orientation == "top-right":
-            children = [
-                self.__get_corner__('top-right'),
-                child_box,
-            ]
-        elif orientation == "left":
-            children = [
-                child_box,
-            ]
+        # Assemble children without corners
+        children = [child_box]
 
         # Create the notch structure inside a Box
         notch_content = widgets.Box(

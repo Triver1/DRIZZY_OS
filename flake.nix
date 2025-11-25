@@ -30,6 +30,10 @@
     url = "github:0xc000022070/zen-browser-flake";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  mango = {
+    url = "github:DreamMaoMao/mango";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   };
 
 
