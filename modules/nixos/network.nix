@@ -5,7 +5,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 41269 ];  # Minecraft port
+    allowedTCPPorts = [ 3000 ];  # Minecraft port
   };
 
   # ... rest of your system configuration ...

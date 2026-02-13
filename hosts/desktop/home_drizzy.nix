@@ -40,7 +40,6 @@
   # Packages without additional preconfigured modules (left minimal here; handled by triver_home modules)
   # Add items that were explicitly present before and not handled by modules
   home.packages =[
-    pkgs.jetbrains.idea-ultimate
     pkgs.jdk
     pkgs.maven
     pkgs.lutris

@@ -40,13 +40,27 @@
   # Packages without additional preconfigured modules (left minimal here; handled by triver_home modules)
   # Add items that were explicitly present before and not handled by modules
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
   home.packages =[
+    
+    pkgs.google-chrome
+    pkgs.zotero
+    pkgs.claude-code
+    pkgs.qmk
+    pkgs.github-copilot-cli
+    pkgs.love
+    pkgs.android-studio
+    pkgs.obsidian
+    pkgs.neovide
+    pkgs.ffmpeg
     pkgs.pandoc
     pkgs.wkhtmltopdf
     pkgs.nodejs_24
     pkgs.pnpm
     pkgs.sqlite
-    pkgs.jetbrains.idea-ultimate
     pkgs.jdk
     pkgs.maven
     pkgs.lutris
@@ -78,9 +92,11 @@
     pkgs.python313Packages.jupyterlab
     pkgs.uv
     pkgs.typst
-    pkgs.pgadmin
     pkgs.antigravity
     pkgs.kiro
+    pkgs.orca-slicer
+    pkgs.bambu-studio
+    pkgs.easyeffects
   ];
 
   programs.git = {

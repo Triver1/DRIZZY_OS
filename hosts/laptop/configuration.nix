@@ -49,6 +49,7 @@ in
     "pci=noaer"               # Disable PCIe Advanced Error Reporting
     "iommu=soft"              # Use software IOMMU
     "mt7921_common.disable_clc=1"  # Disable CLC (Coexistence Logic Control) for MT7921e
+    "cfg80211.ieee80211_regdom=BE"
   ]; 
   # Enable compressed RAM swap (ZRAM) to provide swap without disk wear
   zramSwap.enable = true;
@@ -63,6 +64,9 @@ in
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openconnect
   ];
+
+  programs.nix-ld.enable = true;
+
   networking.networkmanager.wifi.powersave = false;
   # Set your time zone.
   time.timeZone = "Europe/Brussels";
@@ -74,7 +78,8 @@ in
   services.xserver.enable = true;
 
   # Use LY display manager for better niri compatibility
-  services.displayManager.ly.enable = true;
+  services.displayManager.ly.enable = false;
+  services.displayManager.gdm.enable = true;
   
   # Enable GNOME Desktop Environment (accessible via LY)
   services.desktopManager.gnome.enable = true;
@@ -86,7 +91,13 @@ in
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      brlaser        # open-source Brother driver (recommended)
+      gutenprint
+    ];
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;

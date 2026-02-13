@@ -43,7 +43,7 @@
           python313Packages.rapidfuzz
           python313Packages.google-genai
           python313Packages.pillow
-          python313Packages.pam
+          python313Packages.python-pam
       ];
     };
 

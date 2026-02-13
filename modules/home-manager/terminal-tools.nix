@@ -30,6 +30,7 @@ in
     stdenv.cc
     gemini-cli
     starship
+    fzf
     rich-cli
     luarocks # Dependencies for notervim
     lua5_1
@@ -113,6 +114,27 @@ programs.zsh = {
   };
   
 initExtra = ''
+  # Ctrl+R: fuzzy history search (fzf) with fallback to incremental search
+  autoload -Uz history-incremental-search-backward
+  zle -N history-incremental-search-backward
+
+  __triver_fzf_history_widget() {
+    if ! command -v fzf >/dev/null 2>&1; then
+      zle history-incremental-search-backward
+      return
+    fi
+
+    local selected
+    selected=$(fc -rl 1 | awk '{ $1=""; sub(/^ /, ""); print }' | fzf --height 40% --reverse --query "$LBUFFER")
+    if [[ -n "$selected" ]]; then
+      LBUFFER="$selected"
+    fi
+    zle redisplay
+  }
+  zle -N __triver_fzf_history_widget
+  bindkey -M emacs '^R' __triver_fzf_history_widget 2>/dev/null || true
+  bindkey -M viins '^R' __triver_fzf_history_widget 2>/dev/null || true
+
   md2pdf() {
     if [ -z "$1" ]; then
       echo "Usage: md2pdf <input.md> [output.pdf]"
