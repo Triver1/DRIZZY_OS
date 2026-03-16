@@ -112,8 +112,11 @@ programs.zsh = {
   shellAliases = {
     nnvim = "NVIM_APPNAME=noter-nvim nvim";
   };
+
   
 initExtra = ''
+
+  export LD_LIBRARY_PATH=${pkgs.libGL}/lib${"\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}"}
   # Ctrl+R: fuzzy history search (fzf) with fallback to incremental search
   autoload -Uz history-incremental-search-backward
   zle -N history-incremental-search-backward

@@ -1,25 +1,28 @@
-{ config, pkgs, inputs,... }:
+{ config, pkgs, inputs, ... }:
 {
   programs.nix-ld.enable = true;
+
   programs.nix-ld.libraries = with pkgs; [
+    # Needed for: libzstd.so.1
+    zstd
 
-#Maple
+    # Maple / GUI deps
     xorg.libXi
-    dejavu_fonts
-    corefonts
-    javaPackages.openjfx21
-    # gtk3
-    glib
-
- #X11 dependencies (for GUI apps)
     xorg.libX11
     xorg.libXext
     xorg.libXrender
     xorg.libXtst
 
- #fonts
+    dejavu_fonts
+    corefonts
+    javaPackages.openjfx21
+
+    glib
+    dbus
     fontconfig
     freetype
-
-    ];
+    libGL
+    libxkbcommon
+    wayland
+  ];
 }

@@ -45,7 +45,22 @@
     VISUAL = "nvim";
   };
   home.packages =[
-    
+    pkgs.codex
+    pkgs.noctalia-shell
+    pkgs.ferretdb
+    pkgs.libGL
+   # pkgs.gearlever
+   pkgs.octave
+   pkgs.zed-editor
+        # --- Rust USB build dependencies ---
+    pkgs.prisma
+    pkgs.zstd
+    pkgs.nix-index
+    pkgs.libusb1
+    pkgs.glib
+    pkgs.gtk3
+    pkgs.cmake
+    pkgs.pkg-config
     pkgs.google-chrome
     pkgs.zotero
     pkgs.claude-code
@@ -87,9 +102,7 @@
     pkgs.heroic
     pkgs.discord
     pkgs.flutter
-    pkgs.anki
     pkgs.teams-for-linux
-    pkgs.python313Packages.jupyterlab
     pkgs.uv
     pkgs.typst
     pkgs.antigravity
@@ -97,7 +110,11 @@
     pkgs.orca-slicer
     pkgs.bambu-studio
     pkgs.easyeffects
-  ];
+    pkgs.mongodb-atlas-cli
+    pkgs.opencode
+    pkgs.mongosh
+    pkgs.lan-mouse
+    pkgs.networkmanagerapplet ];
 
   programs.git = {
     enable = true;

@@ -234,8 +234,8 @@ bind=SUPER,9,view,9,0
 
 # MONITOR RULES
 # Laptop internal display – explicit native mode and scale
-monitorrule=eDP-1,0.33,1,scroller,0,1.75,0,0,3200,2000,120
-monitorrule=DP-3,0.33,1,scroller,0,1,0,0,3440,1440,180
+monitorrule=name:eDP-1,width:3200,height:2000,refresh:120,x:0,y:0,scale:1.75,vrr:0,rr:0
+monitorrule=name:DP-3,width:3440,height:1440,refresh:180,x:0,y:0,scale:1,vrr:0,rr:0
 tile
 # monitor switch (matching Niri Shift)
 bind=SUPER+SHIFT,h,focusmon,left
@@ -276,8 +276,7 @@ layerrule=animation_type_open:zoom,layer_name:rofi
 layerrule=animation_type_close:zoom,layer_name:rofi
         '';
         autostart_sh = ''
-          # Start Ignis 3 (same as Niri's spawn-at-startup)
-          ignis init -c /home/drizzy/NEWFLAKE/modules/no-nix/ignis3/config.py &
+        noctalia-shell
         '';
       };
     }

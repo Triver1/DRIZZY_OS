@@ -8,8 +8,13 @@ environment.systemPackages =  [
     pkgs.ripgrep
     pkgs.alacritty
     pkgs.lazygit
-    pkgs.python314
     pkgs.conda
+    (pkgs.python313.withPackages (ps: with ps; [
+      pyqt6
+      jupyterlab
+      pip
+      pyside6
+    ]))
     pkgs.wget
     pkgs.wl-clipboard
     pkgs.yazi
@@ -22,7 +27,7 @@ environment.systemPackages =  [
     pkgs.vscode-fhs
     pkgs.libsecret
     pkgs.gst_all_1.gstreamer
-    pkgs.gearlever # Allows for running appimages (NOT RECOMMENDED)
+    #pkgs.gearlever # Allows for running appimages (NOT RECOMMENDED)
     pkgs.libnotify
     pkgs.vlc
     pkgs.virt-manager

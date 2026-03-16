@@ -6,16 +6,13 @@
     enable = true;
     settings = {
       # Battery charge thresholds to preserve battery health
-      START_CHARGE_THRESH_BAT0 = 40;
-      STOP_CHARGE_THRESH_BAT0 = 90;
+      START_CHARGE_THRESH_BAT1 = 40;
+      STOP_CHARGE_THRESH_BAT1 = 95;
   
       # CPU scaling governor
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_AC = "powersave";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-      # WiFi power saving
-      WIFI_PWR_ON_AC = "off";
-      WIFI_PWR_ON_BAT = "on";
     };
   };
 
@@ -23,7 +20,7 @@
       enable = true;
       # Optional: additional configuration
       percentageLow = 10;
-      percentageCritical = 3;
+      percentageCritical = 5;
       percentageAction = 2;
       criticalPowerAction = "Hibernate";
     };

@@ -5,7 +5,6 @@
     cargo        # for Rust projects
     rustc        # Rust compiler
     nodejs_20    # for Node.js bindings in algemaploom-rs
-    python3      # for Python bindings in algemaploom-rs
     gcc          # C compiler for native dependencies
     pkg-config   # for finding libraries
     libffi       # for foreign function interface

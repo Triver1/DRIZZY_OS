@@ -63,6 +63,7 @@ in
   networking.networkmanager.enable = true;
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openconnect
+    networkmanager-openvpn
   ];
 
   programs.nix-ld.enable = true;
@@ -98,6 +99,8 @@ in
       gutenprint
     ];
   };
+
+
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -135,7 +138,8 @@ in
   
   
   services.dbus.enable = true;
-  
+  # virtualisation.virtualbox.host.enable = true; 
+
 
   # virtualisation = {
   #   libvirtd = {

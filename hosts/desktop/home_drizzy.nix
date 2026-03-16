@@ -66,7 +66,6 @@
     pkgs.heroic
     pkgs.discord
     pkgs.flutter
-    pkgs.anki
     pkgs.teams-for-linux
     pkgs.python313Packages.jupyterlab
     pkgs.uv

@@ -27,7 +27,7 @@ home-manager.sharedModules = [{
       package = pkgs.swayidle;
       timeouts = [
         {
-          timeout = 150;
+          timeout = 2000;
           command = "${pkgs.systemd}/bin/systemctl suspend";
         }
         
@@ -146,7 +146,7 @@ home-manager.sharedModules = [{
       binds {
           // Programs
           Mod+Return { spawn "kitty"; }
-          Mod+B { spawn "zen-beta";}
+          Mod+B { spawn "google-chrome";}
           Mod+E { spawn "kitty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
           Mod+C { center-column; }
