@@ -1,6 +1,6 @@
 {
-  "selected_theme": "smooth",
-  "selected_colors": "catppuccin_mocha",
+  "selected_theme": "rose-pine",
+  "selected_colors": "rose_pine_dawn",
   "theme_options": [
     "default",
     "terminal",
@@ -120,5 +120,5 @@
       "shadow": "rgba(0,0,0,0.24)"
     }
   },
-  "selected_color_option": "catppuccin_mocha"
+  "selected_color_option": "rose_pine_dawn"
 }

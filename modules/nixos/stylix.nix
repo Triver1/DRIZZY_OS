@@ -158,7 +158,7 @@ let
         size = 36;
       };
     };
-    
+
     # Custom theme - Another blend of Rosé Pine and Claude
     claudePine = {
       scheme = {
@@ -186,7 +186,7 @@ let
       };
     };
 
-    # New theme: Kanagawa (enabled below)
+    # New theme: Kanagawa
     kanagawa = {
       scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
       cursor = {
@@ -195,33 +195,60 @@ let
         size = 36;
       };
     };
+
+    # Custom theme: Iceberg Terminal Color Scheme
+iceberg = {
+  scheme = {
+    base00 = "161821"; # background
+    base01 = "1e2132"; # lighter background
+    base02 = "232637"; # selection background
+    base03 = "6b7089"; # comments
+    base04 = "8a8fa8"; # muted foreground
+    base05 = "c6c8d1"; # default foreground
+    base06 = "d2d4de"; # lighter foreground
+    base07 = "e4e6ef"; # lightest foreground
+    base08 = "e27878"; # red
+    base09 = "e2a478"; # orange
+    base0A = "b4be82"; # yellow
+    base0B = "89b8c2"; # green/cyan
+    base0C = "84a0c6"; # cyan/blue
+    base0D = "a093c7"; # blue/purple
+    base0E = "ada0d3"; # magenta
+    base0F = "c0a36e"; # brown
+  };
+  cursor = {
+    package = pkgs.capitaine-cursors;
+    name = "Capitaine Cursors";
+    size = 42;
+  };
+};
   };
 
   # Choose your active theme here - just change this variable!
-  activeTheme = "kanagawa"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
-  
+  activeTheme = "iceberg"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
+
   selectedTheme = themes.${activeTheme};
 
 in
-{  
+{
   stylix = {
     enable = true;
     autoEnable = true;
-    
+
     # Theme configuration - use inline scheme or external file
     base16Scheme = selectedTheme.scheme;
-    
+
     # Cursor configuration
     cursor = selectedTheme.cursor;
-    
+
     # Optional: Additional stylix configurations
-    
+
     # Optional: Image for wallpaper generation
     # image = ./path/to/your/wallpaper.jpg;
-    
+
     # Optional: Polarity override (auto, light, dark)
     # polarity = "dark";
-    
+
     # Optional: Opacity settings
     opacity = {
       applications = 0.95;
@@ -233,7 +260,6 @@ in
     # Qt platform configuration
     targets.qt.enable = true;
     targets.qt.platform = lib.mkDefault "gnome";
-
   };
 
   qt.platformTheme = "gnome";
@@ -246,6 +272,8 @@ in
 
 # Popular theme combinations:
 # - activeTheme = "rosePineDark"; # Cozy, warm dark theme
-# - activeTheme = "gruvboxDarkHard"; # High contrast, retro feel - activeTheme = "tokyoNight"; # Modern, vibrant dark theme
+# - activeTheme = "gruvboxDarkHard"; # High contrast, retro feel
+# - activeTheme = "tokyoNight"; # Modern, vibrant dark theme
 # - activeTheme = "rosePineDawn"; # Elegant light theme
-# - activeTheme = "customRosePineClaudeDark"; # Our custom blend 
+# - activeTheme = "customRosePineClaudeDark"; # Our custom blend
+# - activeTheme = "iceberg"; # Iceberg terminal-inspired cool dark theme

@@ -45,14 +45,22 @@
     VISUAL = "nvim";
   };
   home.packages =[
+  pkgs.logseq
+  pkgs.kicad
+  pkgs.qmk
+  pkgs.texliveFull
+    pkgs.gemini-cli
+    pkgs.codex-acp
     pkgs.codex
     pkgs.noctalia-shell
     pkgs.ferretdb
     pkgs.libGL
    # pkgs.gearlever
-   pkgs.octave
-   pkgs.zed-editor
+    pkgs.octave
+    pkgs.zed-editor
         # --- Rust USB build dependencies ---
+    pkgs.openvpn
+    pkgs.kubectl
     pkgs.prisma
     pkgs.zstd
     pkgs.nix-index
@@ -78,7 +86,6 @@
     pkgs.sqlite
     pkgs.jdk
     pkgs.maven
-    pkgs.lutris
     pkgs.wpaperd
     pkgs.code-cursor-fhs
     pkgs.remnote
@@ -114,6 +121,8 @@
     pkgs.opencode
     pkgs.mongosh
     pkgs.lan-mouse
+    pkgs.ncdu
+    pkgs.claude-code
     pkgs.networkmanagerapplet ];
 
   programs.git = {
@@ -121,6 +130,7 @@
     userName = "Tristan Verbeken";
     userEmail = "tristan.verbeken@ugent.be";
   };
+
 
   stylix.targets.firefox.enable = true;
 

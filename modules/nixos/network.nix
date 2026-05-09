@@ -4,7 +4,7 @@
   # ... other system configuration ...
 
   networking.firewall = {
-    enable = true;
+    enable = false;
     allowedTCPPorts = [ 3000 50000 22 ];  # Minecraft port
 allowedUDPPorts = [ 4000 ];
   };

@@ -1,0 +1,128 @@
+2026-03-11 09:41:04 [[32mINFO[0m] Using configuration file: /home/drizzy/NEWFLAKE/modules/no-nix/ignis3/config.py
+2026-03-11 09:41:04 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/services/applications/action.py:11: PyGIDeprecationWarning: Gio.DesktopAppInfo is deprecated; use GioUnix.DesktopAppInfo instead
+  def __init__(self, app: Gio.DesktopAppInfo, action: str):
+
+2026-03-11 09:41:04 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/services/applications/application.py:16: PyGIDeprecationWarning: Gio.DesktopAppInfo is deprecated; use GioUnix.DesktopAppInfo instead
+  def __init__(self, app: Gio.DesktopAppInfo):
+
+2026-03-11 09:41:04 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/services/applications/application.py:38: PyGIDeprecationWarning: Gio.DesktopAppInfo is deprecated; use GioUnix.DesktopAppInfo instead
+  def app(self) -> Gio.DesktopAppInfo:
+
+2026-03-11 09:41:04 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/services/applications/service.py:68: PyGIDeprecationWarning: Gio.DesktopAppInfo is deprecated; use GioUnix.DesktopAppInfo instead
+  def __add_app(self, app: Gio.DesktopAppInfo) -> None:
+
+2026-03-11 09:41:04 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/services/applications/service.py:62: PyGIDeprecationWarning: Gio.DesktopAppInfo is deprecated; use GioUnix.DesktopAppInfo instead
+  if isinstance(app, Gio.DesktopAppInfo):
+
+2026-03-11 09:41:04 [[31m[1mERROR[0m] CssParsingError: <data>:19:3-13: No property named "text-align"
+[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/[0m[1mcss_manager.py[0m:28 in _raise_css_parsing_error         [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m 25 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 26 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 27 [0m[94mdef[0m[90m [0m[92m_raise_css_parsing_error[0m(_, section: Gtk.CssSection, gerror: GLib. [31m│[0m
+[31m│[0m [31m❱ [0m 28 [2m│   [0m[1;4;94mraise[0m[1;4m CssParsingError(section, gerror)[0m                             [31m│[0m
+[31m│[0m   [2m 29 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 30 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 31 [0m[1;95m@dataclass[0m(kw_only=[94mTrue[0m)                                               [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[1;91mCssParsingError: [0m[1m<[0m[1;95mdata[0m[1m>[0m:[1;92m19:3[0m-[1;36m13[0m: No property named [32m"text-align"[0m
+2026-03-11 09:41:04 [[31m[1mERROR[0m] CssParsingError: <data>:26:3-13: No property named "text-align"
+[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/[0m[1mcss_manager.py[0m:28 in _raise_css_parsing_error         [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m 25 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 26 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 27 [0m[94mdef[0m[90m [0m[92m_raise_css_parsing_error[0m(_, section: Gtk.CssSection, gerror: GLib. [31m│[0m
+[31m│[0m [31m❱ [0m 28 [2m│   [0m[1;4;94mraise[0m[1;4m CssParsingError(section, gerror)[0m                             [31m│[0m
+[31m│[0m   [2m 29 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 30 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 31 [0m[1;95m@dataclass[0m(kw_only=[94mTrue[0m)                                               [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[1;91mCssParsingError: [0m[1m<[0m[1;95mdata[0m[1m>[0m:[1;92m26:3[0m-[1;36m13[0m: No property named [32m"text-align"[0m
+2026-03-11 09:41:04 [[31m[1mERROR[0m] CssParsingError: <data>:34:3-13: No property named "text-align"
+[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/[0m[1mcss_manager.py[0m:28 in _raise_css_parsing_error         [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m 25 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 26 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 27 [0m[94mdef[0m[90m [0m[92m_raise_css_parsing_error[0m(_, section: Gtk.CssSection, gerror: GLib. [31m│[0m
+[31m│[0m [31m❱ [0m 28 [2m│   [0m[1;4;94mraise[0m[1;4m CssParsingError(section, gerror)[0m                             [31m│[0m
+[31m│[0m   [2m 29 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 30 [0m                                                                       [31m│[0m
+[31m│[0m   [2m 31 [0m[1;95m@dataclass[0m(kw_only=[94mTrue[0m)                                               [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[1;91mCssParsingError: [0m[1m<[0m[1;95mdata[0m[1m>[0m:[1;92m34:3[0m-[1;36m13[0m: No property named [32m"text-align"[0m
+2026-03-11 09:41:04 [[32mINFO[0m] Applied CSS info: "main" | type: path
+2026-03-11 09:41:05 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/widgets/picture.py:112: DeprecationWarning: Gdk.Texture.new_for_pixbuf is deprecated
+  paintable = Gdk.Texture.new_for_pixbuf(scalled_pixbuf)
+
+2026-03-11 09:41:06 [[32mINFO[0m] Configuration parsed.
+2026-03-11 09:41:06 [[31m[1mERROR[0m] TypeError: AudioPage.__init__.<locals>.render_controls.<locals>.<lambda>() takes 1 positional argument but 2 were given
+[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/widgets/[0m[1mdropdown.py[0m:64 in __invoke_on_selected        [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m61 [0m[2m│   [0m                                                                    [31m│[0m
+[31m│[0m   [2m62 [0m[2m│   [0m[94mdef[0m[90m [0m[92m__invoke_on_selected[0m([96mself[0m, *args) -> [94mNone[0m:                      [31m│[0m
+[31m│[0m   [2m63 [0m[2m│   │   [0m[94mif[0m [96mself[0m.on_selected:                                            [31m│[0m
+[31m│[0m [31m❱ [0m64 [2m│   │   │   [0m[1;4;96mself[0m[1;4m.on_selected([0m[1;4;96mself[0m[1;4m, [0m[1;4;96mself[0m[1;4m.selected)[0m                       [31m│[0m
+[31m│[0m   [2m65 [0m[2m│   [0m                                                                    [31m│[0m
+[31m│[0m   [2m66 [0m[2m│   [0m[1;95m@IgnisProperty[0m                                                      [31m│[0m
+[31m│[0m   [2m67 [0m[2m│   [0m[94mdef[0m[90m [0m[92mselected[0m([96mself[0m) -> [96mstr[0m:                                          [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[1;91mTypeError: [0mAudioPage.__init__.[1m<[0m[1;95mlocals[0m[39m>.render_controls.<locals>.<lambda[0m[1m>[0m[1m([0m[1m)[0m takes
+[1;36m1[0m positional argument but [1;36m2[0m were given
+2026-03-11 09:41:06 [[31m[1mERROR[0m] TypeError: AudioPage.__init__.<locals>.render_controls.<locals>.<lambda>() takes 1 positional argument but 2 were given
+[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/widgets/[0m[1mdropdown.py[0m:64 in __invoke_on_selected        [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m61 [0m[2m│   [0m                                                                    [31m│[0m
+[31m│[0m   [2m62 [0m[2m│   [0m[94mdef[0m[90m [0m[92m__invoke_on_selected[0m([96mself[0m, *args) -> [94mNone[0m:                      [31m│[0m
+[31m│[0m   [2m63 [0m[2m│   │   [0m[94mif[0m [96mself[0m.on_selected:                                            [31m│[0m
+[31m│[0m [31m❱ [0m64 [2m│   │   │   [0m[1;4;96mself[0m[1;4m.on_selected([0m[1;4;96mself[0m[1;4m, [0m[1;4;96mself[0m[1;4m.selected)[0m                       [31m│[0m
+[31m│[0m   [2m65 [0m[2m│   [0m                                                                    [31m│[0m
+[31m│[0m   [2m66 [0m[2m│   [0m[1;95m@IgnisProperty[0m                                                      [31m│[0m
+[31m│[0m   [2m67 [0m[2m│   [0m[94mdef[0m[90m [0m[92mselected[0m([96mself[0m) -> [96mstr[0m:                                          [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[1;91mTypeError: [0mAudioPage.__init__.[1m<[0m[1;95mlocals[0m[39m>.render_controls.<locals>.<lambda[0m[1m>[0m[1m([0m[1m)[0m takes
+[1;36m1[0m positional argument but [1;36m2[0m were given
+2026-03-11 09:41:08 [[33m[1mWARNING[0m] (python3.13:14835): Gdk-WARNING **: 09:41:08.985: vkAcquireNextImageKHR(): A swapchain no longer matches the surface properties exactly, but can still be used to present to the surface successfully. (VK_SUBOPTIMAL_KHR) (1000001003)
+2026-03-11 09:45:29 [[33m[1mWARNING[0m] /nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.13/site-packages/ignis/services/applications/service.py:62: PyGIDeprecationWarning: Gio.DesktopAppInfo is deprecated; use GioUnix.DesktopAppInfo instead
+  if isinstance(app, Gio.DesktopAppInfo):
+
+2026-03-11 11:31:30 [[41m[1mCRITICAL[0m] (python3.13:14835): GLib-GIO-CRITICAL **: 11:31:30.275: Error while sending AddMatch() message: The connection is closed
+2026-03-11 11:31:30 [[41m[1mCRITICAL[0m] (python3.13:14835): GLib-GIO-CRITICAL **: 11:31:30.278: Error while sending GetNameOwner() message: The connection is closed
+2026-03-11 11:31:30 [[41m[1mCRITICAL[0m] (python3.13:14835): GLib-GIO-CRITICAL **: 11:31:30.279: Error while sending AddMatch() message: The connection is closed
+2026-03-11 11:31:30 [[41m[1mCRITICAL[0m] (python3.13:14835): GLib-GIO-CRITICAL **: 11:31:30.279: Error while sending AddMatch() message: The connection is closed
+2026-03-11 11:31:30 [[31m[1mERROR[0m] Error: g-io-error-quark: Error calling StartServiceByName for org.freedesktop.Notifications: The connection is closed (18)
+[31m╭─[0m[31m────────────────────[0m[31m [0m[1;31mTraceback [0m[1;2;31m(most recent call last)[0m[31m [0m[31m─────────────────────[0m[31m─╮[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/services/notifications/[0m[1mservice.py[0m:73 in               [31m│[0m
+[31m│[0m __on_name_lost                                                               [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m 70 [0m[2m│   │   [0m[96mself[0m.__load_notifications()                                    [31m│[0m
+[31m│[0m   [2m 71 [0m[2m│   [0m                                                                   [31m│[0m
+[31m│[0m   [2m 72 [0m[2m│   [0m[94mdef[0m[90m [0m[92m__on_name_lost[0m([96mself[0m, *args) -> [94mNone[0m:                           [31m│[0m
+[31m│[0m [31m❱ [0m 73 [2m│   │   [0mproxy = [1;4mDBusProxy.new([0m                                         [31m│[0m
+[31m│[0m   [2m 74 [0m[2m│   │   │   [0m[1;4mname=[0m[1;4;33m"[0m[1;4;33morg.freedesktop.Notifications[0m[1;4;33m"[0m[1;4m,[0m                      [31m│[0m
+[31m│[0m   [2m 75 [0m[2m│   │   │   [0m[1;4minterface_name=[0m[1;4;33m"[0m[1;4;33morg.freedesktop.Notifications[0m[1;4;33m"[0m[1;4m,[0m            [31m│[0m
+[31m│[0m   [2m 76 [0m[2m│   │   │   [0m[1;4mobject_path=[0m[1;4;33m"[0m[1;4;33m/org/freedesktop/Notifications[0m[1;4;33m"[0m[1;4m,[0m              [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m [2m/nix/store/q8kyvky5c0ha6vi54fbdd92zv784ldjq-python3-3.13.12-env/lib/python3.[0m [31m│[0m
+[31m│[0m [2m13/site-packages/ignis/[0m[1mdbus.py[0m:319 in new                                    [31m│[0m
+[31m│[0m                                                                              [31m│[0m
+[31m│[0m   [2m316 [0m[2;33m│   │   │   [0m[33minfo: A :class:`Gio.DBusInterfaceInfo` instance. You can g[0m [31m│[0m
+[31m│[0m   [2m317 [0m[2;33m│   │   │   [0m[33mbus_type: The type of the bus.[0m                             [31m│[0m
+[31m│[0m   [2m318 [0m[2;33m│   │   [0m[33m"""[0m                                                            [31m│[0m
+[31m│[0m [31m❱ [0m319 [2m│   │   [0mgproxy = [1;4mGio.DBusProxy.new_for_bus_sync([0m                       [31m│[0m
+[31m│[0m   [2m320 [0m[2m│   │   │   [0m[1;4mBUS_TYPE[bus_type],[0m                                        [31m│[0m
+[31m│[0m   [2m321 [0m[2m│   │   │   [0m[1;4mGio.DBusProxyFlags.NONE,[0m                                   [31m│[0m
+[31m│[0m   [2m322 [0m[2m│   │   │   [0m[1;4minfo,[0m                                                      [31m│[0m
+[31m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[1;91mError: [0mg-io-error-quark: Error calling StartServiceByName for 
+org.freedesktop.Notifications: The connection is closed [1m([0m[1;36m18[0m[1m)[0m

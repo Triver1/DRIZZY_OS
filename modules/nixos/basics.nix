@@ -35,15 +35,26 @@ environment.systemPackages =  [
 networking.networkmanager.enable = true;
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;
-  xdg.mime.defaultApplications = {
-    "text/html" = "firefox.desktop";
-    "x-scheme-handler/http" = "firefox.desktop";
-    "x-scheme-handler/https" = "firefox.desktop";
-    "x-scheme-handler/about" = "firefox.desktop";
-    "x-scheme-handler/unknown" = "firefox.desktop";
-  }; 
-  environment.sessionVariables = {
-    BROWSER = "firefox";
+
+xdg.mime = {
+  enable = true;
+
+  defaultApplications = {
+    # Browser
+    "text/html" = "helium.desktop";
+    "x-scheme-handler/http" = "helium.desktop";
+    "x-scheme-handler/https" = "helium.desktop";
+    "x-scheme-handler/about" = "helium.desktop";
+    "x-scheme-handler/unknown" = "helium.desktop";
+
+    # PDFs
+    "application/pdf" = "helium.desktop";
+    "application/x-pdf" = "helium.desktop";
   };
+};
+
+environment.sessionVariables = {
+  BROWSER = "helium";
+};
 
 }

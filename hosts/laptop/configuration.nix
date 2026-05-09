@@ -12,7 +12,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # (folders.m + "/hypr.nix")
+      (folders.m + "/hypr.nix")
       (folders.m + "/niri.nix")
       (folders.m + "/basics.nix")
       (folders.m + "/stylix.nix")
@@ -22,7 +22,7 @@ in
       (folders.m + "/battery.nix")
       (folders.m + "/fonts.nix")
       (folders.m + "/nix-ld.nix")
-       (folders.m + "/maomaowm.nix")
+       # (folders.m + "/maomaowm.nix") # mango WM
        (folders.m + "/gamescope.nix")
        (folders.m + "/docker.nix")
        inputs.home-manager.nixosModules.default
@@ -40,6 +40,7 @@ in
   # Fix the bin/batch issue
   services.envfs.enable = true;
 
+  programs.hyprland.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModprobeConfig = ''
     options mt7921e disable_aspm=1
@@ -126,9 +127,11 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     # ... other packages
-    pgadmin4-desktopmode
+    inputs.helium.packages.${pkgs.system}.default
+    pkgs.pgadmin4-desktopmode
+    pkgs.fribidi
   ];
 
   hardware.graphics.enable = true;
@@ -138,6 +141,8 @@ in
   
   
   services.dbus.enable = true;
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
   # virtualisation.virtualbox.host.enable = true; 
 
 

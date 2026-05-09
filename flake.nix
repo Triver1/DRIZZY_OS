@@ -30,8 +30,8 @@
     url = "github:0xc000022070/zen-browser-flake";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  mango = {
-    url = "github:DreamMaoMao/mango";
+  helium = {
+    url = "github:schembriaiden/helium-browser-nix-flake";
     inputs.nixpkgs.follows = "nixpkgs";
   };
   };

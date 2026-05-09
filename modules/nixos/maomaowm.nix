@@ -1,8 +1,8 @@
 {inputs, config, lib, pkgs, ... }:
 
 {
-   imports = [
-      inputs.mango.nixosModules.mango
+  imports = [
+     inputs.mango.nixosModules.mango
   ];
   programs.mango.enable = true;
 
@@ -12,53 +12,51 @@
       wayland.windowManager.mango = {
         enable = true;
         settings = ''
-# Window effect
-#
+# Window effect (macOS frosted glass style)
 blur=1
-blur_layer=0
+blur_layer=1
 blur_optimized=1
-blur_params_num_passes = 2
-blur_params_radius = 5
-blur_params_noise = 0.02
-blur_params_brightness = 0.9
-blur_params_contrast = 0.9
-blur_params_saturation = 1.2
+blur_params_num_passes = 3
+blur_params_radius = 8
+blur_params_noise = 0.01
+blur_params_brightness = 1.0
+blur_params_contrast = 1.0
+blur_params_saturation = 1.3
 
-shadows = 0
-layer_shadows = 0
-shadow_only_floating = 1
-shadows_size = 10
-shadows_blur = 15
-shadows_position_x = 0
-shadows_position_y = 0
-shadowscolor= 0x000000ff
+# Depth and Shadows (Crucial for macOS look)
+shadows = 1
+layer_shadows = 1
+shadow_only_floating = 0
+shadows_size = 20
+shadows_blur = 25
+shadowscolor= 0x00000055
 
-border_radius=7
+# Rounded Corners & Opacity
+border_radius=12
 no_radius_when_single=0
-focused_opacity=1.0
-unfocused_opacity=1.0
+focused_opacity=0.97
+unfocused_opacity=0.9
 
-# Animation Configuration(support type:zoom,slide)
-# tag_animation_direction: 0-horizontal,1-vertical
+# Animation Configuration (macOS zoom effect)
 animations=1
 layer_animations=1
-animation_type_open=fade
-animation_type_close=fade
+animation_type_open=zoom
+animation_type_close=zoom
 animation_fade_in=1
 animation_fade_out=1
 tag_animation_direction=1
-zoom_initial_ratio=0.3
-zoom_end_ratio=0.8
+zoom_initial_ratio=0.85
+zoom_end_ratio=0.85
 fadein_begin_opacity=0.5
 fadeout_begin_opacity=0.8
-animation_duration_move=200
-animation_duration_open=200
-animation_duration_tag=150
-animation_duration_close=200
-animation_curve_open=0.46,1.0,0.29,1
-animation_curve_move=0.46,1.0,0.29,1
-animation_curve_tag=0.46,1.0,0.29,1
-animation_curve_close=0.08,0.92,0,1
+animation_duration_move=250
+animation_duration_open=250
+animation_duration_tag=200
+animation_duration_close=250
+animation_curve_open=0.25,1.0,0.25,1.0
+animation_curve_move=0.25,1.0,0.25,1.0
+animation_curve_tag=0.25,1.0,0.25,1.0
+animation_curve_close=0.25,1.0,0.25,1.0
 
 # Scroller Layout Setting
 scroller_structs=20
@@ -79,8 +77,8 @@ smartgaps=1
 hotarea_size=10
 enable_hotarea=1
 ov_tab_mode=0
-overviewgappi=5
-overviewgappo=30
+overviewgappi=10
+overviewgappo=40
 
 # Misc
 no_border_when_single=0
@@ -104,7 +102,6 @@ xkb_rules_layout=us
 xkb_rules_options=caps:escape
 
 # Trackpad
-# need relogin to make it apply
 disable_trackpad=0
 tap_to_click=1
 tap_and_drag=1
@@ -116,28 +113,26 @@ middle_button_emulation=0
 swipe_min_threshold=1
 
 # mouse
-# need relogin to make it apply
 mouse_natural_scrolling=0
 
-# Appearance
-gappih=5
-gappiv=5
-gappoh=10
-gappov=10
+# Appearance (Clean margins and macOS Palette)
+gappih=8
+gappiv=8
+gappoh=16
+gappov=16
 scratchpad_width_ratio=0.8
 scratchpad_height_ratio=0.9
 borderpx=1
-rootcolor=0x201b14ff
-bordercolor=0x444444ff
-focuscolor=0xc9b890ff
-maximizescreencolor=0x89aa61ff
-urgentcolor=0xad401fff
-scratchpadcolor=0x516c93ff
-globalcolor=0xb153a7ff
-overlaycolor=0x14a57cff
+rootcolor=0x1e1e1eff
+bordercolor=0x333333ff
+focuscolor=0x007affff 
+maximizescreencolor=0x34c759ff
+urgentcolor=0xff3b30ff
+scratchpadcolor=0x5856d6ff
+globalcolor=0xaf52deff
+overlaycolor=0x00000000
 
 # layout support:
-# tile,scroller,grid,deck,monocle,center_tile,vertical_tile,vertical_scroller
 tagrule=id:1,layout_name:scroller
 tagrule=id:2,layout_name:tile
 tagrule=id:3,layout_name:tile
@@ -149,10 +144,9 @@ tagrule=id:8,layout_name:tile
 tagrule=id:9,layout_name:tile
 
 # Key Bindings
-# key name refer to `xev` or `wev` command output,
-# mod keys name: super,ctrl,alt,shift,none
 bind=SUPER,s,setlayout,scroller
 bind=SUPER,t,setlayout,tile
+
 # hardware keys: brightness and volume
 bind=NONE,XF86MonBrightnessUp,spawn,brightnessctl --class=backlight set +10%
 bind=NONE,XF86MonBrightnessDown,spawn,brightnessctl --class=backlight set 10%-
@@ -164,19 +158,21 @@ bind=NONE,XF86AudioPlay,spawn,playerctl play-pause
 bind=NONE,XF86AudioNext,spawn,playerctl next
 bind=NONE,XF86AudioPrev,spawn,playerctl previous
 bind=NONE,XF86AudioStop,spawn,playerctl stop
+
 # reload config
 bind=SUPER,r,reload_config
 
-# menu and terminal (matching Niri)
+# menu and terminal
 bind=SUPER,space,spawn,rofi -show drun
 bind=SUPER,Return,spawn,kitty
 bind=SUPER,b,spawn,zen-beta
 bind=SUPER,e,spawn,kitty -e yazi
+
 # exit
 bind=SUPER,m,quit
 bind=SUPER,q,killclient,
 
-# switch window focus (VIM-LIKE - matching Niri)
+# switch window focus
 bind=SUPER+SHIFT,k,tagtoleft
 bind=SUPER+SHIFT,j,tagtoright
 bind=SUPER,k,focusdir,up
@@ -195,8 +191,7 @@ bind=SUPER+SHIFT,7,toggletag,7
 bind=SUPER+SHIFT,8,toggletag,8
 bind=SUPER+SHIFT,9,toggletag,9
 
-
-# swap window (VIM-LIKE - matching Niri Ctrl)
+# swap window
 bind=SUPER+CTRL,k,exchange_client,up
 bind=SUPER+CTRL,j,exchange_client,down
 bind=SUPER+CTRL,h,exchange_client,left
@@ -221,7 +216,7 @@ bind=SUPER,x,switch_proportion_preset,
 bind=SUPER,n,focusstack, next
 bind=SUPER,w,switch_layout
 
-# tag switch (matching Niri - Super + numbers)
+# tag switch
 bind=SUPER,1,view,1,0
 bind=SUPER,2,view,2,0
 bind=SUPER,3,view,3,0
@@ -233,33 +228,31 @@ bind=SUPER,8,view,8,0
 bind=SUPER,9,view,9,0
 
 # MONITOR RULES
-# Laptop internal display – explicit native mode and scale
 monitorrule=name:eDP-1,width:3200,height:2000,refresh:120,x:0,y:0,scale:1.75,vrr:0,rr:0
 monitorrule=name:DP-3,width:3440,height:1440,refresh:180,x:0,y:0,scale:1,vrr:0,rr:0
-tile
-# monitor switch (matching Niri Shift)
+
+# monitor switch
 bind=SUPER+SHIFT,h,focusmon,left
 bind=SUPER+SHIFT,l,focusmon,right
 bind=SUPER+CTRL+SHIFT,h,tagmon,left
 bind=SUPER+CTRL+SHIFT,l,tagmon,right
 
-# gaps (matching Niri)
+# gaps
 bind=SUPER+SHIFT,equal,incgaps,1
 bind=SUPER+SHIFT,minus,incgaps,-1
 bind=SUPER+SHIFT,g,togglegaps
 
-# movewin (VIM-LIKE - for floating windows, using Alt)
+# movewin
 bind=SUPER+ALT,k,movewin,+0,-50
 bind=SUPER+ALT,j,movewin,+0,+50
 bind=SUPER+ALT,h,movewin,-50,+0
 bind=SUPER+ALT,l,movewin,+50,+0
 
-# resizewin (VIM-LIKE - matching Niri equal/minus)
+# resizewin
 bind=SUPER,equal,resizewin,+50,+0
 bind=SUPER,minus,resizewin,-50,+0
 
 # Mouse Button Bindings
-# NONE mode key only work in ov mode
 mousebind=SUPER,btn_left,moveresize,curmove
 mousebind=NONE,btn_middle,togglemaximizescreen,0
 mousebind=SUPER,btn_right,moveresize,curresize
@@ -269,7 +262,6 @@ mousebind=NONE,btn_right,killclient,0
 # Axis Bindings
 axisbind=SUPER,UP,viewtoleft_have_client
 axisbind=SUPER,DOWN,viewtoright_have_client
-
 
 # layer rule
 layerrule=animation_type_open:zoom,layer_name:rofi

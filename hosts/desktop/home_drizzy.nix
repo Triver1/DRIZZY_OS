@@ -42,7 +42,6 @@
   home.packages =[
     pkgs.jdk
     pkgs.maven
-    pkgs.lutris
     pkgs.wpaperd
     pkgs.code-cursor-fhs
     pkgs.remnote
