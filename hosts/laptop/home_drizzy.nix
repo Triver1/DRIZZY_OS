@@ -22,6 +22,7 @@
     terminals.ghostty.enable = true;
     terminals.kitty.enable = true;
     shells = {
+      caelestia.enable = true;
       ignis.enable = true;
     };
     sessions = [];
@@ -45,6 +46,8 @@
     VISUAL = "nvim";
   };
   home.packages =[
+  pkgs.kdePackages.okular
+  pkgs.quickshell
   pkgs.logseq
   pkgs.kicad
   pkgs.qmk
@@ -137,4 +140,3 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-

@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/Niri">/tmp/qml-niri/build/Niri</file>
+
+  </qresource>
+</RCC>

@@ -14,6 +14,7 @@ in
 
   imports = [
     # ./shells/quickshell.nix
+    ./shells/caelestia.nix
     ./shells/ignis.nix
     ./gaming.nix
     ./gamedev.nix
@@ -33,6 +34,7 @@ in
     terminals.ghostty.enable = lib.mkDefault true;
     terminals.kitty.enable = lib.mkDefault true;
     shells = {
+      caelestia.enable = lib.mkDefault true;
       ignis.enable = lib.mkDefault true;
       # quickshell.enable = lib.mkDefault false;
     };

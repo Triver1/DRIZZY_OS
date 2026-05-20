@@ -25,8 +25,8 @@ let
     gruvboxDarkHard = {
       scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
       cursor = {
-        package = pkgs.rose-pine-cursor;
-        name = "BreezeX-RosePineDawn-Linux";
+        package = pkgs.capitaine-cursors;
+        name = "Capitaine Cursors";
         size = 36;
       };
     };
@@ -34,8 +34,86 @@ let
     gruvboxDarkMedium = {
       scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
       cursor = {
-        package = pkgs.rose-pine-cursor;
-        name = "BreezeX-RosePineDawn-Linux";
+        package = pkgs.capitaine-cursors;
+        name = "Capitaine Cursors";
+        size = 36;
+      };
+    };
+
+    gruvboxModernDark = {
+      scheme = {
+        base00 = "1d2021";
+        base01 = "282828";
+        base02 = "3c3836";
+        base03 = "665c54";
+        base04 = "928374";
+        base05 = "d4be98";
+        base06 = "ddc7a1";
+        base07 = "fbf1c7";
+        base08 = "ea6962";
+        base09 = "e78a4e";
+        base0A = "d8a657";
+        base0B = "a9b665";
+        base0C = "89b482";
+        base0D = "7daea3";
+        base0E = "d3869b";
+        base0F = "bd6f3e";
+      };
+      cursor = {
+        package = pkgs.capitaine-cursors;
+        name = "Capitaine Cursors";
+        size = 36;
+      };
+    };
+
+    sonokaiAndromeda = {
+      scheme = {
+        base00 = "2b2d3a"; # background
+        base01 = "333648"; # lighter background
+        base02 = "363a4e"; # selection background
+        base03 = "5a5e7a"; # comments
+        base04 = "7e8294"; # muted foreground
+        base05 = "e1e3e4"; # default foreground
+        base06 = "e1e3e4"; # light foreground
+        base07 = "e1e3e4"; # lightest foreground
+        base08 = "fb617e"; # red
+        base09 = "f89860"; # orange
+        base0A = "edc763"; # yellow
+        base0B = "9ed06c"; # green
+        base0C = "6dcae8"; # cyan
+        base0D = "6dcae8"; # blue
+        base0E = "bb97ee"; # purple
+        base0F = "f89860"; # brown/orange
+      };
+      cursor = {
+        package = pkgs.capitaine-cursors;
+        name = "Capitaine Cursors";
+        size = 36;
+      };
+    };
+
+    ponokai = {
+      scheme = {
+        base00 = "2b2d3a"; # background
+        base01 = "333648"; # lighter background
+        base02 = "363a4e"; # selection background
+        base03 = "9da1af"; # comments
+        base04 = "c4c6cf"; # muted foreground
+        base05 = "f2f2f3"; # default foreground
+        base06 = "f2f2f3"; # light foreground
+        base07 = "f2f2f3"; # lightest foreground
+        base08 = "ff8c9a"; # red
+        base09 = "f3bb9a"; # orange
+        base0A = "f8e7b0"; # yellow
+        base0B = "b4e49a"; # green
+        base0C = "98d4e7"; # cyan
+        base0D = "98d4e7"; # blue
+        base0E = "bdb2ff"; # purple
+        base0F = "f3bb9a"; # brown/orange
+      };
+      cursor = {
+        package = pkgs.capitaine-cursors;
+        name = "Capitaine Cursors";
         size = 36;
       };
     };
@@ -225,7 +303,7 @@ iceberg = {
   };
 
   # Choose your active theme here - just change this variable!
-  activeTheme = "iceberg"; # Options: rosePineDark, rosePineMoon, gruvboxDarkHard, etc.
+  activeTheme = "ponokai"; # Options: ponokai, sonokaiAndromeda, rosePineDark, gruvboxModernDark, etc.
 
   selectedTheme = themes.${activeTheme};
 
@@ -271,6 +349,8 @@ in
 # 3. Customize cursor sizes, fonts, opacity, etc.
 
 # Popular theme combinations:
+# - activeTheme = "ponokai"; # Pastel Monokai-style dark theme
+# - activeTheme = "sonokaiAndromeda"; # Vivid Monokai-style dark theme
 # - activeTheme = "rosePineDark"; # Cozy, warm dark theme
 # - activeTheme = "gruvboxDarkHard"; # High contrast, retro feel
 # - activeTheme = "tokyoNight"; # Modern, vibrant dark theme

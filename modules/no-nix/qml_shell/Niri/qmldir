@@ -1,0 +1,7 @@
+module Niri
+linktarget Niriplugin
+optional plugin Niriplugin
+classname NiriPlugin
+typeinfo Niri.qmltypes
+prefer :/qt/qml/Niri/
+

@@ -54,10 +54,37 @@ home-manager.sharedModules = [{
 # In your home-manager configuration
 
   home.file.".config/niri/config.kdl".text = ''
-      spawn-at-startup "ignis" "init" "-c" "/home/drizzy/NEWFLAKE/modules/no-nix/ignis3/config.py"
+      spawn-at-startup "sh" "/home/drizzy/NEWFLAKE/modules/no-nix/qml_shell/run.sh"
         layer-rule {
           match namespace="backdrop"
           place-within-backdrop true
+      }
+      layer-rule {
+          match namespace=r#"-blur$"#
+          background-effect {
+              xray true
+              blur true
+              saturation 1.35
+          }
+      }
+      blur {
+          passes 4
+          offset 3.5
+          noise 0.02
+          saturation 1.35
+      }
+      animations {
+          slowdown 1.08
+
+          window-open {
+              duration-ms 185
+              curve "cubic-bezier" 0.12 0.92 0.18 1.0
+          }
+
+          window-close {
+              duration-ms 175
+              curve "cubic-bezier" 0.28 0.0 0.24 1.0
+          }
       }
       environment {
           DISPLAY ":0"
@@ -66,6 +93,14 @@ home-manager.sharedModules = [{
       output "eDP-1" {
           // Use preferred mode (auto-detect)
           focus-at-startup
+      }
+
+      output "HDMI-A-1" {
+          mode "3440x1440@100"
+      }
+
+      output "DP-2" {
+          mode "3440x1440@100"
       }
       input {
           keyboard {
@@ -92,18 +127,18 @@ home-manager.sharedModules = [{
       }
 
       layout {
-          gaps 7 
+          gaps 9
           focus-ring {
               width 2
-              active-gradient from="rgba(255, 255, 255, 0.95)" to="rgba(240, 248, 255, 0.3)" angle=135
-              inactive-gradient from="rgba(100, 100, 100, 0.3)" to="rgba(80, 80, 80, 0.1)" angle=135
+              active-gradient from="#f8e7b0ee" to="#b4e49a80" angle=135
+              inactive-gradient from="#9da1af80" to="#33364840" angle=135
           }
       }
       
 
       // Overview
       overview {
-          backdrop-color "#2a273f"
+          backdrop-color "#2b2d3a"
       }
 
       hotkey-overlay {
@@ -117,10 +152,10 @@ home-manager.sharedModules = [{
           open-delay-ms 150
 
           highlight {
-              active-color "#999999ff"
-              urgent-color "#ff9999ff"
+              active-color "#f2f2f3ff"
+              urgent-color "#ff8c9aff"
               padding 30
-              corner-radius 0
+              corner-radius 8
           }
 
           previews {
@@ -143,15 +178,16 @@ home-manager.sharedModules = [{
       // Keybinds
       binds {
           // Programs
-          Mod+Return { spawn "kitty"; }
+          Mod+Return { spawn "ghostty"; }
           Mod+B { spawn "helium";}
-          Mod+E { spawn "kitty" "-e" "yazi";}
+          Mod+E { spawn "ghostty" "-e" "yazi";}
           Mod+Backspace {spawn "hyprlock";}
           Mod+C { center-column; }
 
 
           // System  
-          Mod+Space { spawn "ignis" "run-command" "open-app-launcher"; }
+          Mod+Space { spawn "sh" "-c" "date +%s > /tmp/qs-launcher-trigger"; }
+          Ctrl+Mod+S { spawn "sh" "-c" "date +%s > /tmp/qs-settings-trigger"; }
           Mod+P { screenshot; }
 
           // Volume controls
@@ -222,8 +258,73 @@ home-manager.sharedModules = [{
           
       }
       window-rule {
-          geometry-corner-radius 12
+          geometry-corner-radius 16
           clip-to-geometry true
+
+          background-effect {
+              xray true
+              blur true
+              saturation 1.35
+          }
+
+          popups {
+              geometry-corner-radius 12
+
+              background-effect {
+                  xray true
+                  blur true
+                  saturation 1.35
+              }
+          }
+      }
+
+      window-rule {
+          match app-id=r#"^(com\.mitchellh\.ghostty|ghostty)$"#
+          draw-border-with-background false
+          geometry-corner-radius 16
+          clip-to-geometry true
+
+          background-effect {
+              xray true
+              blur true
+              saturation 1.0
+              noise 0.0
+          }
+
+          popups {
+              geometry-corner-radius 12
+
+              background-effect {
+                  xray true
+                  blur true
+                  saturation 1.0
+                  noise 0.0
+              }
+          }
+      }
+
+      window-rule {
+          match app-id=r#"^(helium|Helium|net\.imput\.helium)$"#
+          opacity 0.96
+          geometry-corner-radius 16
+          clip-to-geometry true
+
+          background-effect {
+              blur true
+              saturation 1.25
+              noise 0.015
+          }
+
+          popups {
+              opacity 0.96
+              geometry-corner-radius 12
+
+              background-effect {
+                  blur true
+                  saturation 1.25
+                  noise 0.015
+              }
+          }
       }
 
       '';

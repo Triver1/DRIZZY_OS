@@ -1,0 +1,8 @@
+module settings
+AppearanceSettings 1.0 AppearanceSettings.qml
+NetworkSettings  1.0 NetworkSettings.qml
+DisplaySettings  1.0 DisplaySettings.qml
+AudioSettings    1.0 AudioSettings.qml
+PowerSettings    1.0 PowerSettings.qml
+SystemSettings   1.0 SystemSettings.qml
+AboutSettings    1.0 AboutSettings.qml

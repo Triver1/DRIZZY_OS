@@ -22,6 +22,7 @@
     terminals.ghostty.enable = true;
     terminals.kitty.enable = true;
     shells = {
+      caelestia.enable = true;
       ignis.enable = true;
     };
     sessions = [];

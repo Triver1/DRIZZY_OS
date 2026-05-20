@@ -50,7 +50,7 @@
     # See 'https://hyprpanel.com/configuration/settings.html'.
     # Default: <same as gui>
     settings = {
-      theme.name = "everforest";
+      theme.name = "gruvbox";
       theme.font = {
         name = "Fira Code Nerd Font";
         size = "13px";

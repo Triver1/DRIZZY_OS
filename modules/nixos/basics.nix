@@ -32,6 +32,7 @@ environment.systemPackages =  [
     pkgs.vlc
     pkgs.virt-manager
   ];
+
 networking.networkmanager.enable = true;
 programs.zsh.enable = true;
 users.defaultUserShell = pkgs.zsh;

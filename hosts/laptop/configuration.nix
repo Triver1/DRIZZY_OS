@@ -35,6 +35,7 @@ in
   "https://nixpkgs-unfree.cachix.org"
   ];
 
+  services.flatpak.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Fix the bin/batch issue
@@ -92,14 +93,25 @@ in
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [
-      brlaser        # open-source Brother driver (recommended)
-      gutenprint
-    ];
-  };
+# Enable CUPS to print documents.
+services.printing = {
+  enable = true;
+
+  drivers = with pkgs; [
+    brlaser      # open-source Brother laser driver
+    gutenprint   # generic printer drivers
+  ];
+};
+
+# Needed for discovering network printers / .local names
+services.avahi = {
+  enable = true;
+  nssmdns4 = true;
+  openFirewall = true;
+};
+
+# Nice GUI printer manager
+services.system-config-printer.enable = true;
 
 
 
@@ -132,6 +144,7 @@ in
     inputs.helium.packages.${pkgs.system}.default
     pkgs.pgadmin4-desktopmode
     pkgs.fribidi
+  pkgs.system-config-printer
   ];
 
   hardware.graphics.enable = true;

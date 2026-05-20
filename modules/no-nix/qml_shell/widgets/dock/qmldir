@@ -1,0 +1,10 @@
+module dock
+NavTabs 1.0 NavTabs.qml
+DashboardPage 1.0 DashboardPage.qml
+MediaPlayer 1.0 MediaPlayer.qml
+QuickSettingsGrid 1.0 QuickSettingsGrid.qml
+ActivityList 1.0 ActivityList.qml
+WallpapersPage 1.0 WallpapersPage.qml
+AppsPage 1.0 AppsPage.qml
+TimerPage 1.0 TimerPage.qml
+KanbanPage 1.0 KanbanPage.qml

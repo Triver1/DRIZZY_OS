@@ -42,7 +42,7 @@ in
           {
             on = [ "g" ];
             run = ''
-              shell --orphan -- sh -c 'if [ "$#" -gt 1 ]; then shift; exec ripdrag --target --keep --all-compact "$@"; elif [ -n "$1" ]; then exec ripdrag --target --keep "$1"; fi' sh %h %s
+              shell --orphan -- sh -c 'if [ "$#" -gt 1 ]; then shift; exec ripdrag --target --keep --all "$@"; elif [ -n "$1" ]; then exec ripdrag --target --keep "$1"; else exec ripdrag --target --keep; fi' sh %h %s
             '';
             desc = "Open ripdrag for drag-in and drag-out";
           }

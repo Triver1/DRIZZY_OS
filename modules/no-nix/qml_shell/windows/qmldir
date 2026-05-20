@@ -1,0 +1,11 @@
+module windows
+AppLauncherWindow 1.0 AppLauncherWindow.qml
+SettingsWindow    1.0 SettingsWindow.qml
+BackdropWindow 1.0 BackdropWindow.qml
+DockWindow 1.0 DockWindow.qml
+FileBufferWindow 1.0 FileBufferWindow.qml
+LauncherWindow 1.0 LauncherWindow.qml
+NotificationOverlay 1.0 NotificationOverlay.qml
+StatusPopup 1.0 StatusPopup.qml
+TopBarWindow 1.0 TopBarWindow.qml
+WallpaperWindow 1.0 WallpaperWindow.qml

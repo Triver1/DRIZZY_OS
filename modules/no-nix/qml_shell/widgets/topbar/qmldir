@@ -1,0 +1,5 @@
+module topbar
+LeftPill 1.0 LeftPill.qml
+CenterPill 1.0 CenterPill.qml
+FilePill 1.0 FilePill.qml
+RightPill 1.0 RightPill.qml

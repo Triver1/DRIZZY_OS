@@ -41,6 +41,12 @@ class WallpaperManager:
         
         self.load_saved_wallpaper()
 
+        # Ensure backdrop always has content (solid fallback if no wallpapers)
+        if not self.config.get_config("wallpaper", "image"):
+            fallback_color = "#1a1b26"
+            self._backdrop_box.style = f"background-color: {fallback_color};"
+            self._background_box.style = f"background-color: {fallback_color};"
+
     def get_available_wallpapers(self):
         if not os.path.isdir(self.wallpaper_dir):
             return []

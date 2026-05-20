@@ -1,10 +1,13 @@
 -- UI and prettiness plugins
 return {
 	{
-		"rebelot/kanagawa.nvim",
+		"shawilly/ponokai",
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("kanagawa")
+			vim.g.ponokai_style = "default"
+			vim.g.ponokai_enable_italic = true
+			vim.g.ponokai_better_performance = true
+			vim.cmd.colorscheme("ponokai")
 		end,
 	},
 	{
@@ -84,7 +87,7 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "kanagawa",
+					theme = "ponokai",
 					component_separators = { left = "│", right = "│" },
 					section_separators = { left = "", right = "" },
 				},
@@ -161,5 +164,3 @@ return {
 		end,
 	},
 }
-
-
