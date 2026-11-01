@@ -26,7 +26,7 @@ let
       scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
       cursor = {
         package = pkgs.capitaine-cursors;
-        name = "Capitaine Cursors";
+        name = "capitaine-cursors";
         size = 36;
       };
     };
@@ -35,7 +35,7 @@ let
       scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
       cursor = {
         package = pkgs.capitaine-cursors;
-        name = "Capitaine Cursors";
+        name = "capitaine-cursors";
         size = 36;
       };
     };
@@ -61,7 +61,7 @@ let
       };
       cursor = {
         package = pkgs.capitaine-cursors;
-        name = "Capitaine Cursors";
+        name = "capitaine-cursors";
         size = 36;
       };
     };
@@ -87,7 +87,7 @@ let
       };
       cursor = {
         package = pkgs.capitaine-cursors;
-        name = "Capitaine Cursors";
+        name = "capitaine-cursors";
         size = 36;
       };
     };
@@ -113,7 +113,7 @@ let
       };
       cursor = {
         package = pkgs.capitaine-cursors;
-        name = "Capitaine Cursors";
+        name = "capitaine-cursors";
         size = 36;
       };
     };
@@ -296,7 +296,7 @@ iceberg = {
   };
   cursor = {
     package = pkgs.capitaine-cursors;
-    name = "Capitaine Cursors";
+    name = "capitaine-cursors";
     size = 42;
   };
 };

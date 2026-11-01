@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=First Light
+Description=Dawn along the edge of a dark planet, which pulls back into the login ring.
+ModuleName=first-light
+
+[first-light]
+# How long the landing takes. nimbus-splash.nix keeps this in step with its timeouts.
+LandSeconds=@landSeconds@

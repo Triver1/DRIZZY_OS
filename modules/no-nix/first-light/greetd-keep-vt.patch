@@ -1,0 +1,17 @@
+--- a/greetd/src/session/worker.rs	2026-11-01 19:48:24.050629757 +0100
++++ b/greetd/src/session/worker.rs	2026-11-01 19:48:24.085498054 +0100
+@@ -179,7 +179,13 @@
+             // Set the target VT mode to text for compatibility. Other login managers
+             // set this to graphics, but that disallows start of textual applications,
+             // which greetd aims to support.
+-            target_term.kd_setmode(terminal::KdMode::Text)?;
++            //
++            // Going to text mode on the foreground VT makes the kernel console take the
++            // display, even from a DRM master. A boot splash handing over to a graphical
++            // greeter leaves this file for the length of the hand-over.
++            if !std::path::Path::new("/run/first-light.keep-vt").exists() {
++                target_term.kd_setmode(terminal::KdMode::Text)?;
++            }
+ 
+             // Clear TTY so that it will be empty when we switch to it.
+             target_term.term_clear()?;

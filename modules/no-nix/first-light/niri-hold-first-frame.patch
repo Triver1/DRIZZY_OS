@@ -1,0 +1,74 @@
+--- a/src/niri.rs	2026-11-01 19:16:12.494597494 +0100
++++ b/src/niri.rs	2026-11-01 19:16:52.388922192 +0100
+@@ -380,6 +380,9 @@
+     pub mods_with_finger_scroll_binds: HashSet<Modifiers>,
+ 
+     pub lock_state: LockState,
++    /// Nothing has been presented yet, and nothing will be until a client has something to
++    /// show: see `release_first_frame`.
++    pub hold_first_frame: bool,
+ 
+     // State that we last sent to the logind LockedHint.
+     pub locked_hint: Option<bool>,
+@@ -2482,6 +2485,17 @@
+             .unwrap();
+ 
+         drop(config_);
++        // A client that never locks must not leave the panel frozen.
++        event_loop
++            .insert_source(
++                Timer::from_duration(Duration::from_secs(10)),
++                |_, _, state| {
++                    state.niri.release_first_frame();
++                    TimeoutAction::Drop
++                },
++            )
++            .unwrap();
++
+         let mut niri = Self {
+             config,
+             config_file_output_config,
+@@ -2593,6 +2607,7 @@
+             mods_with_finger_scroll_binds,
+ 
+             lock_state: LockState::Unlocked,
++            hold_first_frame: true,
+             locked_hint: None,
+ 
+             screenshot_ui,
+@@ -4593,7 +4608,7 @@
+         self.update_render_elements(Some(output));
+ 
+         let mut res = RenderResult::Skipped;
+-        if self.monitors_active {
++        if self.monitors_active && !self.hold_first_frame {
+             let state = self.output_state.get_mut(output).unwrap();
+             state.unfinished_animations_remain = self.layout.are_animations_ongoing(Some(output));
+             state.unfinished_animations_remain |=
+@@ -5860,6 +5875,7 @@
+ 
+         if self.output_state.is_empty() {
+             // There are no outputs, lock the session right away.
++            self.hold_first_frame = false;
+             self.screenshot_ui.close();
+             self.cursor_manager
+                 .set_cursor_image(CursorImageStatus::default_named());
+@@ -5912,7 +5928,18 @@
+         self.continue_to_locking();
+     }
+ 
++    /// The boot splash's last frame stays on the panel until the first commit, so a compositor
++    /// with nothing to show yet does best by not committing at all: its first frame is then
++    /// the lock screen itself, with no black in between.
++    pub fn release_first_frame(&mut self) {
++        if self.hold_first_frame {
++            self.hold_first_frame = false;
++            self.queue_redraw_all();
++        }
++    }
++
+     fn continue_to_locking(&mut self) {
++        self.hold_first_frame = false;
+         match mem::take(&mut self.lock_state) {
+             LockState::WaitingForSurfaces {
+                 confirmation,
